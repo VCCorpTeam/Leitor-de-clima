@@ -55,9 +55,10 @@
 
 | Sprints | Tarefas |
 |--------|--------|
-| 1 | Interface com opção de fazer upload de arquivo csv e barra de pesquisa e Readme.md | 
-| 2 | Padronizar as unidades de temperatura, Criar um diagrama de classes |
-| 3 | Conexão dos códigos Java com o banco de dados SQL |
+| 1 | Interface com opção de fazer upload de arquivo csv, Diagrama de Classes e Readme.md | 
+| 2 | Banco de Dados parcialmente modelado e unificado, gerenciamento das estações, cidades e unidades de medida definidas e interface de usuário |
+| 3 | Conexão dos códigos Java com o banco de dados SQL, correção de dados incongruentes e relatório em texto dos dados filtrados do arquivo CSV |
+| 4 | Plotagem dos relatórios para gráficos Bloxpot, documentação do projeto completo e ajustes do sistema |
 
 
 | Ferramenta | Logomarca |
