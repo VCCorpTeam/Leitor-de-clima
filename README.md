@@ -32,22 +32,22 @@
 | 4       | 27/05/2024 a 16/06/2024       |
 
 <h3>Product Backlog</h3>
+| Prioridade | Função                                             | Descrição                                                                                                          |
+|------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------| 
+| 0          | Criar Diagrama de Classes                          | Elaborar o diagrama de classes para representar a estrutura do sistema e as relações entre as entidades.            | 
+| 1          | Leitura de Arquivos CSV                            | Desenvolver a lógica para carregar e validar arquivos CSV contendo dados climáticos. Identificar e armazenar os registros suspeitos para revisão manual.             | 
+| 1.1        | Gerenciamento de Estações, Cidades e Unidades de Medida  | Desenvolver a funcionalidade para visualizar, adicionar, modificar e excluir informações sobre estações meteorológicas, cidades e unidades de medida.       | 
+| 2          | Criar Interface de Usuário (UI)                   | Desenvolver a interface de usuário visual para facilitar a interação do usuário com o sistema.                      | 
+| 3          | Modelar Banco de Dados                            | Modelar o banco de dados para armazenar os dados climáticos de forma eficiente e organizada.                       | 
+| 4          | Identificação de Cidades                          | Extrair o nome da cidade a partir do nome do arquivo CSV. Associar cada arquivo à sua respectiva cidade.             | 
+| 5          | Unificação dos Dados                              | Desenvolver a estrutura de dados para armazenar os dados unificados das cidades. Implementar a lógica para unificar os dados das estações meteorológicas.          |
+| 6          | Implementar Banco de Dados MySQL                  | Configurar e implementar o banco de dados MySQL para armazenar os dados climáticos conforme o modelo definido.      | 
+| 7          | Tratamento de Registros Suspeitos                 | Implementar uma interface para revisão e correção de registros suspeitos. Permitir a exclusão ou revisão dos registros suspeitos e sua adição à base de dados principal. | 
+| 8          | Relatório de Médias por Cidade e Período          | Desenvolver a funcionalidade para gerar relatórios de médias das variáveis climáticas por cidade e período de tempo selecionados pelo usuário.                        |  
+| 9          | Preparação para Plotagem de Gráficos Boxplot      | Implementar a lógica para calcular os elementos necessários para plotagem de gráficos boxplot com base nos dados de uma estação em uma determinada data.               | 
+| 10         | Ajustes e Melhorias                               | Realizar ajustes finais e melhorias de usabilidade com base no feedback do usuário.                                 |
+| 11         | Documentação                                      | Preparar a documentação do sistema, incluindo manuais de usuário e desenvolvedor.                                   |
 
-| Prioridade | Função                                             | Descrição                                                                                                          | Estimativa (Exemplo) |
-|------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|----------------------|
-| 0          | Criar Diagrama de Classes                          | Elaborar o diagrama de classes para representar a estrutura do sistema e as relações entre as entidades.            | x dias               |
-| 1          | Leitura de Arquivos CSV                            | Desenvolver a lógica para carregar e validar arquivos CSV contendo dados climáticos. Identificar e armazenar os registros suspeitos para revisão manual.             | x dias               |
-| 1.1        | Gerenciamento de Estações, Cidades e Unidades de Medida  | Desenvolver a funcionalidade para visualizar, adicionar, modificar e excluir informações sobre estações meteorológicas, cidades e unidades de medida.       | x dias               |
-| 2          | Criar Interface de Usuário (UI)                   | Desenvolver a interface de usuário visual para facilitar a interação do usuário com o sistema.                      | x dias               |
-| 3          | Modelar Banco de Dados                            | Modelar o banco de dados para armazenar os dados climáticos de forma eficiente e organizada.                       | x dias               |
-| 4          | Identificação de Cidades                          | Extrair o nome da cidade a partir do nome do arquivo CSV. Associar cada arquivo à sua respectiva cidade.             | x dias               |
-| 5          | Unificação dos Dados                              | Desenvolver a estrutura de dados para armazenar os dados unificados das cidades. Implementar a lógica para unificar os dados das estações meteorológicas.          | x dias               |
-| 6          | Implementar Banco de Dados MySQL                  | Configurar e implementar o banco de dados MySQL para armazenar os dados climáticos conforme o modelo definido.      | x dias               |
-| 7          | Tratamento de Registros Suspeitos                 | Implementar uma interface para revisão e correção de registros suspeitos. Permitir a exclusão ou revisão dos registros suspeitos e sua adição à base de dados principal. | x dias               |
-| 8          | Relatório de Médias por Cidade e Período          | Desenvolver a funcionalidade para gerar relatórios de médias das variáveis climáticas por cidade e período de tempo selecionados pelo usuário.                        | x dias               |
-| 9        | Preparação para Plotagem de Gráficos Boxplot      | Implementar a lógica para calcular os elementos necessários para plotagem de gráficos boxplot com base nos dados de uma estação em uma determinada data.               | x dias               |
-| 10         | Ajustes e Melhorias                               | Realizar ajustes finais e melhorias de usabilidade com base no feedback do usuário.                                 | x dias               |
-| 11         | Documentação                                      | Preparar a documentação do sistema, incluindo manuais de usuário e desenvolvedor.                                   | x dias               |
 
 
 
