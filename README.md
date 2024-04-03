@@ -32,6 +32,7 @@
 | 4       | 27/05/2024 a 16/06/2024       |
 
 <h3>Product Backlog</h3>
+
 | Prioridade | Função                                             | Descrição                                                                                                          |
 |------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------| 
 | 0          | Criar Diagrama de Classes                          | Elaborar o diagrama de classes para representar a estrutura do sistema e as relações entre as entidades.            | 
