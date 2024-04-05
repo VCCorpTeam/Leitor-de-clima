@@ -20,7 +20,7 @@
 | Pedro Henrique Lopes de Souza | Desenvolvedor   | <img src="https://github.com/YanYamim/VCCorp/assets/119015786/ad8a9b5a-c699-4dfd-b2ca-2eee1476d103" width="150px"/> | [GitHub](https://github.com/pelopinho) [Linkedln](https://www.linkedin.com/in/pelopes7/)|
 
 # <h2>Sobre o projeto 💬</h2>
-
+projeto
 
 # <h2>Calendário Sprints 🗓️</h2>
 
