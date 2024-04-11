@@ -7,4 +7,6 @@ module com.example.leitorclima {
 
     opens com.example.leitorclima to javafx.fxml;
     exports com.example.leitorclima;
+    exports com.example.leitorclima.GUI;
+    opens com.example.leitorclima.GUI to javafx.fxml;
 }
