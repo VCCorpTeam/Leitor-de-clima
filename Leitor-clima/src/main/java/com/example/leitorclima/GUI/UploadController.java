@@ -13,8 +13,7 @@ import javafx.stage.Window;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class UploadController implements Initializable {
@@ -61,7 +60,7 @@ public class UploadController implements Initializable {
         String line = "";
 
         try {
-            ArrayList<ArrayList<String>> rows = new ArrayList<>(); // ArrayList para armazenar as linhas do CSV
+            ArrayList<Map<String,String>> rows = new ArrayList<>(); // ArrayList para armazenar as linhas do CSV
             BufferedReader br = new BufferedReader((new FileReader(path)));
             int i = 0;
             String[] indices = null;
@@ -71,9 +70,21 @@ public class UploadController implements Initializable {
                 if (i == 0) { // Primeira linha, determinar o número de colunas
                     indices = values; // Salvar os índices
                 } else { // Linhas subsequentes, processar valores
-                    ArrayList<String> rowValues = new ArrayList<>();
-                    for (int j = 0; j < values.length; j++) {
-                        rowValues.add(indices[j] + ": " + values[j]); // Adicionar o índice antes do valor
+//                    int n = 0;
+//                    while (n <= indices.size()){
+//                        Map<String, String> elements = new HashMap<>();
+//                        if (indices[n] != null){
+//
+//                        }
+//                    }
+                    Map<String, String> rowValues = new HashMap<>();
+//                    ArrayList<String> rowValues = new ArrayList<>();
+                    for (int j = 0; j < indices.length; j++) {
+                        if(j < values.length) {
+                            rowValues.put(indices[j], values[j]); // Adicionar o índice antes do valor
+                        }else {
+                            rowValues.put(indices[j], "");
+                        }
                     }
                     rows.add(rowValues); // Adicionar a linha à lista de linhas
                 }
@@ -83,12 +94,13 @@ public class UploadController implements Initializable {
 
             // Agora você tem todas as linhas armazenadas dinamicamente na lista 'rows'
             // Você pode processar essas linhas conforme necessário
-            for (ArrayList<String> row : rows) {
-                System.out.println("\nValores da linha:");
-                for (String value : row) {
-                    System.out.println(value); // Imprimir cada valor da linha
-                }
-            }
+//            for (ArrayList<String> row : rows) {
+//                System.out.println("\nValores da linha:");
+//                for (String value : row) {
+//                    System.out.println(value); // Imprimir cada valor da linha
+//                }
+//            }
+            System.out.println("Número de registros do arquivo: "+i);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
