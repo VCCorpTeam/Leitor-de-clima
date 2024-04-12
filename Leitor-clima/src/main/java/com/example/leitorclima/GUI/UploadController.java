@@ -84,7 +84,7 @@ public class UploadController implements Initializable {
             // Agora você tem todas as linhas armazenadas dinamicamente na lista 'rows'
             // Você pode processar essas linhas conforme necessário
             for (ArrayList<String> row : rows) {
-                System.out.println("Valores da linha:");
+                System.out.println("\nValores da linha:");
                 for (String value : row) {
                     System.out.println(value); // Imprimir cada valor da linha
                 }
