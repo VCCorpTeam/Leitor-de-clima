@@ -57,8 +57,45 @@ public class UploadController implements Initializable {
             path = file.getPath();
         }
     }
-
     public void uploadFile() {
+        String line = "";
+
+        try {
+            ArrayList<ArrayList<String>> rows = new ArrayList<>(); // ArrayList para armazenar as linhas do CSV
+            BufferedReader br = new BufferedReader((new FileReader(path)));
+            int i = 0;
+            String[] indices = null;
+
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(";");
+                if (i == 0) { // Primeira linha, determinar o número de colunas
+                    indices = values; // Salvar os índices
+                } else { // Linhas subsequentes, processar valores
+                    ArrayList<String> rowValues = new ArrayList<>();
+                    for (int j = 0; j < values.length; j++) {
+                        rowValues.add(indices[j] + ": " + values[j]); // Adicionar o índice antes do valor
+                    }
+                    rows.add(rowValues); // Adicionar a linha à lista de linhas
+                }
+                i++;
+            }
+            br.close();
+
+            // Agora você tem todas as linhas armazenadas dinamicamente na lista 'rows'
+            // Você pode processar essas linhas conforme necessário
+            for (ArrayList<String> row : rows) {
+                System.out.println("Valores da linha:");
+                for (String value : row) {
+                    System.out.println(value); // Imprimir cada valor da linha
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+
+    /*public void uploadFile() {
         String line = "";
 
         try {
@@ -85,3 +122,5 @@ public class UploadController implements Initializable {
         }
     }
 }
+
+     */
