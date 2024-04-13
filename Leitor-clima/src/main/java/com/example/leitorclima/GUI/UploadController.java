@@ -77,7 +77,7 @@ public class UploadController implements Initializable {
 //
 //                        }
 //                    }
-                    Map<String, String> rowValues = new HashMap<>();
+                    Map<String, String> rowValues = new LinkedHashMap<>();
 //                    ArrayList<String> rowValues = new ArrayList<>();
                     for (int j = 0; j < indices.length; j++) {
                         if(j < values.length) {
@@ -100,7 +100,14 @@ public class UploadController implements Initializable {
 //                    System.out.println(value); // Imprimir cada valor da linha
 //                }
 //            }
-            System.out.println("Número de registros do arquivo: "+i);
+
+            for (Map<String, String> row : rows) {
+
+                for (Map.Entry<String, String> entry : row.entrySet()) {
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                }
+                System.out.println();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
