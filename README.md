@@ -1,6 +1,18 @@
 # <h1 align="center"> VCCorp 🐕​ </h1>
-<h2>Sobre nós! 🐶​ </h2>
-<p>Descrição sobre a equipe</p>
+
+<h2 align="center"> Sumário </h2>
+  <p align="center">
+     <a href ="#sobre-o-projeto">Sobre o projeto</a>  • 
+     <a href ="#calendario-sprints">Calendário Sprints</a>  • 
+     <a href ="#product-backlog">Product Backlog</a>  •
+     <a href ="#user-stories">User Stories</a>  •
+     <a href ="#ferramentas">Ferramentas</a>  •
+     <a href ="#integrantes">Integrantes</a>
+   </p>
+
+<span id="Sobre nós">
+
+## :dart: Sobre nós 
 
 <i>"Na Fatec - SJC, um grupo de estudantes se uniu para o projeto integrador e se autodenominou Vira-lata Caramelo Corp! Por quê? Como todo nome, há profundidade nos significados:
 <br>1º.Para estampar no peito o orgulho de ser brasileiro! (E o cão tão querido representa isso perfeitamente.) </br>
@@ -18,7 +30,11 @@ Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem
 | 3       | 06/05/2024 a 26/05/2024       |
 | 4       | 27/05/2024 a 16/06/2024       |
 
-<h3>Product Backlog</h3>
+<span id="backlog--entregas">
+   
+## :pushpin: Product Backlog
+
+<details>
 
 | Prioridade | Função                                             | Descrição                                                                                                          |
 |------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------| 
@@ -36,10 +52,12 @@ Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem
 | 12         | Ajustes e Melhorias                               | Realizar ajustes finais e melhorias de usabilidade com base no feedback do usuário.                                 |
 | 13         | Documentação                                      | Preparar a documentação do sistema, incluindo manuais de usuário e desenvolvedor.                                   |
 
+</details>
 
 
+## 📖 User Stories
 
-<h3>User Stories</h3>
+<details>
 
 | Sprints | Tarefas |
 |--------|--------|
@@ -48,14 +66,46 @@ Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem
 | 3 | Conexão dos códigos Java com o banco de dados SQL, correção de dados incongruentes e relatório em texto dos dados filtrados do arquivo CSV |
 | 4 | Plotagem dos relatórios para gráficos Bloxpot, documentação do projeto completo e ajustes do sistema |
 
+</details>
 
-| Ferramenta | Logomarca |
-|------------|-----------|
-| [IntelliJ](https://www.jetbrains.com/idea/) | [<img src = "https://github.com/YanYamim/VCCorp/assets/119015786/1a958a68-6602-43c1-8532-c226d9962449" width="50px"/>](https://www.jetbrains.com/idea/) |
-| [Java](https://www.java.com/) | [<img src = "https://github.com/YanYamim/VCCorp/assets/119015786/3108797b-abd0-4527-91cc-fecd39bb4ba0" width="50px"/>](https://www.java.com/) |
-| [MySQL](https://www.mysql.com/) | [<img src = "https://github.com/YanYamim/VCCorp/assets/119015786/1c4c4790-c264-49e6-bd83-cf3bd4d18223" width="100px"/>](https://www.mysql.com/)   |
-| [JavaFX](https://openjfx.io/) | [<img src = "https://github.com/YanYamim/VCCorp/assets/119015786/3220ca0f-4f8e-40e0-aa8d-31d00cdd796a" width="130px"/>](https://openjfx.io/) |
-| [Discord](https://discord.com/) | [<img src = "https://github.com/YanYamim/VCCorp/assets/119015786/1f746402-43c0-4c6f-ba10-ffb4041f49a0" width="100px"/>](https://discord.com/) |
+## 🖥️Tecnologias:
+* <p>
+   <img align="left" title="intellij-logo" height="30px" src="https://skillicons.dev/icons?i=java"/>
+   Java
+ </p>
+ 
+* <p>
+   <img align="left" title="mysql-logo" height="30px" src="https://skillicons.dev/icons?i=mysql"/>
+   MySQL
+ </p>
+
+ * <p>
+   <img align="left" title="javafx-logo" height="35px" src="https://github.com/nininhosam/nininhosam/assets/76211125/5b22e9b0-5474-4366-8742-2b6545952951"/>
+   JavaFX
+ </p>
+
+ * <p>
+   <img align="left" title="javafx-logo" height="35px" src="https://skillicons.dev/icons?i=git"/>
+   Git
+ </p>
+
+
+## 🛠️ Ferramentas:
+* <p>
+   <img align="left" title="github-dark" height="30px" src="https://user-images.githubusercontent.com/76211125/227561942-1503fb74-eb8e-41d1-936e-bf22bc2d70eb.png#gh-dark-mode-only"/>
+   <img align="left" title="github-light" height="30px" src="https://user-images.githubusercontent.com/76211125/227561896-a90cea71-7431-4908-ac8d-71fc02603eeb.png#gh-light-mode-only"/>
+   GitHub
+ </p>
+ 
+* <p>
+   <img align="left" title="intellij-logo" height="30px" src="https://skillicons.dev/icons?i=idea"/>
+   IntelliJ
+ </p>
+ 
+* <p>
+   <img align="left" title="discord-logo" height="30px" src="https://skillicons.dev/icons?i=discord"/>
+   Discord
+ </p>
 
 
 # <h2>INTEGRANTES👨‍💻👩‍💻</h2>
