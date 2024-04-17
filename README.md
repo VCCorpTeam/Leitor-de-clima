@@ -6,6 +6,7 @@
      <a href ="#calendario-sprints">Calendário Sprints</a>  • 
      <a href ="#product-backlog">Product Backlog</a>  •
      <a href ="#user-stories">User Stories</a>  •
+     <a href ="#tecnologias">Tecnologias</a>  •
      <a href ="#ferramentas">Ferramentas</a>  •
      <a href ="#integrantes">Integrantes</a>
    </p>
@@ -69,9 +70,19 @@ Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem
 </details>
 
 ## 🖥️Tecnologias:
+ * <p>
+   <img align="left" title="git-logo" height="30px" src="https://skillicons.dev/icons?i=git"/>
+   Git
+ </p>
+ 
 * <p>
-   <img align="left" title="intellij-logo" height="30px" src="https://skillicons.dev/icons?i=java"/>
+   <img align="left" title="java-logo" height="30px" src="https://skillicons.dev/icons?i=java"/>
    Java
+ </p>
+
+* <p>
+   <img align="left" title="javafx-logo" height="30px" src="https://github.com/nininhosam/nininhosam/assets/76211125/5b22e9b0-5474-4366-8742-2b6545952951"/>
+   JavaFX
  </p>
  
 * <p>
@@ -79,18 +90,15 @@ Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem
    MySQL
  </p>
 
- * <p>
-   <img align="left" title="javafx-logo" height="35px" src="https://github.com/nininhosam/nininhosam/assets/76211125/5b22e9b0-5474-4366-8742-2b6545952951"/>
-   JavaFX
- </p>
 
- * <p>
-   <img align="left" title="javafx-logo" height="35px" src="https://skillicons.dev/icons?i=git"/>
-   Git
- </p>
 
 
 ## 🛠️ Ferramentas:
+* <p>
+   <img align="left" title="discord-logo" height="30px" src="https://skillicons.dev/icons?i=discord"/>
+   Discord
+ </p>
+ 
 * <p>
    <img align="left" title="github-dark" height="30px" src="https://user-images.githubusercontent.com/76211125/227561942-1503fb74-eb8e-41d1-936e-bf22bc2d70eb.png#gh-dark-mode-only"/>
    <img align="left" title="github-light" height="30px" src="https://user-images.githubusercontent.com/76211125/227561896-a90cea71-7431-4908-ac8d-71fc02603eeb.png#gh-light-mode-only"/>
@@ -100,11 +108,6 @@ Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem
 * <p>
    <img align="left" title="intellij-logo" height="30px" src="https://skillicons.dev/icons?i=idea"/>
    IntelliJ
- </p>
- 
-* <p>
-   <img align="left" title="discord-logo" height="30px" src="https://skillicons.dev/icons?i=discord"/>
-   Discord
  </p>
 
 
