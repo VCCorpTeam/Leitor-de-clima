@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="266.0" prefWidth="374.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.MenuController">
+   <Label text="Leitor de Clima">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+
+    <Button onAction="#uploadArquivo" text="Upload de Arquivo" />
+    <Button onAction="#gerarRelatorio" text="Gerar Relatório" />
+
+</VBox>

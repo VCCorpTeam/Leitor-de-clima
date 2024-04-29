@@ -10,9 +10,9 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("upload.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 300);
-        primaryStage.setTitle("Upload");
+        primaryStage.setTitle("Leitor de Clima");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
