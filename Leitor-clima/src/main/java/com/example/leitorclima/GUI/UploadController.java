@@ -15,6 +15,11 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 
 public class UploadController implements Initializable {
     public static String path;
@@ -27,7 +32,8 @@ public class UploadController implements Initializable {
     private Button btnUploadFile;
     @FXML
     private Button selectedFileField;
-
+    @FXML
+    private Button btnReturnMenu;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -39,6 +45,11 @@ public class UploadController implements Initializable {
         btnUploadFile.setOnMouseClicked((MouseEvent mouse) -> {
             if (mouse.getClickCount() == 1)
                 uploadFile();
+        });
+
+        btnReturnMenu.setOnMouseClicked((MouseEvent mouse) -> {
+            if (mouse.getClickCount() == 1)
+                returnToMenu();
         });
     }
 
@@ -112,8 +123,20 @@ public class UploadController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-}
+    //Voltando ao menu main - pablohgs05
+    public void returnToMenu() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnReturnMenu.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+}
     /*public void uploadFile() {
         String line = "";
 
