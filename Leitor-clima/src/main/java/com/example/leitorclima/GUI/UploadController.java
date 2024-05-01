@@ -63,8 +63,8 @@ public class UploadController implements Initializable {
         Window stage = null;
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            txtPathFile.setText(file.getPath());
             path = file.getPath();
+            txtPathFile.setText(path);
         }
     }
     public void uploadFile() {
@@ -75,6 +75,10 @@ public class UploadController implements Initializable {
             BufferedReader br = new BufferedReader((new FileReader(path)));
             int i = 0;
             String[] indices = null;
+            System.out.println("Path: "+path);
+            File arquivo = new File(path);
+            String nomeArquivo = arquivo.getName();
+            System.out.println(nomeArquivo);
 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
@@ -119,6 +123,7 @@ public class UploadController implements Initializable {
                 }
                 System.out.println();
             }
+            System.out.println(nomeArquivo);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
