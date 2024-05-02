@@ -2,6 +2,7 @@ package com.example.leitorclima.GUI;
 
 import com.example.leitorclima.Models.CSV;
 import com.example.leitorclima.Models.Line;
+import com.example.leitorclima.Utils.DbUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,6 +20,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import static com.example.leitorclima.Utils.DbUtils.inserirRegistro;
 
 
 public class UploadController implements Initializable {
@@ -69,15 +72,22 @@ public class UploadController implements Initializable {
     }
     public void uploadFile() {
         String line = "";
-
+        String dta = null;
+        String hra = null;
+        String vla = null;
+        String ind = null;
+        String arc = null;
+        ArrayList<Map<String, String>> rows;
+        String[] indices;
+        String nomeArquivo;
         try {
-            ArrayList<Map<String,String>> rows = new ArrayList<>(); // ArrayList para armazenar as linhas do CSV
+            rows = new ArrayList<>();
             BufferedReader br = new BufferedReader((new FileReader(path)));
             int i = 0;
-            String[] indices = null;
-            System.out.println("Path: "+path);
+            indices = null;
+            System.out.println("Path: " + path);
             File arquivo = new File(path);
-            String nomeArquivo = arquivo.getName();
+            nomeArquivo = arquivo.getName();
             System.out.println(nomeArquivo);
 
             while ((line = br.readLine()) != null) {
@@ -85,36 +95,26 @@ public class UploadController implements Initializable {
                 if (i == 0) { // Primeira linha, determinar o número de colunas
                     indices = values; // Salvar os índices
                 } else { // Linhas subsequentes, processar valores
-//                    int n = 0;
-//                    while (n <= indices.size()){
-//                        Map<String, String> elements = new HashMap<>();
-//                        if (indices[n] != null){
-//
-//                        }
-//                    }
+
                     Map<String, String> rowValues = new LinkedHashMap<>();
-//                    ArrayList<String> rowValues = new ArrayList<>();
+
                     for (int j = 0; j < indices.length; j++) {
-                        if(j < values.length) {
+                        if (j < values.length) {
                             rowValues.put(indices[j], values[j]); // Adicionar o índice antes do valor
-                        }else {
+                        } else {
                             rowValues.put(indices[j], "");
                         }
                     }
                     rows.add(rowValues); // Adicionar a linha à lista de linhas
+
+
+
                 }
+
                 i++;
             }
             br.close();
 
-            // Agora você tem todas as linhas armazenadas dinamicamente na lista 'rows'
-            // Você pode processar essas linhas conforme necessário
-//            for (ArrayList<String> row : rows) {
-//                System.out.println("\nValores da linha:");
-//                for (String value : row) {
-//                    System.out.println(value); // Imprimir cada valor da linha
-//                }
-//            }
 
             for (Map<String, String> row : rows) {
 
@@ -124,9 +124,28 @@ public class UploadController implements Initializable {
                 System.out.println();
             }
             System.out.println(nomeArquivo);
+
+            for (int y = 0; y < rows.size(); y++) {
+                Map<String, String> mapa = rows.get(y);
+                for (int z = 2; z < mapa.size(); z++) {
+                    dta = mapa.values().toArray(new String[0])[0];
+                    hra = mapa.values().toArray(new String[0])[1];
+                    vla = mapa.values().toArray(new String[0])[z];
+                    ind = indices[z];
+                    arc = nomeArquivo;
+
+                    inserirRegistro(ind, arc, dta, hra, vla);
+                    System.out.println(arc);
+                }
+
+            }
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
     }
     //Voltando ao menu main - pablohgs05
     public void returnToMenu() {
@@ -142,32 +161,5 @@ public class UploadController implements Initializable {
     }
 
 }
-    /*public void uploadFile() {
-        String line = "";
 
-        try {
-            ArrayList<Line> lines = new ArrayList<>();
-            CSV csv = new CSV(lines);
-            BufferedReader br = new BufferedReader((new FileReader(path)));
-            int i = 0;
 
-            while ((line = br.readLine()) != null) {
-                if (i != 0) {
-                    String[] values = line.split(";");
-                    System.out.println("Data: " + values[0] + ", Hora (UTC): " + values[1] + ", Temp. Ins. (C): " + values[2] + ", Temp. Max. (C): " + values[3] + ", Temp. Min. (C): " + values[4] + ", Umi. Ins. (%) : " + values[5] + ", Umi. Max. (%) : " + values[6] + ", Umi. Min. (%): " + values[7] + ", Pto Orvalho Ins. (C): " + values[8] + ", Pto Orvalho Max. (C): " + values[9] + ", Pto Orvalho Min. (C): " + values[10] + ", Pressao Ins. (hPa): " + values[11] + ", Pressao Max. (hPa): " + values[12] + ", Pressao Min. (hPa): " + values[13] + ", Vel. Vento (m/s): " + values[14] + ", Dir. Vento (m/s): " + values[15] + ", Raj. Vento (m/s): " + values[16] + ", Radiacao (KJ/m²): " + values[17] + ", Chuva (mm): " + values[18]);
-                    Line registro = new Line(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11], values[12], values[13], values[14], values[15], values[16], values[17], values[18]);
-                    csv.adicionarElemento(registro);
-                    i++;
-                } else {
-                    String[] indice = line.split(";");
-                    i++;
-                }
-            }
-            br.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-}
-
-     */
