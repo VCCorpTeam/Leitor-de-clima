@@ -96,7 +96,7 @@ public class UploadController implements Initializable {
             estacao = nomeArquivo.substring(0,pos);
             cidade = nomeArquivo.substring(pos +1,ponto);
 
-            inserirArquivo(nomeArquivo,estacao,cidade);
+            inserirArquivo(nomeArquivo,cidade,estacao);
 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
