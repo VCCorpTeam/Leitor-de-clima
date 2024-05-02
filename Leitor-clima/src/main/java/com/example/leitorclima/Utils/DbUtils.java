@@ -10,9 +10,24 @@ public class DbUtils {
 
     public static Connection getConnection() throws SQLException {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "D1m2s3l4");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "1234");
         }catch (SQLException exception){
             throw new RuntimeException(exception);
+        }
+    }
+
+    public static void inserirArquivo(String arquivo, String cidade, String estacao) {
+        String sql = "INSERT INTO arquivo (idarquivo, cidade, estacao) VALUES (?,?,?)";
+
+        try (Connection connection =  getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+
+            stmt.setString(1, arquivo);
+            stmt.setString(2, cidade);
+            stmt.setString(3, estacao);
+            stmt.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

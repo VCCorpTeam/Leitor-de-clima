@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static com.example.leitorclima.Utils.DbUtils.inserirArquivo;
 import static com.example.leitorclima.Utils.DbUtils.inserirRegistro;
 
 
@@ -80,6 +81,8 @@ public class UploadController implements Initializable {
         ArrayList<Map<String, String>> rows;
         String[] indices;
         String nomeArquivo;
+        String estacao;
+        String cidade;
         try {
             rows = new ArrayList<>();
             BufferedReader br = new BufferedReader((new FileReader(path)));
@@ -88,7 +91,12 @@ public class UploadController implements Initializable {
             System.out.println("Path: " + path);
             File arquivo = new File(path);
             nomeArquivo = arquivo.getName();
-            System.out.println(nomeArquivo);
+            int pos = nomeArquivo.indexOf("_");
+            int ponto = nomeArquivo.indexOf(".");
+            estacao = nomeArquivo.substring(0,pos);
+            cidade = nomeArquivo.substring(pos +1,ponto);
+
+            inserirArquivo(nomeArquivo,estacao,cidade);
 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
@@ -119,11 +127,11 @@ public class UploadController implements Initializable {
             for (Map<String, String> row : rows) {
 
                 for (Map.Entry<String, String> entry : row.entrySet()) {
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
+//                    System.out.println(entry.getKey() + ": " + entry.getValue());
                 }
-                System.out.println();
+//                System.out.println();
             }
-            System.out.println(nomeArquivo);
+//            System.out.println(nomeArquivo);
 
             for (int y = 0; y < rows.size(); y++) {
                 Map<String, String> mapa = rows.get(y);
@@ -134,8 +142,8 @@ public class UploadController implements Initializable {
                     ind = indices[z];
                     arc = nomeArquivo;
 
-                    inserirRegistro(ind, arc, dta, hra, vla);
-                    System.out.println(arc);
+//                    inserirRegistro(ind, arc, dta, hra, vla);
+//                    System.out.println(arc);
                 }
 
             }
