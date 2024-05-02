@@ -1,50 +1,77 @@
 package com.example.leitorclima.Utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.example.leitorclima.Models.Registro;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbUtils {
 
-    public static void inserirDados() {
-        // conexão com o banco estabelecida
-        Connection connection = null;
+    public static Connection getConnection() throws SQLException {
         try {
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/bancodedados", "root", "");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/Clima", "root", "1234");
+        }catch (SQLException exception){
+            throw new RuntimeException(exception);
+        }
+    }
 
-            // desativando o modo AutoCommit
-            connection.setAutoCommit(false);
+    public static void inserirRegistro(String indice, String arquivo, String data, String hora, String valor) {
+        String sql = "INSERT INTO registro (indice, idarquivo, data, hora,valor) VALUES (?,?,?,?,?)";
 
-            // inserção de dados
-            Statement statement = connection.createStatement();
-            String sql = "INSERT INTO tabelateste (nome, sobrenome, idade, email) VALUES ('pedro' , 'souza' , '12' , 'pedro@gmail.com')";
-            int rowsAffected = statement.executeUpdate(sql);
+        try (Connection connection =  getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
-            // if-else que verifica se a inserção/conexão foi bem sucedida
-            if (rowsAffected > 0) {
-                System.out.println("Inserção realizada com sucesso!");
-                connection.commit();
-            } else {
-                System.out.println("Falha ao inserir os dados.");
+            stmt.setString(1, indice);
+            stmt.setString(2, arquivo);
+            stmt.setString(3, data);
+            stmt.setString(4, hora);
+            stmt.setString(5, valor);
+            stmt.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<Registro> getRegistros(String cidade){
+        List<Registro> allEntries = new ArrayList<>();
+        String arquivoId = getArquivoCidade(cidade);
+        String sql = "SELECT valor FROM activity_register WHERE Id=?";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+
+            stmt.setString(1, arquivoId);
+            try(ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                while (rs.next()) {
+                    String id = rs.getString("user_id");
+                    String title = rs.getString("title");
+                    String date = rs.getString("access");
+//                    Registro entry = new Registro(id, title, date);
+//                    allEntries.add(entry);
+                }
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return allEntries;
+    }
+    public static String getArquivoCidade(String cidade){
+        String sql = "SELECT IdArquivo from Arquivos where username=?";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+
+            stmt.setString(1, cidade);
+            try(ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) return null;
+                rs.next();
+                return rs.getString("user_id");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            // fechando a conexão com o banco
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-    }
-
-    public static void main(String[] args) {
-        inserirDados();
+        return null;
     }
 }
