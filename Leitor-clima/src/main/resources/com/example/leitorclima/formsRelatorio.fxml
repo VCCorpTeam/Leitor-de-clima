@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.FormsRelatorioController">
+   <children>
+      <Label layoutX="107.0" layoutY="97.0" text="Cidade">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="107.0" layoutY="153.0" text="Data Início">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="107.0" layoutY="206.0" text="Data Fim">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dpDataInicio" layoutX="229.0" layoutY="156.0" />
+      <DatePicker fx:id="dpDataFim" layoutX="229.0" layoutY="209.0" />
+      <ComboBox fx:id="cbCidade" layoutX="229.0" layoutY="100.0" prefWidth="150.0" />
+      <Button fx:id="btnGeraRelatorio" layoutX="107.0" layoutY="271.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Gerar Relatório">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="107.0" layoutY="48.0" text="Dado">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbDado" layoutX="229.0" layoutY="51.0" prefWidth="150.0" />
+      <Button fx:id="btnVoltaMenu" layoutX="328.0" layoutY="271.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Voltar ao Menu">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
