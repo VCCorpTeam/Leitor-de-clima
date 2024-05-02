@@ -21,5 +21,5 @@
 
     <Button fx:id="btnUploadFile" alignment="CENTER" layoutX="167.0" layoutY="200.0" prefHeight="34.0" prefWidth="66.0" text="Upload" textAlignment="CENTER" />
 
-    <Button fx:id="btnReturnMenu" alignment="CENTER" layoutX="24.0" layoutY="200.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Return to Menu" />
+    <Button fx:id="btnReturnMenu" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0" text="&lt;" />
 </AnchorPane>
