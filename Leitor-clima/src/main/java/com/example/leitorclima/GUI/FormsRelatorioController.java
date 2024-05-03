@@ -23,8 +23,8 @@ import static com.example.leitorclima.Utils.GeraPdfUtil.geraPdf;
 
 public class FormsRelatorioController implements Initializable {
 
-    @FXML
-    private ComboBox<String> cbDado;
+//    @FXML
+//    private ComboBox<String> cbDado;
     @FXML
     private ComboBox<String> cbCidade;
     @FXML
@@ -100,21 +100,21 @@ public class FormsRelatorioController implements Initializable {
         });
 
         listaCidade = geraCidadeComboBox();
-        listaDado = geraDadoComboBox();
+//        listaDado = geraDadoComboBox();
 
         cbCidade.getItems().addAll(listaCidade);
-        cbDado.getItems().addAll(listaDado);
+//        cbDado.getItems().addAll(listaDado);
     }
 
     private void geraRelatorio() {
         List<Registro> listaRegistro;
         String cidade = cbCidade.getValue();
-        String dado = cbDado.getValue();
+//        String dado = cbDado.getValue();
         String dataInicio = String.valueOf(dpDataInicio.getValue());
         String dataFim = String.valueOf(dpDataFim.getValue());
 
         System.out.println(cidade);
-        System.out.println(dado);
+//        System.out.println(dado);
         System.out.println(dataInicio);
         System.out.println(dataFim);
 
@@ -144,7 +144,7 @@ public class FormsRelatorioController implements Initializable {
                     } else {
                         totalPressaoIns += 0;
                     }
-                }else if (registro.getIndice().equals("Pto Orvalho ")) {
+                }else if (registro.getIndice().equals("Pto Orvalho")) {
                     ptoOrvalho++;
                     if (!registro.getValor().isEmpty()) {
                         totalPtoOrvalho += Float.parseFloat(registro.getValor());
@@ -370,6 +370,9 @@ public class FormsRelatorioController implements Initializable {
                 }
             }
         }
+
+        geraPdf(cidade,dataInicio,dataFim,medTemp,medTempIns,medUmi,medUmiIns,medPtoOrvalho,medPtoOrvalhoIns,medPressao,medPressaoIns,medVelVento,medDirVento,medRajVento,medRadiacao,medChuva,medNebulos,medInsolacao);
+
         System.out.println("--MEDIAS--");
         System.out.println("medChuva: " + medChuva);
         System.out.println("medDirVento: " + medDirVento);
