@@ -168,7 +168,7 @@ public class UploadController implements Initializable {
                                  // Incrementa z após acessar o elemento
                             }
                         }
-                    }else if(mapa.size()== 13){
+                    }else if(mapa.size()== 12){
                         dta = formataData(mapa.values().toArray(new String[0])[0]);
                         hra = mapa.values().toArray(new String[0])[1];
                         arc = nomeArquivo;
