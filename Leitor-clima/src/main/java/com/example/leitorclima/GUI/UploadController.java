@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 import static com.example.leitorclima.Utils.DbUtils.inserirArquivo;
 import static com.example.leitorclima.Utils.DbUtils.inserirRegistro;
+import static com.example.leitorclima.Utils.FormataDataUtil.formataData;
 
 
 public class UploadController implements Initializable {
@@ -95,8 +96,8 @@ public class UploadController implements Initializable {
             int ponto = nomeArquivo.indexOf(".");
             estacao = nomeArquivo.substring(0,pos);
             cidade = nomeArquivo.substring(pos +1,ponto);
-
            inserirArquivo(nomeArquivo,cidade,estacao);
+
 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
@@ -138,7 +139,7 @@ public class UploadController implements Initializable {
             for (int y = 0; y < rows.size(); y++) {
                 Map<String, String> mapa = rows.get(y);
                 for (int z = 2; z < mapa.size(); z++) {
-                    dta = mapa.values().toArray(new String[0])[0];
+                    dta = formataData(mapa.values().toArray(new String[0])[0]);
                     hra = mapa.values().toArray(new String[0])[1];
                     arc = nomeArquivo;
                     if (mapa.size() == 19) {
@@ -168,7 +169,7 @@ public class UploadController implements Initializable {
                             }
                         }
                     }else if(mapa.size()== 13){
-                        dta = mapa.values().toArray(new String[0])[0];
+                        dta = formataData(mapa.values().toArray(new String[0])[0]);
                         hra = mapa.values().toArray(new String[0])[1];
                         arc = nomeArquivo;
                         vla = mapa.values().toArray(new String[0])[z];
@@ -178,11 +179,11 @@ public class UploadController implements Initializable {
                     arc = nomeArquivo;
 
                    inserirRegistro(ind, arc, dta, hra, vla);
+
 //                    System.out.println(arc);
                 }
 
             }
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -15,4 +15,24 @@ public class Registro {
         this.idArquivo = idArquivo;
         this.valor = valor;
     }
+
+    public String getIndice() {
+        return indice;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public String getIdArquivo() {
+        return idArquivo;
+    }
+
+    public String getValor() {
+        return valor;
+    }
 }

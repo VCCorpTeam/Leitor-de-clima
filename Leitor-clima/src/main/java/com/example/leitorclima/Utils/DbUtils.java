@@ -1,10 +1,12 @@
 package com.example.leitorclima.Utils;
 
+import com.example.leitorclima.Models.Arquivo;
 import com.example.leitorclima.Models.Registro;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DbUtils {
 
@@ -48,45 +50,110 @@ public class DbUtils {
         }
     }
 
-    public static List<Registro> getRegistros(String cidade){
-        List<Registro> allEntries = new ArrayList<>();
-        String arquivoId = getArquivoCidade(cidade);
-        String sql = "SELECT valor FROM activity_register WHERE Id=?";
+    public static List<String> geraCidadeComboBox() {
+        List<String> cidades = new ArrayList<>();
+        String sql = "SELECT cidade FROM arquivo";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
-            stmt.setString(1, arquivoId);
             try(ResultSet rs = stmt.executeQuery()) {
                 if (!rs.isBeforeFirst()) throw new SQLException("User not found");
                 while (rs.next()) {
-                    String id = rs.getString("user_id");
-                    String title = rs.getString("title");
-                    String date = rs.getString("access");
-//                    Registro entry = new Registro(id, title, date);
-//                    allEntries.add(entry);
+                    String cidade = rs.getString("cidade");
+                    cidades.add(cidade);
                 }
             }
 
         } catch (SQLException e){
             e.printStackTrace();
         }
+        return cidades;
+    }
+
+    public static List<String> geraDadoComboBox() {
+        List<String> dados = new ArrayList<>();
+        String sql = "select distinct indice from registro;";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+
+            try(ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                while (rs.next()) {
+                    String dado = rs.getString("indice");
+                    dados.add(dado);
+                }
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return dados;
+    }
+
+
+    public static List<Registro> getArquivo(String cidade,String dataInicio,String dataFim){
+        String nomeArquivo = null;
+        String condition = "('";
+        List<Registro> allEntries = new ArrayList<>();
+        List<Arquivo> arquivoId = getArquivoCidade(cidade);
+        int var = 0;
+        for (Arquivo arquivo : arquivoId) {
+            nomeArquivo = arquivo.getIdArquivo();
+            condition += arquivo.getIdArquivo();
+            condition += "'";
+            if (arquivoId.size()-1!= var) {
+                condition += (",");
+            }
+            var++;
+        }
+        condition += ")";
+        System.out.println(condition);
+        String sql = "SELECT indice,data,hora,idArquivo,valor FROM registro where idArquivo = ? and data between ? and ?";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+
+            
+            stmt.setString(1, nomeArquivo);
+            stmt.setString(2, dataInicio);
+            stmt.setString(3, dataFim);
+            try(ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                while (rs.next()) {
+                    String indice = rs.getString("indice");
+                    String data = rs.getString("data");
+                    String hora = rs.getString("hora");
+                    String idArquivo = rs.getString("idArquivo");
+                    String valor = rs.getString("valor");
+                    Registro registro = new Registro(indice,data,hora,idArquivo,valor);
+                    allEntries.add(registro);
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
 
         return allEntries;
     }
-    public static String getArquivoCidade(String cidade){
-        String sql = "SELECT IdArquivo from Arquivos where username=?";
+    public static List<Arquivo> getArquivoCidade(String cidade){
+        String sql = "select idArquivo,cidade,estacao from arquivo where cidade=?";
+        List<Arquivo> listaArquivos = new ArrayList<>();
+
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
             stmt.setString(1, cidade);
             try(ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) return null;
-                rs.next();
-                return rs.getString("user_id");
+                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                while (rs.next()) {
+                    String idArquivo = rs.getString("idArquivo");
+                    String cidadeQry = rs.getString("cidade");
+                    String estacao = rs.getString("estacao");
+                    Arquivo arquivo = new Arquivo(idArquivo,cidadeQry,estacao);
+                    listaArquivos.add(arquivo);
+                }
             }
-
-        } catch (SQLException e) {
+        } catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return listaArquivos;
     }
 }
