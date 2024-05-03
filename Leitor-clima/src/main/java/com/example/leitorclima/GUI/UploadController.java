@@ -96,19 +96,21 @@ public class UploadController implements Initializable {
             estacao = nomeArquivo.substring(0,pos);
             cidade = nomeArquivo.substring(pos +1,ponto);
 
-            inserirArquivo(nomeArquivo,cidade,estacao);
+           inserirArquivo(nomeArquivo,cidade,estacao);
 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
                 if (i == 0) { // Primeira linha, determinar o número de colunas
                     indices = values; // Salvar os índices
+                    indices[i] = values[i].replaceAll("^\"|\"$", "");
                 } else { // Linhas subsequentes, processar valores
 
                     Map<String, String> rowValues = new LinkedHashMap<>();
 
                     for (int j = 0; j < indices.length; j++) {
                         if (j < values.length) {
-                            rowValues.put(indices[j], values[j]); // Adicionar o índice antes do valor
+                            String value = values[j].replaceAll("^\"|\"$", "");
+                            rowValues.put(indices[j], value); // Adicionar o índice antes do valor
                         } else {
                             rowValues.put(indices[j], "");
                         }
@@ -138,11 +140,44 @@ public class UploadController implements Initializable {
                 for (int z = 2; z < mapa.size(); z++) {
                     dta = mapa.values().toArray(new String[0])[0];
                     hra = mapa.values().toArray(new String[0])[1];
-                    vla = mapa.values().toArray(new String[0])[z];
-                    ind = indices[z];
+                    arc = nomeArquivo;
+                    if (mapa.size() == 19) {
+                        if (z < mapa.size()) {
+                            if (z == 3 || z == 6 || z == 9 || z == 12) {
+                                String vf1 = mapa.values().toArray(new String[0])[z];
+                                String vf2 = mapa.values().toArray(new String[0])[z+1];
+                                if (!vf1.isEmpty() && !vf2.isEmpty()) {
+                                    float v1 = Float.parseFloat(vf1.replace(",", "."));
+                                    float v2 = Float.parseFloat(vf2.replace(",", "."));
+                                    float aa = (v1 + v2) / 2;
+                                    vla = String.valueOf(aa);
+                                } else {
+                                    vla = "";
+                                }
+
+                                if (indices[z].contains("Max")) {
+                                    int str = indices[z].indexOf("Max");
+                                    ind = indices[z].substring(0, str);
+
+                                }
+                                z++;
+                            } else {
+                                vla = mapa.values().toArray(new String[0])[z];
+                                ind = indices[z];
+                                 // Incrementa z após acessar o elemento
+                            }
+                        }
+                    }else if(mapa.size()== 13){
+                        dta = mapa.values().toArray(new String[0])[0];
+                        hra = mapa.values().toArray(new String[0])[1];
+                        arc = nomeArquivo;
+                        vla = mapa.values().toArray(new String[0])[z];
+                        ind = indices[z];
+                    }
+
                     arc = nomeArquivo;
 
-//                    inserirRegistro(ind, arc, dta, hra, vla);
+                   inserirRegistro(ind, arc, dta, hra, vla);
 //                    System.out.println(arc);
                 }
 
