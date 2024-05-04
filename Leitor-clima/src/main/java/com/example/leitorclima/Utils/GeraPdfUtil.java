@@ -1,23 +1,32 @@
 package com.example.leitorclima.Utils;
 
-import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.*;
+import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class GeraPdfUtil {
-    public static void geraPdf(String cidadePdf,String dataInicial,String dataFinal,Float medTemp,Float medTempIns,Float medUmi,Float medUmiIns,Float medPtoOrvalho,Float medPtoOrvalhoIns,Float medPressao,Float medPressaoIns,Float medVelVento,Float medDirVento,Float medRajVento,Float medRadiacao,Float medChuva,Float medNebulos,Float medInsolacao){
-        String filePath = "relatorio_climatico.pdf";
-        String cidade = cidadePdf; // cidade
-        String periodo = dataInicial + " - " + dataFinal; // data
+    public static File geraPdf(String cidadePdf, String dataInicial, String dataFinal, Float medTemp, Float medTempIns, Float medUmi, Float medUmiIns, Float medPtoOrvalho, Float medPtoOrvalhoIns, Float medPressao, Float medPressaoIns, Float medVelVento, Float medDirVento, Float medRajVento, Float medRadiacao, Float medChuva, Float medNebulos, Float medInsolacao) {
+        String cidade = cidadePdf;
+        String periodo = dataInicial + " - " + dataFinal;
 
         try {
+            //Abre um seletor de arquivo para o usuário escolher o local
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialFileName("relatorio_" + cidade + ".pdf");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            File file = fileChooser.showSaveDialog(null);
+
+            //Se o usuário cancelar, retornar null
+            if (file == null) {
+                return null;
+            }
+
             //Cria um novo documento PDF
-            PdfWriter writer = new PdfWriter(filePath);
+            PdfWriter writer = new PdfWriter(file);
             PdfDocument pdf = new PdfDocument(writer);
 
             //Cria um documento iText
@@ -47,9 +56,6 @@ public class GeraPdfUtil {
                     "Radiacao (KJ/m²): "+medRadiacao, "Chuva (mm): "+medChuva,
                     "Nebulosidade (Decimos): "+medNebulos, "Insolacao (h): "+medInsolacao};
 
-
-
-
             for (String dado : dadosClimaticos) {
                 Paragraph blankData = new Paragraph(dado);
                 blankData.setFontSize(12);
@@ -58,9 +64,11 @@ public class GeraPdfUtil {
 
             document.close();
 
-            System.out.println("PDF gerado com sucesso em: " + new File(filePath).getAbsolutePath());
+            System.out.println("PDF gerado com sucesso em: " + file.getAbsolutePath());
+            return file;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 }
