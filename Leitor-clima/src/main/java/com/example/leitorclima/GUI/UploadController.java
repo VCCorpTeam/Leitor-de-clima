@@ -80,6 +80,7 @@ public class UploadController implements Initializable {
         String ind = null;
         String arc = null;
         ArrayList<Map<String, String>> rows;
+        List<Map<String, String>> registros = new ArrayList<>();
         String[] indices;
         String nomeArquivo;
         String estacao;
@@ -96,7 +97,7 @@ public class UploadController implements Initializable {
             int ponto = nomeArquivo.indexOf(".");
             estacao = nomeArquivo.substring(0,pos);
             cidade = nomeArquivo.substring(pos +1,ponto);
-           inserirArquivo(nomeArquivo,cidade,estacao);
+            inserirArquivo(nomeArquivo,cidade,estacao);
 
 
             while ((line = br.readLine()) != null) {
@@ -125,20 +126,12 @@ public class UploadController implements Initializable {
                 i++;
             }
             br.close();
-
-
-            for (Map<String, String> row : rows) {
-
-                for (Map.Entry<String, String> entry : row.entrySet()) {
-//                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                }
-//                System.out.println();
-            }
-//            System.out.println(nomeArquivo);
-
+            Map<String, String> registro;
             for (int y = 0; y < rows.size(); y++) {
+
                 Map<String, String> mapa = rows.get(y);
                 for (int z = 2; z < mapa.size(); z++) {
+                    registro = new LinkedHashMap<>();
                     dta = formataData(mapa.values().toArray(new String[0])[0]);
                     hra = mapa.values().toArray(new String[0])[1];
                     arc = nomeArquivo;
@@ -163,7 +156,7 @@ public class UploadController implements Initializable {
                                 }
                                 z++;
                             } else {
-                                vla = mapa.values().toArray(new String[0])[z];
+                                vla = mapa.values().toArray(new String[0])[z].replace(",", ".");
                                 ind = indices[z];
                                  // Incrementa z após acessar o elemento
                             }
@@ -172,19 +165,20 @@ public class UploadController implements Initializable {
                         dta = formataData(mapa.values().toArray(new String[0])[0]);
                         hra = mapa.values().toArray(new String[0])[1];
                         arc = nomeArquivo;
-                        vla = mapa.values().toArray(new String[0])[z];
+                        vla = mapa.values().toArray(new String[0])[z].replace(",", ".");
                         ind = indices[z];
                     }
+                    registro.put("ind", ind);
+                    registro.put("arc", arc);
+                    registro.put("dta", dta);
+                    registro.put("hra", hra);
+                    registro.put("vla", vla);
+                    registros.add(registro);
 
-                    arc = nomeArquivo;
-
-                   inserirRegistro(ind, arc, dta, hra, vla);
-
-//                    System.out.println(arc);
                 }
 
             }
-
+            inserirRegistro(registros);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

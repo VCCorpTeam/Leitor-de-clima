@@ -100,7 +100,7 @@ public class FormsRelatorioController implements Initializable {
         });
 
         listaCidade = geraCidadeComboBox();
-//        listaDado = geraDadoComboBox();
+        listaDado = geraDadoComboBox();
 
         cbCidade.getItems().addAll(listaCidade);
 //        cbDado.getItems().addAll(listaDado);

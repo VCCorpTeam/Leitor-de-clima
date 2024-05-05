@@ -12,8 +12,8 @@ public class DbUtils {
 
     public static Connection getConnection() throws SQLException {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "1234");
-        }catch (SQLException exception){
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "D1m2s3l4");
+        } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -21,7 +21,7 @@ public class DbUtils {
     public static void inserirArquivo(String arquivo, String cidade, String estacao) {
         String sql = "INSERT INTO arquivo (idarquivo, cidade, estacao) VALUES (?,?,?)";
 
-        try (Connection connection =  getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, arquivo);
             stmt.setString(2, cidade);
@@ -33,17 +33,25 @@ public class DbUtils {
         }
     }
 
-    public static void inserirRegistro(String indice, String arquivo, String data, String hora, String valor) {
-        String sql = "INSERT INTO registro (indice, idarquivo, data, hora,valor) VALUES (?,?,?,?,?)";
+    public static void inserirRegistro(List<Map<String, String>> registros) {
+        // Batch insert for improved performance
+        String sql = "INSERT INTO registro (indice, idarquivo, data, hora, valor) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection =  getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setString(1, indice);
-            stmt.setString(2, arquivo);
-            stmt.setString(3, data);
-            stmt.setString(4, hora);
-            stmt.setString(5, valor);
-            stmt.execute();
+            for (Map<String, String> registro: registros) {
+                stmt.setString(1, registro.get("ind"));
+                stmt.setString(2, registro.get("arc"));
+                stmt.setString(3, registro.get("dta"));
+                stmt.setString(4, registro.get("hra"));
+                stmt.setString(5, registro.get("vla"));
+
+                // Add each record to the batch
+                stmt.addBatch();
+            }
+
+            // Execute batch insert
+            stmt.executeBatch();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,9 +62,9 @@ public class DbUtils {
         List<String> cidades = new ArrayList<>();
         String sql = "SELECT cidade FROM arquivo";
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            try(ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 if (!rs.isBeforeFirst()) throw new SQLException("User not found");
                 while (rs.next()) {
                     String cidade = rs.getString("cidade");
@@ -64,7 +72,7 @@ public class DbUtils {
                 }
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return cidades;
@@ -74,9 +82,9 @@ public class DbUtils {
         List<String> dados = new ArrayList<>();
         String sql = "select distinct indice from registro;";
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            try(ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 if (!rs.isBeforeFirst()) throw new SQLException("User not found");
                 while (rs.next()) {
                     String dado = rs.getString("indice");
@@ -84,7 +92,7 @@ public class DbUtils {
                 }
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return dados;
