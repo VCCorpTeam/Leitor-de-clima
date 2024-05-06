@@ -179,7 +179,7 @@ public class FormsRelatorioController implements Initializable {
                     } else {
                         totalRajVento += 0;
                     }
-                }else if (registro.getIndice().equals("Temp.")) {
+                }else if (registro.getIndice().equals("Temp. ")) {
                     temp++;
                     if (!registro.getValor().isEmpty()) {
                         totalTemp += Float.parseFloat(registro.getValor());
@@ -328,7 +328,7 @@ public class FormsRelatorioController implements Initializable {
                 }else if (registro.getIndice().equals("Temp. [Hora] (K)")) {
                     temp++;
                     if (!registro.getValor().isEmpty()) {
-                        totalTemp += Float.parseFloat(registro.getValor());
+                        totalTemp += Float.parseFloat(registro.getValor())-273;
                     } else {
                         totalTemp += 0;
                     }

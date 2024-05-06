@@ -12,7 +12,7 @@ public class DbUtils {
 
     public static Connection getConnection() throws SQLException {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "D1m2s3l4");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "1234");
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
@@ -60,7 +60,7 @@ public class DbUtils {
 
     public static List<String> geraCidadeComboBox() {
         List<String> cidades = new ArrayList<>();
-        String sql = "SELECT cidade FROM arquivo";
+        String sql = "SELECT distinct cidade FROM arquivo";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
