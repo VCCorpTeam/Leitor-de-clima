@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -179,13 +180,23 @@ public class UploadController implements Initializable {
 
             }
             inserirRegistro(registros);
+            UploadCompleto();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        
 
     }
-    //Voltando ao menu main - pablohgs05
+    //Popup de upload completo
+    public void UploadCompleto() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Upload completo");
+        alert.setHeaderText(null);
+        alert.setContentText("Seu arquivo foi carregado com sucesso!");
+    
+        alert.showAndWait();
+    }
+    //Voltando ao menu main
     public void returnToMenu() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
@@ -199,5 +210,3 @@ public class UploadController implements Initializable {
     }
 
 }
-
-
