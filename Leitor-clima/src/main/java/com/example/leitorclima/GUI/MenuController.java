@@ -44,4 +44,17 @@ public class MenuController {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    private void mudarDadosSus (ActionEvent event) throws IOException {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/dadosSuspeitos.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

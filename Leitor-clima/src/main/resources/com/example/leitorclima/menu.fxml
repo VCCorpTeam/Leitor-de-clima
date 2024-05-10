@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="368.0" prefWidth="502.0" spacing="10" style="-fx-background-color: linear-gradient(to top left, #ac66cb, #1b2541);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.MenuController">
+<VBox alignment="CENTER" prefHeight="368.0" prefWidth="502.0" spacing="10" style="-fx-background-color: linear-gradient(to top left, #ac66cb, #1b2541);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.MenuController">
    <Label text="Vamos começar? Escolha:" textFill="WHITE">
       <font>
          <Font size="24.0" />
@@ -14,5 +13,6 @@
 
     <Button onAction="#uploadArquivo" text="Carregar arquivos" />
     <Button onAction="#gerarRelatorio" prefWidth="96.0" text="Gerar relatório" />
+   <Button mnemonicParsing="false" onAction="#mudarDadosSus" text="Dados Suspeitos" />
 
 </VBox>
