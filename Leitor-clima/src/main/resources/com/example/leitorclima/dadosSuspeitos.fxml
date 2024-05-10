@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.DadosSuspeitosController">
+   <children>
+      <ComboBox fx:id="cbArquivo" layoutX="289.0" layoutY="33.0" prefWidth="150.0" />
+      <Label layoutX="148.0" layoutY="32.0" prefHeight="25.0" prefWidth="64.0" text="Arquivo">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableDadosSus" layoutX="33.0" layoutY="74.0" prefHeight="253.0" prefWidth="534.0">
+        <columns>
+          <TableColumn fx:id="colunaData" prefWidth="70.0" text="Data" />
+          <TableColumn fx:id="colunaHora" prefWidth="75.0" text="Hora" />
+            <TableColumn fx:id="colunaIndice" prefWidth="301.0" text="Índice" />
+            <TableColumn fx:id="colunaValor" prefWidth="87.0" text="Valor" />
+        </columns>
+      </TableView>
+      <TextField layoutX="318.0" layoutY="343.0" prefHeight="25.0" prefWidth="76.0" />
+      <Label layoutX="61.0" layoutY="345.0" prefHeight="21.0" prefWidth="247.0" text="Edição de valor de linha selecionada:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="463.0" layoutY="343.0" mnemonicParsing="false" text="Editar" />
+   </children>
+</AnchorPane>
