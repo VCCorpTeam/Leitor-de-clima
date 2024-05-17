@@ -7,6 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DbUtils {
 
@@ -164,4 +169,29 @@ public class DbUtils {
         }
         return listaArquivos;
     }
+
+    public static List<Map<String, String>> getUltimosRegistros(int quantidade) throws SQLException {
+        String query = "SELECT * FROM sua_tabela ORDER BY data_criacao DESC LIMIT ?";
+        List<Map<String, String>> registros = new ArrayList<>();
+
+        try (Connection connection = DbUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, quantidade);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Map<String, String> registro = new LinkedHashMap<>();
+                // Supondo que sua tabela tenha as colunas 'id', 'nome', 'descricao', 'data_criacao'
+                registro.put("id", resultSet.getString("id"));
+                registro.put("nome", resultSet.getString("nome"));
+                registro.put("descricao", resultSet.getString("descricao"));
+                registro.put("data_criacao", resultSet.getString("data_criacao"));
+                registros.add(registro);
+            }
+        }
+
+        return registros;
+    }
+
 }

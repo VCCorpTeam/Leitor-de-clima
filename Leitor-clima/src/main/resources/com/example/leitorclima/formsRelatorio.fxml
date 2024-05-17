@@ -34,5 +34,6 @@
             <Font size="16.0" />
          </font>
       </Button>
+      <Button fx:id="btnGerarRelatorio" text="Relatório Situacional" onAction="#gerarRelatorioSituacional"/>
    </children>
 </AnchorPane>
