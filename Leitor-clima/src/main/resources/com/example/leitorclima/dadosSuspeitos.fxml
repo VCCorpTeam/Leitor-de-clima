@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.DadosSuspeitosController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to top left, #ac66cb, #1b2541);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.DadosSuspeitosController">
    <children>
       <ComboBox fx:id="cbArquivo" layoutX="289.0" layoutY="33.0" prefWidth="150.0" />
-      <Label layoutX="148.0" layoutY="32.0" prefHeight="25.0" prefWidth="64.0" text="Arquivo">
+      <Label layoutX="148.0" layoutY="32.0" prefHeight="25.0" prefWidth="64.0" text="Arquivo" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
@@ -21,7 +21,7 @@
         </columns>
       </TableView>
       <TextField layoutX="318.0" layoutY="343.0" prefHeight="25.0" prefWidth="76.0" />
-      <Label layoutX="61.0" layoutY="345.0" prefHeight="21.0" prefWidth="247.0" text="Edição de valor de linha selecionada:">
+      <Label layoutX="61.0" layoutY="345.0" prefHeight="21.0" prefWidth="247.0" text="Edição de valor de linha selecionada:" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
