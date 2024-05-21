@@ -1,5 +1,8 @@
 package com.example.leitorclima.Models;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.CheckBox;
+
 public class Registro {
 
     private String indice;
