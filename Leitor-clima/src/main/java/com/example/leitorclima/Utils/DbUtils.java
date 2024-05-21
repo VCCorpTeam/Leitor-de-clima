@@ -2,6 +2,8 @@ package com.example.leitorclima.Utils;
 
 import com.example.leitorclima.Models.Arquivo;
 import com.example.leitorclima.Models.Registro;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -63,6 +65,21 @@ public class DbUtils {
         }
     }
 
+    public static void alteraArquivo(String valor, String data, String hora, String indice){
+        String sql = "UPDATE registro SET valor = ? WHERE data = ? AND hora = ? AND indice = ?";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, valor);
+            stmt.setString(2, data);
+            stmt.setString(3, hora);
+            stmt.setString(4, indice);
+
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static List<String> geraCidadeComboBox() {
         List<String> cidades = new ArrayList<>();
         String sql = "SELECT distinct cidade FROM arquivo";
@@ -103,6 +120,25 @@ public class DbUtils {
         return dados;
     }
 
+    public static List<String> geraArquivoComboBox() {
+        List<String> arquivos = new ArrayList<>();
+        String sql = "select distinct Idarquivo from arquivo";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                while (rs.next()) {
+                    String arquivo = rs.getString("Idarquivo");
+                    arquivos.add(arquivo);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arquivos;
+    }
 
     public static List<Registro> getArquivo(String cidade,String dataInicio,String dataFim){
         String nomeArquivo = null;
@@ -192,6 +228,31 @@ public class DbUtils {
         }
 
         return registros;
+    }
+
+    public static ObservableList<Registro> getListaRegistroSus(String arquivo) {
+        ObservableList<Registro> registroSus = null;
+        String sql = "select * from registro where idArquivo = ? and suspeito = 1";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, arquivo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                while (rs.next()) {
+                    Registro suspeito = new Registro(
+                            rs.getString("Indice"),
+                            rs.getString("Data"),
+                            rs.getString("Hora"),
+                            rs.getString("IdArquivo"),
+                            rs.getString("Valor"));
+                    registroSus.add(suspeito);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return registroSus;
     }
 
 }

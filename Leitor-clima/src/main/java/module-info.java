@@ -9,6 +9,7 @@ module com.example.leitorclima {
     requires layout;
 
     opens com.example.leitorclima to javafx.fxml;
+    opens com.example.leitorclima.Models to javafx.base;
     exports com.example.leitorclima;
     exports com.example.leitorclima.GUI;
     opens com.example.leitorclima.GUI to javafx.fxml;
