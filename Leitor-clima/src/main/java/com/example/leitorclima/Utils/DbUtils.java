@@ -19,7 +19,7 @@ public class DbUtils {
 
     public static Connection getConnection() throws SQLException {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "D1m2s3l4");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "1234");
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
@@ -208,25 +208,43 @@ public class DbUtils {
         return listaArquivos;
     }
 
-    public static List<Map<String, String>> getUltimosRegistros(int quantidade) throws SQLException {
-        String query = "SELECT * FROM sua_tabela ORDER BY data_criacao DESC LIMIT ?";
+    public static List<Map<String, String>> getUltimosRegistros(String cidade) throws SQLException {
+
         List<Map<String, String>> registros = new ArrayList<>();
 
-        try (Connection connection = DbUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, quantidade);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Map<String, String> registro = new LinkedHashMap<>();
-                // Supondo que sua tabela tenha as colunas 'id', 'nome', 'descricao', 'data_criacao'
-                registro.put("id", resultSet.getString("id"));
-                registro.put("nome", resultSet.getString("nome"));
-                registro.put("descricao", resultSet.getString("descricao"));
-                registro.put("data_criacao", resultSet.getString("data_criacao"));
-                registros.add(registro);
+        String condition = "('";
+        List<Registro> allEntries = new ArrayList<>();
+        List<Arquivo> arquivoId = getArquivoCidade(cidade);
+        int var = 0;
+        for (Arquivo arquivo : arquivoId) {
+            condition += arquivo.getIdArquivo();
+            condition += "'";
+            if (arquivoId.size()-1!= var) {
+                condition += (",");
             }
+            var++;
+        }
+        condition += ")";
+        String sql = "SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ?";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+
+            stmt.setString(1, condition);
+            try (ResultSet resultSet = stmt.executeQuery()) {
+
+
+
+            }
+
+//            while (resultSet.next()) {
+//                Map<String, String> registro = new LinkedHashMap<>();
+//                // Supondo que sua tabela tenha as colunas 'id', 'nome', 'descricao', 'data_criacao'
+//                registro.put("id", resultSet.getString("id"));
+//                registro.put("nome", resultSet.getString("nome"));
+//                registro.put("descricao", resultSet.getString("descricao"));
+//                registro.put("data_criacao", resultSet.getString("data_criacao"));
+//                registros.add(registro);
+//            }
         }
 
         return registros;
@@ -256,5 +274,6 @@ public class DbUtils {
         }
         return registroSus;
     }
+
 
 }
