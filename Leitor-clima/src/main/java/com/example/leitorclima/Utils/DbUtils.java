@@ -19,7 +19,7 @@ public class DbUtils {
 
     public static Connection getConnection() throws SQLException {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "1234");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "D1m2s3l4");
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
@@ -42,16 +42,18 @@ public class DbUtils {
 
     public static void inserirRegistro(List<Map<String, String>> registros) {
         // Batch insert for improved performance
-        String sql = "INSERT INTO registro (indice, idarquivo, data, hora, valor) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO registro (idarquivo, data, hora,indice, valor,suspeito) VALUES (?, ?, ?, ?, ?,?)";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             for (Map<String, String> registro: registros) {
-                stmt.setString(1, registro.get("ind"));
-                stmt.setString(2, registro.get("arc"));
-                stmt.setString(3, registro.get("dta"));
-                stmt.setString(4, registro.get("hra"));
+
+                stmt.setString(1, registro.get("arc"));
+                stmt.setString(2, registro.get("dta"));
+                stmt.setString(3, registro.get("hra"));
+                stmt.setString(4, registro.get("ind"));
                 stmt.setString(5, registro.get("vla"));
+                stmt.setString(6, registro.get("sus"));
 
                 // Add each record to the batch
                 stmt.addBatch();

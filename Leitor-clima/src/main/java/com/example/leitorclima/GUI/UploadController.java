@@ -81,6 +81,7 @@ public class UploadController implements Initializable {
         String vla = null;
         String ind = null;
         String arc = null;
+        String sus = null;
         ArrayList<Map<String, String>> rows;
         List<Map<String, String>> registros = new ArrayList<>();
         String[] indices;
@@ -150,6 +151,11 @@ public class UploadController implements Initializable {
                                 } else {
                                     vla = "";
                                 }
+                                if (vla.isEmpty()) {
+                                    sus = "1";
+                                }else{
+                                    sus = "0";
+                                }
 
                                 if (indices[z].contains("Max")) {
                                     int str = indices[z].indexOf("Max");
@@ -159,6 +165,12 @@ public class UploadController implements Initializable {
                                 z++;
                             } else {
                                 vla = mapa.values().toArray(new String[0])[z].replace(",", ".");
+                                    if(vla.isEmpty()){
+                                        sus = "1";
+                                    } else{
+                                        sus = "0";
+                                    }
+
                                 ind = indices[z];
                                  // Incrementa z após acessar o elemento
                             }
@@ -168,13 +180,20 @@ public class UploadController implements Initializable {
                         hra = mapa.values().toArray(new String[0])[1];
                         arc = nomeArquivo;
                         vla = mapa.values().toArray(new String[0])[z].replace(",", ".");
+                        if(vla.isEmpty()){
+                            sus = "1";
+                        }else{
+                            sus = "0";
+                        }
                         ind = indices[z];
                     }
-                    registro.put("ind", ind);
+                    
                     registro.put("arc", arc);
                     registro.put("dta", dta);
                     registro.put("hra", hra);
+                    registro.put("ind", ind);
                     registro.put("vla", vla);
+                    registro.put("sus", sus);
                     registros.add(registro);
 
                 }
