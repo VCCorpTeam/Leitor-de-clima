@@ -26,15 +26,15 @@ public class FormsRelatorioController implements Initializable {
 
     //COMPONENTES RELATÓRIO MÉDIA
     @FXML
-    private ComboBox<String> cbCidade;
+    private ComboBox<String> cbCidadeMed;
     @FXML
-    private DatePicker dpDataInicio;
+    private DatePicker dpDataInicioMed;
     @FXML
-    private DatePicker dpDataFim;
+    private DatePicker dpDataFimMed;
     @FXML
-    private Button btnGeraRelatorio;
+    private Button btnGeraRelatorioMed;
     @FXML
-    private Button btnVoltaMenu;
+    private Button btnVoltaMenuMed;
     private List<String> listaCidade;
 
     //COMPONENTES RELATÓRIO SITUACIONAL
@@ -42,27 +42,33 @@ public class FormsRelatorioController implements Initializable {
 
 
     //COMPONENTES RELATÓRIO BOXPLOT
-
+    @FXML
+    private ComboBox<String> cbEstacaoBox;
+    @FXML
+    private ComboBox<String> dpDataBox;
+    @FXML
+    private Button btnGeraRelatorioBox;
+    @FXML
+    private Button btnVoltaMenuBox;
 
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         //INICIALIZA RELATÓRIO MÉDIA
 
-        btnGeraRelatorio.setOnMouseClicked((MouseEvent mouse) -> {
+        btnGeraRelatorioMed.setOnMouseClicked((MouseEvent mouse) -> {
             if (mouse.getClickCount() == 1)
-                geraRelatorio();
+                geraRelatorioMed();
         });
 
-        btnVoltaMenu.setOnMouseClicked((MouseEvent mouse) -> {
+        btnVoltaMenuMed.setOnMouseClicked((MouseEvent mouse) -> {
             if (mouse.getClickCount() == 1)
-                voltaMenu();
+                voltaMenuMed();
         });
 
         listaCidade = geraCidadeComboBox();
-        listaDado = geraDadoComboBox();
 
-        cbCidade.getItems().addAll(listaCidade);
+        cbCidadeMed.getItems().addAll(listaCidade);
 
         //INICIALIZA RELATÓRIO SITUACIONAL
 
@@ -74,19 +80,19 @@ public class FormsRelatorioController implements Initializable {
     }
 
     //GERA RELATORIO MÉDIA
-    private void geraRelatorio() {
-        String cidade = cbCidade.getValue();
-        String dataInicio = String.valueOf(dpDataInicio.getValue());
-        String dataFim = String.valueOf(dpDataFim.getValue());
+    private void geraRelatorioMed() {
+        String cidade = cbCidadeMed.getValue();
+        String dataInicio = String.valueOf(dpDataInicioMed.getValue());
+        String dataFim = String.valueOf(dpDataFimMed.getValue());
 
         geraRelatorioMedia(cidade,dataInicio,dataFim);
     }
 
-    private void voltaMenu() {
+    private void voltaMenuMed() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
             Scene scene = new Scene(root);
-            Stage stage = (Stage) btnVoltaMenu.getScene().getWindow();
+            Stage stage = (Stage) btnVoltaMenuMed.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
