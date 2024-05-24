@@ -25,9 +25,9 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="dpDataInicio" layoutX="229.0" layoutY="156.0" />
-                  <DatePicker fx:id="dpDataFim" layoutX="229.0" layoutY="209.0" />
-                  <ComboBox fx:id="cbCidade" layoutX="229.0" layoutY="100.0" prefWidth="150.0" />
+                  <DatePicker fx:id="dpDataInicioMed" layoutX="229.0" layoutY="156.0" />
+                  <DatePicker fx:id="dpDataFimMed" layoutX="229.0" layoutY="209.0" />
+                  <ComboBox fx:id="cbCidadeMed" layoutX="229.0" layoutY="100.0" prefWidth="150.0" />
                   <Button fx:id="btnGeraRelatorio" layoutX="107.0" layoutY="271.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Gerar Relatório">
                      <font>
                         <Font size="16.0" />
@@ -68,7 +68,29 @@
       <Tab closable="false" text="Boxplot">
          <content>
             <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to top left, #ac66cb, #1b2541);">
-               <!-- ainda está vazia.. -->
+               <children>
+                  <Label layoutX="107.0" layoutY="97.0" text="Estação" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cbEstacaoBox" layoutX="229.0" layoutY="100.0" prefWidth="150.0" />
+                  <Button fx:id="btnGerarRelatorioBox" layoutX="107.0" layoutY="271.0" prefHeight="35.0" prefWidth="150.0" text="Gerar Relatório">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Button>
+                  <Button fx:id="btnVoltaMenuBox" layoutX="328.0" layoutY="271.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Voltar ao Menu">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="107.0" layoutY="156.0" text="Data" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dpDataBox" layoutX="229.0" layoutY="159.0" prefHeight="25.0" prefWidth="152.0" />
+               </children>
             </AnchorPane>
          </content>
       </Tab>

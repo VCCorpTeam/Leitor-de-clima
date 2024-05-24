@@ -24,8 +24,7 @@ import static com.example.leitorclima.Utils.GeraRelatorioMediaUtil.geraRelatorio
 
 public class FormsRelatorioController implements Initializable {
 
-//    @FXML
-//    private ComboBox<String> cbDado;
+    //COMPONENTES RELATÓRIO MÉDIA
     @FXML
     private ComboBox<String> cbCidade;
     @FXML
@@ -37,11 +36,19 @@ public class FormsRelatorioController implements Initializable {
     @FXML
     private Button btnVoltaMenu;
     private List<String> listaCidade;
-    private List<String> listaDado;
+
+    //COMPONENTES RELATÓRIO SITUACIONAL
+
+
+
+    //COMPONENTES RELATÓRIO BOXPLOT
+
 
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        //INICIALIZA RELATÓRIO MÉDIA
+
         btnGeraRelatorio.setOnMouseClicked((MouseEvent mouse) -> {
             if (mouse.getClickCount() == 1)
                 geraRelatorio();
@@ -56,9 +63,17 @@ public class FormsRelatorioController implements Initializable {
         listaDado = geraDadoComboBox();
 
         cbCidade.getItems().addAll(listaCidade);
-//        cbDado.getItems().addAll(listaDado);
+
+        //INICIALIZA RELATÓRIO SITUACIONAL
+
+
+
+        //INICIALIZA RELATÓRIO BOXPLOT
+
+
     }
 
+    //GERA RELATORIO MÉDIA
     private void geraRelatorio() {
         String cidade = cbCidade.getValue();
         String dataInicio = String.valueOf(dpDataInicio.getValue());
@@ -78,4 +93,10 @@ public class FormsRelatorioController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    //GERA RELATORIO SITUACIONAL
+
+
+
+    //GERA RELATORIO BOXPLOT
 }
