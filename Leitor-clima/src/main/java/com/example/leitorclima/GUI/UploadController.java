@@ -3,6 +3,7 @@ package com.example.leitorclima.GUI;
 import com.example.leitorclima.Models.CSV;
 import com.example.leitorclima.Models.Line;
 import com.example.leitorclima.Utils.DbUtils;
+import com.example.leitorclima.Utils.FileUploadManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,6 +31,7 @@ import static com.example.leitorclima.Utils.FormataDataUtil.formataData;
 
 public class UploadController implements Initializable {
     public static String path;
+    private FileUploadManager fileUploadManager = new FileUploadManager(); // Instância de FileUploadManager
     public Label selectTextField;
     @FXML
     private TextField txtPathFile;
@@ -78,8 +80,16 @@ public class UploadController implements Initializable {
     }
 
     public void uploadFile() {
+        String fileName = new File(path).getName();
+
+        // Verifica se o arquivo já foi carregado
+        if (fileUploadManager.hasFileBeenUploaded(fileName)) {
+            fileUploadManager.showAlreadyUploadedPopup();
+            return;
+        }
+
         progressIndicator.setVisible(true);
-        
+
         new Thread(() -> {
             String line = "";
             String dta = null;
@@ -201,6 +211,8 @@ public class UploadController implements Initializable {
 
                 }
                 inserirRegistro(registros);
+                // Adiciona o arquivo à lista de arquivos carregados
+                fileUploadManager.addUploadedFile(fileName);
                 javafx.application.Platform.runLater(() -> {
                     progressIndicator.setVisible(false);
                     UploadCompleto();
