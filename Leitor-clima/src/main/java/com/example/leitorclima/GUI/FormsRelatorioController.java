@@ -39,6 +39,14 @@ public class FormsRelatorioController implements Initializable {
 
     //COMPONENTES RELATÓRIO SITUACIONAL
 
+    @FXML
+    private ComboBox<String> cbCidadeSit;
+    @FXML
+    private Button btnGeraRelatorioSit;
+    @FXML
+    private Button btnVoltaMenuSit;
+
+
 
 
     //COMPONENTES RELATÓRIO BOXPLOT
@@ -72,7 +80,7 @@ public class FormsRelatorioController implements Initializable {
 
         //INICIALIZA RELATÓRIO SITUACIONAL
 
-
+        cbCidadeSit.getItems().addAll(listaCidade);
 
         //INICIALIZA RELATÓRIO BOXPLOT
 
@@ -102,6 +110,22 @@ public class FormsRelatorioController implements Initializable {
 
     //GERA RELATORIO SITUACIONAL
 
+ @FXML
+    private void geraRelatorioSit() {
+        String cidade = cbCidadeSit.getValue();
+    }
+ @FXML
+    private void voltaMenuSit() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnVoltaMenuSit.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     //GERA RELATORIO BOXPLOT

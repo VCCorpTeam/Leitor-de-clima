@@ -51,12 +51,12 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cbCidade1" layoutX="229.0" layoutY="100.0" prefWidth="150.0" />
-                  <Button fx:id="btnGerarRelatorio" layoutX="107.0" layoutY="271.0" prefHeight="35.0" prefWidth="150.0" text="Gerar Relatório">
+                  <ComboBox fx:id="cbCidadeSit" layoutX="229.0" layoutY="100.0" prefWidth="150.0" />
+                  <Button fx:id="btnGeraRelatorioSit" layoutX="107.0" layoutY="271.0" onAction="#geraRelatorioSit" prefHeight="35.0" prefWidth="150.0" text="Gerar Relatório">
                      <font>
                         <Font size="16.0" />
                      </font></Button>
-                  <Button fx:id="btnVoltaMenu1" layoutX="328.0" layoutY="271.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Voltar ao Menu">
+                  <Button fx:id="btnVoltaMenuSit" layoutX="328.0" layoutY="271.0" mnemonicParsing="false" onAction="#voltaMenuSit" prefHeight="35.0" prefWidth="150.0" text="Voltar ao Menu">
                      <font>
                         <Font size="16.0" />
                      </font>
