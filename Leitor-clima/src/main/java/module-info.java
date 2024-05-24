@@ -7,6 +7,7 @@ module com.example.leitorclima {
     requires java.sql;
     requires kernel;
     requires layout;
+    requires java.desktop;
 
     opens com.example.leitorclima to javafx.fxml;
     opens com.example.leitorclima.Models to javafx.base;
