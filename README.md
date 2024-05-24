@@ -1,15 +1,15 @@
-<div align = center>
-   <img src= "https://github.com/VCCorpTeam/Leitor-de-clima/assets/119015786/44e1f9c1-8c06-4124-8ac7-385e77cc95d6" width = 300px/>
-</div>
-<p align="center">
-   <a href="#sobre-o-projeto">Sobre o projeto</a> • 
-   <a href="#calendario-sprints">Calendário Sprints</a> • 
-   <a href="#product-backlog">Product Backlog</a> •
-   <a href="#user-stories">User Stories</a> •
-   <a href="#tecnologias">Tecnologias</a> •
-   <a href="#ferramentas">Ferramentas</a> •
-   <a href="#integrantes">Integrantes</a>
-</p>
+# <h1 align="center"> VCCorp 🐕​ </h1>
+
+<h2 align="center"> Sumário </h2>
+  <p align="center">
+     <a href ="#sobre-o-projeto">Sobre o projeto</a>  • 
+     <a href ="#calendario-sprints">Calendário Sprints</a>  • 
+     <a href ="#product-backlog">Product Backlog</a>  •
+     <a href ="#user-stories">User Stories</a>  •
+     <a href ="#tecnologias">Tecnologias</a>  •
+     <a href ="#ferramentas">Ferramentas</a>  •
+     <a href ="#integrantes">Integrantes</a>
+   </p>
 
 <span id="Sobre nós">
 
@@ -20,7 +20,7 @@
 <br>2º.Pois a tecnologia tem limitações, e nem sempre as condições estão a nosso favor, é preciso saber se virar!"</br></i>
 
 # <h2>Sobre o projeto 💬</h2>
-Este projeto tem como objetivo criar um sistema, utilizando a linguagem Java e Banco de Dados SQL, para ler e interpretar arquivos CSV com dados climáticos de diversas cidades e regiões do estado de São Paulo. A partir desses dados, o sistema gerará relatórios, data e hora, situacional e boxplot, detalhados sobre temperaturas, umidades, precipitações, entre outros. Além disso, o usuário terá a liberdade de definir os parâmetros dos dados e decidir como lidar com os dados considerados "suspeitos". Tudo isso com uma boa perfomance do Java e o uso bem feito do JavaFX, recurso gráfico do prórpio Java
+Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem Java e o uso de Banco de Dados SQL, criar um sistema que leia e interprete arquivos CSV com dados climáticos de certas cidades e regiões do estado de São Paulo e elaborar relatórios em texto sobre as médias das temperaturas, umidades, quantidade de chuva, etc... Além disso, serão feitos gráficos boxplot desses relatórios finais para uma abordagem mais visual dos dados.
 
 # <h2>Calendário Sprints 🗓️</h2>
 
@@ -36,7 +36,6 @@ Este projeto tem como objetivo criar um sistema, utilizando a linguagem Java e B
 ## :pushpin: Product Backlog
 
 <details>
-  <summary>BACKLOG DO PRODUTO</summary>
 
 | Prioridade | Função                                             | Descrição                                                                                                          |
 |------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------| 
@@ -54,67 +53,71 @@ Este projeto tem como objetivo criar um sistema, utilizando a linguagem Java e B
 | 12         | Ajustes e Melhorias                               | Realizar ajustes finais e melhorias de usabilidade com base no feedback do usuário.                                 |
 | 13         | Documentação                                      | Preparar a documentação do sistema, incluindo manuais de usuário e desenvolvedor.                                   |
 
-
-
-
-
 </details>
 
-
-
 <details>
-  <summary> GUIA DE INSTALAÇÃO </summary>
+  <summary>User stories</summary>
 
-VEJA NA INTEGRA NA PASTA DOCUMENTOS:
-https://github.com/VCCorpTeam/Leitor-de-clima/blob/sprint-4/Documenta%C3%A7%C3%A3o/GUIA%20DE%20INSTALA%C3%87%C3%83O%20.pdf
+________________________________________________________________________________________________________________________________________________
 
-<ol>
-  <li>Baixe esse arquivo .rar:</li>
-  <li>Descompacte o arquivo</li>
-  <li>Abra o MySQL Workbench</li>
-  <li>*O MySQL deve ter sido configurado com a senha '1234'</li>
-  <li>Insira a senha '1234'</li>
-  <li>Clique em File</li>
-  <li>Clique em Open SQL Script</li>
-  <li>Selecione o arquivo DDL.sql</li>
-  <li>Clique no símbolo do raio</li>
-  <li>Agora é só clicar no arquivo executável .jar na pasta, dentro de:
-      <ul>
-        <li>Out\artifacts\Leitor_Clima_jar</li>
-      </ul>
-  </li>
-</ol>
-</details>
+• Titulo: Upload de arquivo CSV
 
+• Problema: Os dados climáticos, essenciais para diversas análises e tomadas de decisão, estão atualmente dispersos em diferentes arquivos CSV, um para cada estação de monitoramento em uma cidade. No entanto, esses arquivos podem conter formatos variados e valores incorretos, o que compromete a confiabilidade das informações.
 
+• Requisito: "Carregamento e validação de arquivos CSV contendo variáveis climáticas. [...] Cada arquivo possui registros de apenas uma estação (referenciada no nome do arquivo). Cada registro apresenta valores para todas as variáveis, mas elas devem ser armazenadas separadamente (um registro para temperatura, outro para umidade, etc, em vez de um único registro contendo temperatura, umidade, etc);"
 
+• Descrição no formato: Como pesquisador, desejo uma solução que me permita carregar e validar os arquivos CSV com dados climáticos. Isso garantirá que tenhamos acesso a informações precisas sobre o clima em nossa área de estudo, facilitando nossas análises e decisões, descartando a necessidade de ter de abrir vários arquivos e ganhando tempo.
 
-<span id="user-stories">
+• Checklist para concluir demanda
+  - A funcionalidade de carregamento e validação de arquivos CSV está implementada e funcional no sistema.
+  - Os arquivos CSV são carregados corretamente, e os registros são validados para garantir sua integridade.
+  - Cada variável climática é armazenada separadamente, conforme especificado nos requisitos.
+  - Um sistema de feedback é fornecido para alertar sobre possíveis erros nos arquivos carregados.
+________________________________________________________________________________________________________________________________________________
 
-<details>
-  <summary>O QUE ENTREGAREMOS NA SPRINT 3</summary>
+• Titulo: Tratamento de registros suspeitos
 
-1. Relatório Situacional
+• Problema: Atualmente, os dados sobre o clima em uma mesma cidade são armazenados em diversos arquivos, um para cada estação de monitoramento. Esses arquivos podem ter formatos diferentes e conter valores incorretos devido a enganos humanos ou problemas na coleta automática, por tanto é preciso uma maneira de lidar com registros suspeitos.
 
-Problema:
-A necessidade de um relatório que apresente os valores médios das últimas medidas para cada cidade, facilitando o monitoramento e a comparação das condições climáticas em diferentes localidades.
+• Requisito: "Tratamento de registros suspeitos, que permita exclusão ou revisão. Deve ser possível alterar os valores e passá-los à base de dados principal ou excluí-los. [...] Registros suspeitos (exemplo: registro com temperatura acima de 60 graus Celsius ou inferior a -20 graus Celsius) devem ser armazenados a parte para revisão manual."
 
-Requisito:
-Relatório que apresente os valores médios das últimas medidas para cada cidade, ajudando na visualização e comparação das condições climáticas.
+• Descrição no formato: Como pesquisador, quero ter a capacidade de corrigir ou excluir informações suspeitas nos registros de dados climáticos. Isso garantirá que tenhamos informações precisas sobre o clima em nossa região de estudo, facilitando nossa análise e tomada de decisões.
 
-Descrição no formato:
-Como pesquisador, desejo um relatório de situação que apresente os valores médios das últimas medidas para cada cidade, para que eu possa monitorar e comparar facilmente as condições climáticas em diferentes localidades.
+• Checklist para concluir demanda
+  - Os registros suspeitos são facilmente identificados e acessíveis para o pesquisador.
+  - O sistema permite que o pesquisador revise e corrija os registros suspeitos conforme necessário.
+  - As alterações feitas nos registros suspeitos são devidamente salvas, assegurando a precisão dos dados.
+________________________________________________________________________________________________________________________________________________
 
-Checklist para concluir a demanda:
+• Titulo: Relatório situacional - Por cidade - Instantâneo
 
-O relatório deve apresentar os valores médios das últimas medidas para cada cidade.
-A interface do usuário deve permitir a seleção fácil de cidades para visualização do relatório.
-O relatório deve ser atualizado regularmente com as últimas medidas disponíveis
+• Problema: A ausência de um relatório de situação que apresente os valores médios das últimas medidas para cada cidade compromete a tomada de decisões baseadas nas condições climáticas atuais.
 
+• Requisito: Relatório de situação, apresentando os valores médios das últimas medidas para cada cidade.
 
+• Descrição no formato: Como pesquisador, desejo um relatório de situação que apresente os valores médios das últimas medidas para cada cidade. Isso permitirá um rápido entendimento das condições climáticas atuais em diferentes localidades, facilitando o planejamento de atividades e a tomada de decisões baseadas nas condições climáticas mais recentes.
 
-2 - relatorio boxplot
-    Titulo: Relatório de elementos bloxplot
+• Checklist para concluir demanda
+  - A funcionalidade de geração de relatórios de situação está pronta e funcional no sistema.
+  - Os relatórios de situação apresentam os valores médios das últimas medidas.
+  - O programa permite a seleção de cidades para visualização dos relatórios de situação.
+________________________________________________________________________________________________________________________________________________
+
+• Titulo: Relatório médio - Por cidade - Por período
+
+• Problema: A falta de um relatório que calcule os elementos para plotar um gráfico boxplot impede uma análise estatística detalhada das variáveis climáticas de uma estação em uma determinada data. Isso limita a compreensão das distribuições e variações dos dados climáticos, essenciais para estudos aprofundados e decisões baseadas em dados.
+
+• Requisito: Descrição: Relatório de valor médio das variáveis climáticas por cidade. Deve ser possível escolher uma cidade e um período de tempo. O relatório deve ter periodicidade horária (um registro a cada hora).
+
+• Descrição no formato: Como pesquisador, desejo um relatório de valor médio das variáveis climáticas por cidade e por período de tempo, com periodicidade horária. Isso permitirá uma análise detalhada e precisa das condições climáticas em diferentes períodos, facilitando o planejamento e a tomada de decisões informadas baseadas em dados históricos e atuais.
+
+• Checklist para concluir demanda
+  - A funcionalidade de geração de relatórios de valor médio das variáveis climáticas por cidade está pronta e funcional no sistema.
+  - Os relatórios permitem a seleção de uma cidade e um período de tempo específico.
+  - Os relatórios apresentam os valores médios das variáveis climáticas com periodicidade horária (um registro a cada hora).
+________________________________________________________________________________________________________________________________________________
+
+• Titulo: Relatório de elementos bloxplot
 
 • Problema: A falta de um relatório que calcule os elementos para plotar um gráfico boxplot impede uma análise estatística detalhada das variáveis climáticas de uma estação em uma determinada data. Isso limita a compreensão das distribuições e variações dos dados climáticos, essenciais para estudos aprofundados e decisões baseadas em dados.
 
@@ -127,126 +130,9 @@ O relatório deve ser atualizado regularmente com as últimas medidas disponíve
   - Os relatórios calculam e apresentam os elementos necessários para plotar um gráfico boxplot (mínimo, primeiro quartil, mediana, terceiro quartil e máximo).
   - A interface do usuário permite a seleção fácil de estações e datas para visualização dos relatórios de boxplot.
 
-3 - tela de definiçao de parametros E 4 - tela de dados suspeitos:
-
-• Problema: Atualmente, os dados sobre o clima em uma mesma cidade são armazenados em diversos arquivos, um para cada estação de monitoramento. Esses arquivos podem ter formatos diferentes e conter valores incorretos devido a enganos humanos ou problemas na coleta automática, por tanto é preciso uma maneira de lidar com registros suspeitos.
-
-• Requisito: "Tratamento de registros suspeitos, que permita exclusão ou revisão. Deve ser possível 
-alterar os valores e passá-los à base de dados principal ou excluí-los. [...] . Registros suspeitos (exemplo: registro com temperatura acima de 60 graus Celsius ou inferior a -20  graus Celsius) devem ser armazenados a parte para revisão manual."
-
-
-• Descrição no formato: Como pesquisador, quero ter a capacidade de corrigir ou excluir informações suspeitas nos registros de dados climáticos. Isso garantirá que tenhamos informações precisas sobre o clima em nossa região de estudo, facilitando nossa análise e tomada de decisões.
-
-• Checklist para concluir demanda
-   - Os registros suspeitos são facilmente identificados e acessíveis para o pesquisador.
-   - O sistema permite que o pesquisador revise e corrija os registros suspeitos conforme necessário.
-   - As alterações feitas nos registros suspeitos são devidamente salvas, assegurando a precisão dos dados.
-----
-
-• Problema: Atualmente, os dados sobre o clima em uma mesma cidade são armazenados em diversos arquivos, um para cada estação de monitoramento. Esses arquivos podem ter formatos diferentes e conter valores incorretos devido a enganos humanos ou problemas na coleta automática, por tanto é preciso uma maneira de lidar com registros suspeitos.
-
-• Requisito: "Tratamento de registros suspeitos, que permita exclusão ou revisão. Deve ser possível 
-alterar os valores e passá-los à base de dados principal ou excluí-los. [...] . Registros suspeitos (exemplo: registro com temperatura acima de 60 graus Celsius ou inferior a -20  graus Celsius) devem ser armazenados a parte para revisão manual."
-
-• Descrição no formato: Como pesquisador, quero ter a capacidade de corrigir ou excluir informações suspeitas nos registros de dados climáticos. Isso garantirá que tenhamos informações precisas sobre o clima em nossa região de estudo, facilitando nossa análise e tomada de decisões.
-
-• Checklist para concluir demanda
-   - Os registros suspeitos são facilmente identificados e acessíveis para o pesquisador.
-   - O sistema permite que o pesquisador revise e corrija os registros suspeitos conforme necessário.
-   - As alterações feitas nos registros suspeitos são devidamente salvas, assegurando a precisão dos dados.
-
-5 - exportaçao csv no situacional e boxplot
-Problema:
-A falta de uma funcionalidade que permita a exportação de relatórios em formato CSV dificulta a análise e o compartilhamento dos dados climáticos para estudos e apresentações mais aprofundadas.
-
-Requisito:
-Funcionalidade que permita a exportação de relatórios em formato CSV, facilitando a análise e o compartilhamento dos dados climáticos.
-
-Descrição no formato:
-Como pesquisador, desejo uma funcionalidade que permita a exportação dos relatórios em formato CSV, para que eu possa analisar e compartilhar os dados climáticos de forma mais eficiente e detalhada.
-
-Checklist para concluir a demanda:
-
-A interface do usuário deve permitir a exportação de relatórios em formato CSV.
-Os relatórios exportados em CSV devem conter todos os dados apresentados no relatório original.
-A funcionalidade de exportação deve ser fácil de usar e acessível a partir da visualização dos relatórios.
-
-
 </details>
 
 
-<details>
-  <summary>O QUE ENTREGAREMOS NA SPRINT 4</summary>
-
-1 - Relatório de Valor Médio das Variáveis Climáticas por Cidade
-Problema:
-A ausência de um relatório detalhado de valor médio das variáveis climáticas por cidade, com periodicidade horária, dificulta a análise precisa das condições climáticas ao longo do tempo.
-
-Requisito:
-Relatório de valor médio das variáveis climáticas por cidade, que permita escolher uma cidade e um período de tempo específico, apresentando dados com periodicidade horária (um registro a cada hora).
-
-Descrição no formato:
-Como pesquisador, desejo um relatório de valor médio das variáveis climáticas por cidade, que permita a escolha de uma cidade e de um período de tempo específico, com dados apresentados a cada hora. Isso permitirá uma análise detalhada e precisa das condições climáticas ao longo do tempo, facilitando estudos e tomadas de decisão.
-
-Checklist para concluir a demanda:
-
-O relatório deve permitir a escolha de uma cidade específica.
-O relatório deve permitir a seleção de um período de tempo específico.
-O relatório deve apresentar dados climáticos médios com periodicidade horária (um registro a cada hora).
-A interface do usuário deve ser intuitiva e permitir a seleção fácil de cidades e períodos de tempo.
-
-2 - Manual do Usuário
-Problema:
-A ausência de um manual do usuário detalhado dificulta a compreensão e utilização das funcionalidades do sistema pelos usuários finais.
-
-Requisito:
-Manual do usuário que descreva detalhadamente todas as funcionalidades do sistema, incluindo instruções de uso e exemplos práticos.
-
-Descrição no formato:
-Como usuário, desejo um manual detalhado que explique todas as funcionalidades do sistema, para que eu possa utilizar o sistema de forma eficiente e aproveitar ao máximo suas capacidades.
-
-Checklist para concluir a demanda:
-
-O manual deve cobrir todas as funcionalidades do sistema.
-O manual deve incluir instruções claras e exemplos práticos.
-O manual deve ser fácil de acessar e navegar.
-
-
-3 - Diagrama Entidade-Relacionamento
-Problema:
-A falta de um diagrama entidade-relacionamento claro dificulta a compreensão da estrutura e das relações do banco de dados.
-
-Requisito:
-Diagrama entidade-relacionamento que represente claramente a estrutura e as relações do banco de dados.
-
-Descrição no formato:
-Como desenvolvedor, desejo um diagrama entidade-relacionamento que represente claramente a estrutura e as relações do banco de dados, para que eu possa entender melhor a arquitetura do sistema e realizar manutenções e expansões de forma eficiente.
-
-Checklist para concluir a demanda:
-
-O diagrama deve representar todas as entidades e suas relações.
-O diagrama deve ser claro e fácil de entender.
-O diagrama deve estar atualizado com a versão atual do banco de dados.
-Instruções de Instalação
-Problema:
-A ausência de instruções de instalação claras dificulta a configuração e implementação do sistema por novos usuários e administradores.
-
-Requisito:
-Instruções de instalação que detalhem passo a passo o processo de configuração e implementação do sistema.
-
-Descrição no formato:
-Como administrador, desejo instruções de instalação claras e detalhadas, para que eu possa configurar e implementar o sistema sem dificuldades.
-
-Checklist para concluir a demanda:
-
-As instruções devem cobrir todos os passos necessários para a instalação do sistema.
-As instruções devem incluir pré-requisitos e possíveis soluções para problemas comuns.
-As instruções devem ser fáceis de seguir e entender.
-
-
-
-
-</details>
 
 
 ## 🖥️Tecnologias:
