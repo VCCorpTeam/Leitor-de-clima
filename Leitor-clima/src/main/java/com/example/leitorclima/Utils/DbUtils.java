@@ -68,7 +68,7 @@ public class DbUtils {
     }
 
     public static void alteraArquivo(String valor, String data, String hora, String indice){
-        String sql = "UPDATE registro SET valor = ? WHERE data = ? AND hora = ? AND indice = ?";
+        String sql = "UPDATE registro SET valor = ?, suspeito = '0' WHERE data = ? AND hora = ? AND indice = ?";
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, valor);
             stmt.setString(2, data);
@@ -250,8 +250,8 @@ public class DbUtils {
         return registros;
     }
 
-    public static ObservableList<Registro> getListaRegistroSus(String arquivo) {
-        ObservableList<Registro> registroSus = null;
+    public static List<Registro> getListaRegistroSus(String arquivo) {
+        List<Registro> registroSus = new ArrayList<>();
         String sql = "select * from registro where idArquivo = ? and suspeito = 1";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -268,7 +268,6 @@ public class DbUtils {
                     registroSus.add(suspeito);
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
