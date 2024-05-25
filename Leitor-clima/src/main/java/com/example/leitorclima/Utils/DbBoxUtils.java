@@ -41,16 +41,15 @@ public class DbBoxUtils {
         int var = 0;
         for (String nomeArquivo : listaArquivo) {
             condition += nomeArquivo;
-            condition += "'";
             if (listaArquivo.size() - 1 != var) {
                 condition += (",");
             }
             var++;
         }
 
-        String sql = "SELECT idArquivo,data,hora,indice,valor FROM registro where idArquivo in ( ? ) and data = ? and indice = ? ";
+        String sql = "SELECT idArquivo,data,hora,indice,valor FROM registro where idArquivo in ( ? ) and data = ? and indice = ? and suspeito = 0 ";
 
-        List<Registro> listaDados = null;
+        List<Registro> listaDados = new ArrayList<>();
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, condition);
