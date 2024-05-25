@@ -46,14 +46,11 @@ public class FormsRelatorioController implements Initializable {
     @FXML
     private Button btnVoltaMenuSit;
 
-
-
-
     //COMPONENTES RELATÓRIO BOXPLOT
     @FXML
     private ComboBox<String> cbEstacaoBox;
     @FXML
-    private ComboBox<String> dpDataBox;
+    private DatePicker dpDataBox;
     @FXML
     private Button btnGeraRelatorioBox;
     @FXML
@@ -110,11 +107,11 @@ public class FormsRelatorioController implements Initializable {
 
     //GERA RELATORIO SITUACIONAL
 
- @FXML
+    @FXML
     private void geraRelatorioSit() {
         String cidade = cbCidadeSit.getValue();
     }
- @FXML
+    @FXML
     private void voltaMenuSit() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
