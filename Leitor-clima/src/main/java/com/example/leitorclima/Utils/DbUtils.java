@@ -208,8 +208,8 @@ public class DbUtils {
         return listaArquivos;
     }
 
-    public static List<Map<String, String>> getUltimosRegistros(String cidade) throws SQLException {
 
+    public static List<Map<String, String>> getUltimosRegistros(String cidade) throws SQLException {
         List<Map<String, String>> registros = new ArrayList<>();
 
         String condition = "('";
@@ -225,11 +225,12 @@ public class DbUtils {
             var++;
         }
         condition += ")";
-        String sql = "SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ?";
+        String sql = "SELECT * FROM (SELECT * FROM Registro WHERE (suspeito <> 1) AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? )) AS v WHERE Hora = (SELECT MAX(Hora) FROM Registro WHERE (suspeito <> 1) AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? ))";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
             stmt.setString(1, condition);
+            stmt.setString(2, condition);
             try (ResultSet resultSet = stmt.executeQuery()) {
 
 
