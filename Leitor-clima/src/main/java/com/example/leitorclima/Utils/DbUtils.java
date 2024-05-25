@@ -42,7 +42,7 @@ public class DbUtils {
 
     public static void inserirRegistro(List<Map<String, String>> registros) {
         // Batch insert for improved performance
-        String sql = "INSERT INTO registro (idarquivo, data, hora,indice, valor,suspeito) VALUES (?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO registro (idarquivo, dia, hora,indice, valor,suspeito) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
@@ -68,7 +68,7 @@ public class DbUtils {
     }
 
     public static void alteraArquivo(String valor, String data, String hora, String indice){
-        String sql = "UPDATE registro SET valor = ? WHERE data = ? AND hora = ? AND indice = ?";
+        String sql = "UPDATE registro SET valor = ?, suspeito = '0' WHERE data = ? AND hora = ? AND indice = ?";
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, valor);
             stmt.setString(2, data);
@@ -208,8 +208,8 @@ public class DbUtils {
         return listaArquivos;
     }
 
-    public static List<Map<String, String>> getUltimosRegistros(String cidade) throws SQLException {
 
+    public static List<Map<String, String>> getUltimosRegistros(String cidade) throws SQLException {
         List<Map<String, String>> registros = new ArrayList<>();
 
         String condition = "('";
@@ -225,11 +225,17 @@ public class DbUtils {
             var++;
         }
         condition += ")";
-        String sql = "SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ?";
+        String sql = "SELECT * FROM " +
+                "(SELECT * FROM Registro WHERE (suspeito <> 1) " +
+                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? )) " +
+                "AS v " +
+                "WHERE Hora = (SELECT MAX(Hora) FROM Registro WHERE (suspeito <> 1) " +
+                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? ))";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
             stmt.setString(1, condition);
+            stmt.setString(2, condition);
             try (ResultSet resultSet = stmt.executeQuery()) {
 
 
@@ -250,8 +256,8 @@ public class DbUtils {
         return registros;
     }
 
-    public static ObservableList<Registro> getListaRegistroSus(String arquivo) {
-        ObservableList<Registro> registroSus = null;
+    public static List<Registro> getListaRegistroSus(String arquivo) {
+        List<Registro> registroSus = new ArrayList<>();
         String sql = "select * from registro where idArquivo = ? and suspeito = 1";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -268,12 +274,61 @@ public class DbUtils {
                     registroSus.add(suspeito);
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return registroSus;
     }
 
+    public static void inserirParametros(List<List<String>> parametros) {
+        String sql = "INSERT INTO parametros(IndiceP, Minimo, Maximo) VALUES (?, ?, ?)";
 
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            for (List<String> parametro : parametros) {
+
+                stmt.setString(1, parametro.get(0));
+                stmt.setString(2, parametro.get(1));
+                stmt.setString(3, parametro.get(2));
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            System.out.println("Dados inseridos com sucesso!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao inserir dados no banco de dados.");
+        }
+    }
+
+    public static List<List<String>> getParametros() {
+        List<List<String>> parametrosR = new ArrayList<>();
+
+        String sql = "SELECT IndiceP, Minimo, Maximo FROM parametros";
+
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String parametro = rs.getString("IndiceP");
+                String valorMin = rs.getString("Maximo");
+                String valorMax = rs.getString("Minimo");
+
+                List<String> parametroList = new ArrayList<>();
+                parametroList.add(parametro);
+                parametroList.add(valorMin);
+                parametroList.add(valorMax);
+
+                parametrosR.add(parametroList);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao recuperar dados do banco de dados.");
+        }
+        return parametrosR;
+    }
 }
+
+

@@ -25,8 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static com.example.leitorclima.Utils.DbUtils.inserirArquivo;
-import static com.example.leitorclima.Utils.DbUtils.inserirRegistro;
+import static com.example.leitorclima.Utils.DbUtils.*;
 import static com.example.leitorclima.Utils.FormataDataUtil.formataData;
 
 public class UploadController implements Initializable {
@@ -140,6 +139,21 @@ public class UploadController implements Initializable {
 
                     i++;
                 }
+                List<List<String>> parametros = new ArrayList<>();
+
+                parametros.add(List.of("Umi", "0", "50"));
+                parametros.add(List.of("Pressao", "0", "50"));
+                parametros.add(List.of("Chuva", "0", "50"));
+                parametros.add(List.of("Temp", "0", "50"));
+                parametros.add(List.of("Pto Orvalho", "0", "50"));
+                parametros.add(List.of("Vel. Vento", "0", "50"));
+                parametros.add(List.of("Radiacao", "0", "50"));
+                parametros.add(List.of("Raj. Vento", "0", "50"));
+                parametros.add(List.of("Insolacao", "0", "50"));
+                parametros.add(List.of("Nebulosidade", "0", "50"));
+                parametros.add(List.of("Dir. Vento", "0", "50"));
+                inserirParametros(parametros);
+                List<List<String>> paramar= DbUtils.getParametros();
                 br.close();
                 Map<String, String> registro;
                 for (int y = 0; y < rows.size(); y++) {
@@ -150,6 +164,7 @@ public class UploadController implements Initializable {
                         dta = formataData(mapa.values().toArray(new String[0])[0]);
                         hra = mapa.values().toArray(new String[0])[1];
                         arc = nomeArquivo;
+
                         if (mapa.size() == 19) {
                             if (z < mapa.size()) {
                                 if (z == 3 || z == 6 || z == 9 || z == 12) {
@@ -163,11 +178,6 @@ public class UploadController implements Initializable {
                                     } else {
                                         vla = "";
                                     }
-                                    if (vla.isEmpty()) {
-                                        sus = "1";
-                                    } else {
-                                        sus = "0";
-                                    }
 
                                     if (indices[z].contains("Max")) {
                                         int str = indices[z].indexOf("Max");
@@ -176,27 +186,37 @@ public class UploadController implements Initializable {
                                     z++;
                                 } else {
                                     vla = mapa.values().toArray(new String[0])[z].replace(",", ".");
-                                    if (vla.isEmpty()) {
-                                        sus = "1";
-                                    } else {
-                                        sus = "0";
-                                    }
-
                                     ind = indices[z];
                                     // Incrementa z após acessar o elemento
                                 }
+
                             }
                         } else if (mapa.size() == 12) {
                             dta = formataData(mapa.values().toArray(new String[0])[0]);
                             hra = mapa.values().toArray(new String[0])[1];
                             arc = nomeArquivo;
                             vla = mapa.values().toArray(new String[0])[z].replace(",", ".");
-                            if (vla.isEmpty()) {
-                                sus = "1";
-                            } else {
-                                sus = "0";
-                            }
                             ind = indices[z];
+                        }
+                        if (vla.isEmpty()) {
+                            sus = "1";
+                        } else {
+                            for (List<String> parametro : paramar) {
+                                String paraind = parametro.get(0);
+
+                                if (ind.contains(paraind)) {
+                                    float min = Float.parseFloat(parametro.get(2));
+                                    float max = Float.parseFloat(parametro.get(1));
+                                    float vlr = Float.parseFloat(vla);
+
+                                    if (vlr < min || vlr > max) {
+                                        sus = "1";
+                                    } else {
+                                        sus = "0";
+                                    }
+                                    break;
+                                }
+                            }
                         }
 
                         registro.put("arc", arc);

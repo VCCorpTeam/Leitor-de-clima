@@ -68,6 +68,12 @@ public class DadosSuspeitosController implements Initializable {
     @FXML
     public void select(){
         tableDadosSus.getItems().clear();
+        if (getListaRegistroSus(cbArquivo.getValue()) == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Dados suspeitos não encontrados");
+            alert.setHeaderText(null);
+            alert.setContentText("Não há dados suspeitos no arquivo selecionado!");
+        }
         tableDadosSus.getItems().addAll(Objects.requireNonNull(getListaRegistroSus(cbArquivo.getValue())));
     }
 
