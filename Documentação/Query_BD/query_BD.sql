@@ -1,7 +1,6 @@
 CREATE database Clima;
 use Clima;
 CREATE TABLE Parametros(
-IdParametros int AUTO_INCREMENT primary key,
 IndiceP varchar(40),
 Maximo int,
 Minimo int

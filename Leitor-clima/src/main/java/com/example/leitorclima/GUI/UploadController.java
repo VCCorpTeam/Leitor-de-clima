@@ -139,20 +139,7 @@ public class UploadController implements Initializable {
 
                     i++;
                 }
-                List<List<String>> parametros = new ArrayList<>();
-
-                parametros.add(List.of("Umi", "0", "50"));
-                parametros.add(List.of("Pressao", "0", "50"));
-                parametros.add(List.of("Chuva", "0", "50"));
-                parametros.add(List.of("Temp", "0", "50"));
-                parametros.add(List.of("Pto Orvalho", "0", "50"));
-                parametros.add(List.of("Vel. Vento", "0", "50"));
-                parametros.add(List.of("Radiacao", "0", "50"));
-                parametros.add(List.of("Raj. Vento", "0", "50"));
-                parametros.add(List.of("Insolacao", "0", "50"));
-                parametros.add(List.of("Nebulosidade", "0", "50"));
-                parametros.add(List.of("Dir. Vento", "0", "50"));
-                inserirParametros(parametros);
+                
                 List<List<String>> paramar= DbUtils.getParametros();
                 br.close();
                 Map<String, String> registro;

@@ -301,7 +301,8 @@ public class DbUtils {
     }
 
     public static void inserirParametros(List<List<String>> parametros) {
-        String sql = "INSERT INTO parametros(IndiceP, Minimo, Maximo) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO parametros(IndiceP, Minimo, Maximo) VALUES (?, ?, ?) " +
+                "ON DUPLICATE KEY UPDATE Minimo = VALUES(Minimo), Maximo = VALUES(Maximo)";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
