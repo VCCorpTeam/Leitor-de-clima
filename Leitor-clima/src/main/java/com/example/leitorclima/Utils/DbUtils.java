@@ -225,7 +225,12 @@ public class DbUtils {
             var++;
         }
         condition += ")";
-        String sql = "SELECT * FROM (SELECT * FROM Registro WHERE (suspeito <> 1) AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? )) AS v WHERE Hora = (SELECT MAX(Hora) FROM Registro WHERE (suspeito <> 1) AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? ))";
+        String sql = "SELECT * FROM " +
+                "(SELECT * FROM Registro WHERE (suspeito <> 1) " +
+                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? )) " +
+                "AS v " +
+                "WHERE Hora = (SELECT MAX(Hora) FROM Registro WHERE (suspeito <> 1) " +
+                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? ))";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
