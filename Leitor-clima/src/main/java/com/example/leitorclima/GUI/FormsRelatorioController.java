@@ -14,7 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static com.example.leitorclima.Utils.DbUtils.*;
@@ -55,6 +58,17 @@ public class FormsRelatorioController implements Initializable {
     private Button btnGeraRelatorioBox;
     @FXML
     private Button btnVoltaMenuBox;
+    private List<String> listaEstacao;
+    private static FormsRelatorioController instance;
+
+    public FormsRelatorioController() {
+        instance = this;
+    }
+
+    public static FormsRelatorioController getInstance() {
+        return instance;
+    }
+
 
 
     @Override
@@ -80,8 +94,8 @@ public class FormsRelatorioController implements Initializable {
         cbCidadeSit.getItems().addAll(listaCidade);
 
         //INICIALIZA RELATÓRIO BOXPLOT
-
-
+        listaEstacao = geraEstacaoComboBox();
+        cbEstacaoBox.getItems().addAll(listaEstacao);
     }
 
     //GERA RELATORIO MÉDIA
@@ -126,4 +140,40 @@ public class FormsRelatorioController implements Initializable {
 
 
     //GERA RELATORIO BOXPLOT
+    @FXML
+    private void geraRelatorioBox() {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/relatorioBox.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnGeraRelatorioBox.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void voltaMenuBox() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnVoltaMenuBox.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static List<String> enviaDados() {
+        FormsRelatorioController controller = FormsRelatorioController.getInstance();
+        List<String> dados = new ArrayList<>();
+        String estacao = controller.cbEstacaoBox.getValue();
+        String data = String.valueOf(controller.dpDataBox.getValue());
+        dados.add(estacao);
+        dados.add(data);
+
+        return dados;
+    }
+
 }

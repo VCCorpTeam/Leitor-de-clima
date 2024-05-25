@@ -42,7 +42,7 @@ public class DbUtils {
 
     public static void inserirRegistro(List<Map<String, String>> registros) {
         // Batch insert for improved performance
-        String sql = "INSERT INTO registro (idarquivo, dia, hora,indice, valor,suspeito) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO registro (idarquivo, data, hora,indice, valor,suspeito) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
@@ -100,6 +100,26 @@ public class DbUtils {
             e.printStackTrace();
         }
         return cidades;
+    }
+
+    public static List<String> geraEstacaoComboBox() {
+        List<String> estacoes = new ArrayList<>();
+        String sql = "SELECT distinct estacao FROM arquivo";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                while (rs.next()) {
+                    String estacao = rs.getString("estacao");
+                    estacoes.add(estacao);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return estacoes;
     }
 
     public static List<String> geraDadoComboBox() {
