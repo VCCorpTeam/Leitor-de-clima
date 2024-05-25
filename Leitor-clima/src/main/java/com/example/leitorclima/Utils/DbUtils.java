@@ -42,7 +42,7 @@ public class DbUtils {
 
     public static void inserirRegistro(List<Map<String, String>> registros) {
         // Batch insert for improved performance
-        String sql = "INSERT INTO registro (idarquivo, data, hora,indice, valor,suspeito) VALUES (?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO registro (idarquivo, dia, hora,indice, valor,suspeito) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
@@ -274,5 +274,55 @@ public class DbUtils {
         return registroSus;
     }
 
+    public static void inserirParametros(List<List<String>> parametros) {
+        String sql = "INSERT INTO parametros(IndiceP, Minimo, Maximo) VALUES (?, ?, ?)";
 
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            for (List<String> parametro : parametros) {
+
+                stmt.setString(1, parametro.get(0));
+                stmt.setString(2, parametro.get(1));
+                stmt.setString(3, parametro.get(2));
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            System.out.println("Dados inseridos com sucesso!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao inserir dados no banco de dados.");
+        }
+    }
+
+    public static List<List<String>> getParametros() {
+        List<List<String>> parametrosR = new ArrayList<>();
+
+        String sql = "SELECT IndiceP, Minimo, Maximo FROM parametros";
+
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String parametro = rs.getString("IndiceP");
+                String valorMin = rs.getString("Maximo");
+                String valorMax = rs.getString("Minimo");
+
+                List<String> parametroList = new ArrayList<>();
+                parametroList.add(parametro);
+                parametroList.add(valorMin);
+                parametroList.add(valorMax);
+
+                parametrosR.add(parametroList);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao recuperar dados do banco de dados.");
+        }
+        return parametrosR;
+    }
 }
+
+
