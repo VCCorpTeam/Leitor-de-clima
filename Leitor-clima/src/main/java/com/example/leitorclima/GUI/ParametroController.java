@@ -4,6 +4,7 @@ import com.example.leitorclima.Utils.DbUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.Node;
@@ -156,6 +157,14 @@ public class ParametroController {
         parametros.add(List.of("Nebulosidade",NebMin.getText(),NebMax.getText() ));
         parametros.add(List.of("Dir. Vento",DirVMin.getText(),DirVMax.getText() ));
         inserirParametros(parametros);
+
+        //Mostrar popup
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Parâmetros definidos");
+        alert.setHeaderText(null);
+        alert.setContentText("Parâmetros definidos com sucesso!");
+        alert.showAndWait();
+
     }
 
     public void trocarParaParametros(ActionEvent event) throws IOException {
