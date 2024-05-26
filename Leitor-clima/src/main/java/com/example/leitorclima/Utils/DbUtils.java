@@ -350,6 +350,26 @@ public class DbUtils {
         }
         return parametrosR;
     }
+    public static boolean checkparametros() {
+        String sql = "SELECT COUNT(*) FROM parametros";
+
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao verificar existência no banco de dados.");
+        }
+
+        return false;
+    }
+
+
 }
 
 
