@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static com.example.leitorclima.Utils.DbBoxUtils.getIndice;
+
 public class DbUtils {
 
     public static Connection getConnection() throws SQLException {
@@ -229,49 +231,57 @@ public class DbUtils {
     }
 
 
-    public static List<Map<String, String>> getUltimosRegistros(String cidade) throws SQLException {
-        List<Map<String, String>> registros = new ArrayList<>();
+    public static List<Registro> getUltimosRegistros(String cidade) throws SQLException {
+        List<Registro> registros = new ArrayList<>();
+        List<String> indices = getIndice();
 
-        String condition = "('";
-        List<Registro> allEntries = new ArrayList<>();
+
         List<Arquivo> arquivoId = getArquivoCidade(cidade);
+
+
+        String condition = "";
         int var = 0;
-        for (Arquivo arquivo : arquivoId) {
-            condition += arquivo.getIdArquivo();
-            condition += "'";
-            if (arquivoId.size()-1!= var) {
+        for (Arquivo nomeArquivo : arquivoId) {
+            condition += nomeArquivo;
+            if (arquivoId.size() - 1 != var) {
                 condition += (",");
             }
             var++;
         }
-        condition += ")";
+
         String sql = "SELECT * FROM " +
                 "(SELECT * FROM Registro WHERE (suspeito <> 1) " +
                 "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? )) " +
                 "AS v " +
                 "WHERE Hora = (SELECT MAX(Hora) FROM Registro WHERE (suspeito <> 1) " +
-                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? ))";
+                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? ))" +
+                "AND indice = ?";
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
-
-            stmt.setString(1, condition);
-            stmt.setString(2, condition);
-            try (ResultSet resultSet = stmt.executeQuery()) {
+        for (String indice:indices) {
+            try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
 
+                stmt.setString(1, condition);
+                stmt.setString(2, condition);
+                stmt.setString(3, indice);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                    while (rs.next()) {
+                        String idArquivoReg = rs.getString("idArquivo");
+                        String dataReg = rs.getString("data");
+                        String horaReg = rs.getString("hora");
+                        String indiceReg = rs.getString("indice");
+                        String valorReg = rs.getString("valor");
+                        Registro registro = new Registro(indiceReg, dataReg, horaReg, idArquivoReg, valorReg);
+                        registros.add(registro);
+                    }
+
+                }
 
             }
-
-//            while (resultSet.next()) {
-//                Map<String, String> registro = new LinkedHashMap<>();
-//                // Supondo que sua tabela tenha as colunas 'id', 'nome', 'descricao', 'data_criacao'
-//                registro.put("id", resultSet.getString("id"));
-//                registro.put("nome", resultSet.getString("nome"));
-//                registro.put("descricao", resultSet.getString("descricao"));
-//                registro.put("data_criacao", resultSet.getString("data_criacao"));
-//                registros.add(registro);
-//            }
         }
+
+
 
         return registros;
     }
