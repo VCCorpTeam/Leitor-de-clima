@@ -3,7 +3,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="424.0" prefWidth="747.0" style="-fx-background-color: linear-gradient(to top left, #ac66cb, #1b2541);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.RelatorioBoxController">
     <children>
         <TableView fx:id="tableDadosBox" layoutX="70.0" layoutY="123.0" prefHeight="200.0" prefWidth="608.0">
@@ -20,6 +19,7 @@
         <TextField fx:id="tfDataBox" editable="false" layoutX="299.0" layoutY="85.0" />
         <Label layoutX="160.0" layoutY="43.0" text="Estação" textFill="WHITE" />
         <Label layoutX="160.0" layoutY="89.0" text="Data" textFill="WHITE" />
-        <Button fx:id="btnExportCsv" layoutX="70.0" layoutY="350.0" text="Exportar CSV" />
+        <Button fx:id="btnExportCsv" layoutX="289.0" layoutY="350.0" text="Exportar CSV" />
+        <Button fx:id="btnReturnMenu" layoutX="425.0" layoutY="350.0" text="Menu" />
     </children>
 </AnchorPane>

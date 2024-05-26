@@ -11,7 +11,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +51,9 @@ public class RelatorioBoxController implements Initializable {
     private TableColumn<Registro,String> colunaLimInfBox;
     @FXML
     private Button btnExportCsv;
+    @FXML
+    private Button btnReturnMenu;
+
     private List<Registro> listaUmidade;
     private List<Registro> listaPressao;
     private List<Registro> listaChuva;
@@ -70,6 +78,8 @@ public class RelatorioBoxController implements Initializable {
         List<String> listaDados = enviaDados();
         tfEstacaoBox.setText(listaDados.get(0));
         tfDataBox.setText(listaDados.get(1));
+
+        btnReturnMenu.setOnAction(event -> returnToMenu());
 
         List<String> listaIndice = getIndice();
         for(String indice : listaIndice) {
@@ -202,4 +212,16 @@ public class RelatorioBoxController implements Initializable {
             CsvExporter.exportToCsv(new ArrayList<>(tableDadosBox.getItems()), stage);
         });
     }
+    public void returnToMenu() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnReturnMenu.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
