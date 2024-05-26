@@ -7,26 +7,26 @@
 <AnchorPane prefHeight="521.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.RelatorioSitController">
     <children>
         <Label layoutX="151.0" layoutY="21.0" styleClass="title" text="Relatório Situacional - Dados Mais Recentes" />
-        <Button layoutX="67.0" layoutY="468.0" text="Menu" />
-        <Button layoutX="335.0" layoutY="468.0" prefHeight="25.0" prefWidth="158.0" text="Pesquisar" />
-        <TableView fx:id="tableView1" layoutX="30.0" layoutY="87.0" prefHeight="362.0" prefWidth="476.0">
+        <Button layoutX="67.0" layoutY="468.0" fx:id="btnVoltaRelSit" onAction="#voltaRelSit" text="Voltar a relatórios" />
+        <Button layoutX="335.0" layoutY="468.0" prefHeight="25.0" prefWidth="158.0" text="Exportar CSV" />
+        <TableView fx:id="tableDadosSit" layoutX="30.0" layoutY="87.0" prefHeight="362.0" prefWidth="476.0">
             <columns>
-                <TableColumn prefWidth="179.0" text="Parâmetro">
+                <TableColumn fx:id="colunaIndiceSit" prefWidth="179.0" text="Índice">
                     <cellValueFactory>
                         <PropertyValueFactory property="parametro" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="93.0" text="Valor">
+                <TableColumn fx:id="colunaValorSit" prefWidth="93.0" text="Valor">
                     <cellValueFactory>
                         <PropertyValueFactory property="valor" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="106.0" text="Data">
+                <TableColumn fx:id="colunaDataSit" prefWidth="106.0" text="Data">
                     <cellValueFactory>
                         <PropertyValueFactory property="valor" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="97.0" text="Horário">
+                <TableColumn fx:id="colunaHoraSit" prefWidth="97.0" text="Horário">
                     <cellValueFactory>
                         <PropertyValueFactory property="valor" />
                     </cellValueFactory>
@@ -34,6 +34,6 @@
             </columns>
         </TableView>
       <Label layoutX="95.0" layoutY="55.0" text="Cidade" />
-      <TextField editable="false" layoutX="186.0" layoutY="51.0" />
+      <TextField fx:id="tfCidadeSit" editable="false" layoutX="186.0" layoutY="51.0" />
     </children>
 </AnchorPane>

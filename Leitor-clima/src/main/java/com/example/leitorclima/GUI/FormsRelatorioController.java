@@ -124,6 +124,15 @@ public class FormsRelatorioController implements Initializable {
     @FXML
     private void geraRelatorioSit() {
         String cidade = cbCidadeSit.getValue();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/relatorioSit.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnGeraRelatorioSit.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     private void voltaMenuSit() {
