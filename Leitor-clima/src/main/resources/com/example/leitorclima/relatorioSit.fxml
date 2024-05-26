@@ -1,63 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.example.leitorclima.GUI.RelatorioSitController">
-
-  <!-- Ajuste no padding -->
-  <padding>
-    <Insets bottom="25" left="25" right="25" top="25" />
-  </padding>
-
-  <columnConstraints>
-    <ColumnConstraints percentWidth="100" />
-  </columnConstraints>
-
-  <rowConstraints>
-    <RowConstraints minHeight="30" />
-    <RowConstraints minHeight="30" />
-    <RowConstraints minHeight="30" />
-  </rowConstraints>
-
-  <Label styleClass="title" text="Relatório Situacional - Dados Mais Recentes" GridPane.columnSpan="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-
-  <!-- Botões de menu e editar -->
-  <Button text="Menu" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-  <Button prefHeight="25.0" prefWidth="158.0" text="Pesquisar" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-
-  <!-- Tabela -->
-  <TableView fx:id="tableView"  prefHeight="400.0" prefWidth="476.0" GridPane.columnSpan="1" GridPane.rowIndex="2">
-    <columns>
-      <TableColumn prefWidth="179.0" text="Parâmetro">
-        <cellValueFactory>
-          <PropertyValueFactory property="parametro" />
-        </cellValueFactory>
-      </TableColumn>
-      <TableColumn prefWidth="93.0" text="Valor">
-        <cellValueFactory>
-          <PropertyValueFactory property="valor" />
-        </cellValueFactory>
-      </TableColumn>
-         <TableColumn prefWidth="106.0" text="Data">
-            <cellValueFactory>
-               <PropertyValueFactory property="valor" />
-            </cellValueFactory>
-         </TableColumn>
-         <TableColumn prefWidth="97.0" text="Horário">
-            <cellValueFactory>
-               <PropertyValueFactory property="valor" />
-            </cellValueFactory>
-         </TableColumn>
-    </columns>
-  </TableView>
-   <Button layoutX="35.0" layoutY="78.0" prefHeight="25.0" prefWidth="62.0" text="Menu" GridPane.rowIndex="1" />
-
-</GridPane>
+<AnchorPane prefHeight="521.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.RelatorioSitController">
+    <children>
+        <Label layoutX="151.0" layoutY="21.0" styleClass="title" text="Relatório Situacional - Dados Mais Recentes" />
+        <Button layoutX="67.0" layoutY="468.0" text="Menu" />
+        <Button layoutX="335.0" layoutY="468.0" prefHeight="25.0" prefWidth="158.0" text="Pesquisar" />
+        <TableView fx:id="tableView1" layoutX="30.0" layoutY="87.0" prefHeight="362.0" prefWidth="476.0">
+            <columns>
+                <TableColumn prefWidth="179.0" text="Parâmetro">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="parametro" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="93.0" text="Valor">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="valor" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="106.0" text="Data">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="valor" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="97.0" text="Horário">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="valor" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+      <Label layoutX="95.0" layoutY="55.0" text="Cidade" />
+      <TextField editable="false" layoutX="186.0" layoutY="51.0" />
+    </children>
+</AnchorPane>
