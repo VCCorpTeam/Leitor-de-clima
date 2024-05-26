@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.example.leitorclima.GUI.RelatorioSitController">
+
+  <!-- Ajuste no padding -->
+  <padding>
+    <Insets bottom="25" left="25" right="25" top="25" />
+  </padding>
+
+  <columnConstraints>
+    <ColumnConstraints percentWidth="100" />
+  </columnConstraints>
+
+  <rowConstraints>
+    <RowConstraints minHeight="30" />
+    <RowConstraints minHeight="30" />
+    <RowConstraints minHeight="30" />
+  </rowConstraints>
+
+  <Label styleClass="title" text="Relatório Situacional - Dados Mais Recentes" GridPane.columnSpan="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+
+  <!-- Botões de menu e editar -->
+  <Button text="Menu" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+  <Button prefHeight="25.0" prefWidth="158.0" text="Pesquisar" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+
+  <!-- Tabela -->
+  <TableView fx:id="tableView"  prefHeight="400.0" prefWidth="476.0" GridPane.columnSpan="1" GridPane.rowIndex="2">
+    <columns>
+      <TableColumn prefWidth="179.0" text="Parâmetro">
+        <cellValueFactory>
+          <PropertyValueFactory property="parametro" />
+        </cellValueFactory>
+      </TableColumn>
+      <TableColumn prefWidth="93.0" text="Valor">
+        <cellValueFactory>
+          <PropertyValueFactory property="valor" />
+        </cellValueFactory>
+      </TableColumn>
+         <TableColumn prefWidth="106.0" text="Data">
+            <cellValueFactory>
+               <PropertyValueFactory property="valor" />
+            </cellValueFactory>
+         </TableColumn>
+         <TableColumn prefWidth="97.0" text="Horário">
+            <cellValueFactory>
+               <PropertyValueFactory property="valor" />
+            </cellValueFactory>
+         </TableColumn>
+    </columns>
+  </TableView>
+   <Button layoutX="35.0" layoutY="78.0" prefHeight="25.0" prefWidth="62.0" text="Menu" GridPane.rowIndex="1" />
+
+</GridPane>
