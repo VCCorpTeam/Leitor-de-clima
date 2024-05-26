@@ -2,12 +2,15 @@ package com.example.leitorclima.GUI;
 
 import com.example.leitorclima.Models.Boxplot;
 import com.example.leitorclima.Models.Registro;
+import com.example.leitorclima.Utils.CsvExporter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,6 +44,8 @@ public class RelatorioBoxController implements Initializable {
     private TableColumn<Registro,String> colunaQ1Box;
     @FXML
     private TableColumn<Registro,String> colunaLimInfBox;
+    @FXML
+    private Button btnExportCsv;
     private List<Registro> listaUmidade;
     private List<Registro> listaPressao;
     private List<Registro> listaChuva;
@@ -80,47 +85,38 @@ public class RelatorioBoxController implements Initializable {
                 case "Pto Orvalho" -> {
                     listaPtoOrvalho = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaPtoOrvalho);
-
                 }
                 case "Pressao","Pressao (hPa)" -> {
                     listaPressao = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaPressao);
-
                 }
                 case "Radiacao (KJ/m²)" -> {
                     listaRadia = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaRadia);
-
                 }
                 case "Raj. Vento (m/s)" -> {
                     listaRajVento = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaRajVento);
-
                 }
                 case "Temp. ","Temp. [Hora] (K)" -> {
                     listaTemp = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaTemp);
-
                 }
                 case "Umi." -> {
                     listaUmidade = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaUmidade);
-
                 }
                 case "Vel. Vento (m/s)" -> {
                     listaVelVento = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaVelVento);
-
                 }
                 case "Insolacao (h)" -> {
                     listaInsola = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaInsola);
-
                 }
                 case "Nebulosidade (Decimos)" -> {
                     listaNebulosidade = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
                     listaListas.add(listaNebulosidade);
-
                 }
             }
         }
@@ -200,5 +196,10 @@ public class RelatorioBoxController implements Initializable {
                 new PropertyValueFactory<>("limiteInferior"));
 
         tableDadosBox.getItems().addAll(listaBoxplot);
+
+        btnExportCsv.setOnAction(event -> {
+            Stage stage = (Stage) btnExportCsv.getScene().getWindow();
+            CsvExporter.exportToCsv(new ArrayList<>(tableDadosBox.getItems()), stage);
+        });
     }
 }

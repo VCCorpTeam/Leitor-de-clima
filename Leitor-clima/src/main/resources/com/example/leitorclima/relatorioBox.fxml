@@ -4,20 +4,21 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="424.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.RelatorioBoxController">
-   <children>
-      <TableView fx:id="tableDadosBox" layoutX="70.0" layoutY="123.0" prefHeight="200.0" prefWidth="608.0">
-        <columns>
-          <TableColumn fx:id="colunaIndiceBox" prefWidth="171.0" text="Indice" />
-          <TableColumn fx:id="colunaLimSupBox" prefWidth="102.0" text="Limite Superior" />
-            <TableColumn fx:id="colunaQ3Box" minWidth="6.0" prefWidth="65.0" text="Q3" />
-            <TableColumn fx:id="colunaMedBox" prefWidth="117.0" text="Mediana (Q2)" />
-            <TableColumn fx:id="colunaQ1Box" prefWidth="58.0" text="Q1" />
-            <TableColumn fx:id="colunaLimInfBox" prefWidth="94.0" text="Limite Inferior" />
-        </columns>
-      </TableView>
-      <TextField fx:id="tfEstacaoBox" editable="false" layoutX="299.0" layoutY="39.0" />
-      <TextField fx:id="tfDataBox" editable="false" layoutX="299.0" layoutY="85.0" />
-      <Label layoutX="160.0" layoutY="43.0" text="Estação" />
-      <Label layoutX="160.0" layoutY="89.0" text="Data" />
-   </children>
+    <children>
+        <TableView fx:id="tableDadosBox" layoutX="70.0" layoutY="123.0" prefHeight="200.0" prefWidth="608.0">
+            <columns>
+                <TableColumn fx:id="colunaIndiceBox" prefWidth="171.0" text="Indice" />
+                <TableColumn fx:id="colunaLimSupBox" prefWidth="102.0" text="Limite Superior" />
+                <TableColumn fx:id="colunaQ3Box" minWidth="6.0" prefWidth="65.0" text="Q3" />
+                <TableColumn fx:id="colunaMedBox" prefWidth="117.0" text="Mediana (Q2)" />
+                <TableColumn fx:id="colunaQ1Box" prefWidth="58.0" text="Q1" />
+                <TableColumn fx:id="colunaLimInfBox" prefWidth="94.0" text="Limite Inferior" />
+            </columns>
+        </TableView>
+        <TextField fx:id="tfEstacaoBox" editable="false" layoutX="299.0" layoutY="39.0" />
+        <TextField fx:id="tfDataBox" editable="false" layoutX="299.0" layoutY="85.0" />
+        <Label layoutX="160.0" layoutY="43.0" text="Estação" />
+        <Label layoutX="160.0" layoutY="89.0" text="Data" />
+        <Button fx:id="btnExportCsv" layoutX="70.0" layoutY="350.0" text="Exportar CSV" />
+    </children>
 </AnchorPane>
