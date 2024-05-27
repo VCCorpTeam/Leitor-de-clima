@@ -229,7 +229,7 @@ public class DbUtils {
         }
         return listaArquivos;
     }
-    
+
     public static List<Registro> getUltimosRegistros(String cidade) {
         List<Registro> registros = new ArrayList<>();
         List<String> indices = getIndice();

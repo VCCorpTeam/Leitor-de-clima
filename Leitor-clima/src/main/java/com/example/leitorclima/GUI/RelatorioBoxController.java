@@ -207,7 +207,7 @@ public class RelatorioBoxController implements Initializable {
 
         btnExportCsv.setOnAction(event -> {
             Stage stage = (Stage) btnExportCsv.getScene().getWindow();
-            CsvExporter.exportToCsv(new ArrayList<>(tableDadosBox.getItems()), stage);
+            CsvExporter.exportToCsvBox(new ArrayList<>(tableDadosBox.getItems()), stage);
         });
     }
     public void returnRelatorios() {

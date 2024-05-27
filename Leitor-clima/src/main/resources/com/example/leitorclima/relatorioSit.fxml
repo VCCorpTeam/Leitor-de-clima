@@ -3,19 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="521.0" prefWidth="535.0" style="-fx-background-color: linear-gradient(to top left, #ac66cb, #1b2541);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.RelatorioSitController">
     <children>
         <Label layoutX="151.0" layoutY="21.0" styleClass="title" text="Relatório Situacional - Dados Mais Recentes" textFill="WHITE" />
         <Button fx:id="btnVoltaRelSit" layoutX="67.0" layoutY="468.0" onAction="#voltaRelSit" text="Voltar a relatórios" />
-        <Button layoutX="335.0" layoutY="468.0" prefHeight="25.0" prefWidth="158.0" text="Exportar CSV" />
+        <Button fx:id="btnExportaCsvSit" layoutX="335.0" layoutY="468.0" prefHeight="25.0" prefWidth="158.0" text="Exportar CSV" />
         <TableView fx:id="tableDadosSit" layoutX="30.0" layoutY="87.0" prefHeight="362.0" prefWidth="476.0">
             <columns>
                 <TableColumn fx:id="colunaIndiceSit" prefWidth="179.0" text="Índice">

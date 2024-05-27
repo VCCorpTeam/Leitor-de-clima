@@ -2,6 +2,7 @@ package com.example.leitorclima.GUI;
 
 import com.example.leitorclima.Models.Boxplot;
 import com.example.leitorclima.Models.Registro;
+import com.example.leitorclima.Utils.CsvExporter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +32,8 @@ public class RelatorioSitController implements Initializable {
     @FXML
     private Button btnVoltaRelSit;
     @FXML
+    private Button btnExportaCsvSit;
+    @FXML
     private TableView<Registro> tableDadosSit;
     @FXML
     private TableColumn<Registro,String> colunaIndiceSit;
@@ -53,6 +56,11 @@ public class RelatorioSitController implements Initializable {
         colunaHoraSit.setCellValueFactory(new PropertyValueFactory<>("hora"));
 
         tableDadosSit.getItems().addAll(listaSituacional);
+
+        btnExportaCsvSit.setOnAction(event -> {
+            Stage stage = (Stage) btnExportaCsvSit.getScene().getWindow();
+            CsvExporter.exportToCsvSit(new ArrayList<>(tableDadosSit.getItems()), stage);
+        });
     }
 
     @FXML
@@ -67,8 +75,6 @@ public class RelatorioSitController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }
-
 
 
