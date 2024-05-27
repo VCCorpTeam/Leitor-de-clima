@@ -16,14 +16,22 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import static com.example.leitorclima.GUI.FormsRelatorioController.enviaDadosSit;
+import static com.example.leitorclima.Utils.DbUtils.*;
 
 public class RelatorioSitController implements Initializable {
 
     @FXML
+    private TextField tfCidadeSit;
+    @FXML
     private Button btnVoltaRelSit;
     @FXML
-    private TableView<Boxplot> tableDadosSit;
+    private TableView<Registro> tableDadosSit;
     @FXML
     private TableColumn<Registro,String> colunaIndiceSit;
     @FXML
@@ -35,17 +43,16 @@ public class RelatorioSitController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        List<String> listaDados = enviaDadosSit();
+        tfCidadeSit.setText(listaDados.get(0));
+        List<Registro> listaSituacional = getUltimosRegistros(listaDados.get(0));
 
-        colunaIndiceSit.setCellValueFactory(
-                new PropertyValueFactory<>("indice"));
-        colunaValorSit.setCellValueFactory(
-                new PropertyValueFactory<>("limiteSuperior"));
-        colunaDataSit.setCellValueFactory(
-                new PropertyValueFactory<>("q3"));
-        colunaHoraSit.setCellValueFactory(
-                new PropertyValueFactory<>("mediana"));
+        colunaIndiceSit.setCellValueFactory(new PropertyValueFactory<>("indice"));
+        colunaValorSit.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        colunaDataSit.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colunaHoraSit.setCellValueFactory(new PropertyValueFactory<>("hora"));
 
-        tableDadosSit.getItems().addAll();
+        tableDadosSit.getItems().addAll(listaSituacional);
     }
 
     @FXML

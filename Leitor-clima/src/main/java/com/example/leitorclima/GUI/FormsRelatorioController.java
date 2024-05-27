@@ -146,6 +146,14 @@ public class FormsRelatorioController implements Initializable {
             e.printStackTrace();
         }
     }
+    public static List<String> enviaDadosSit() {
+        FormsRelatorioController controller = FormsRelatorioController.getInstance();
+        List<String> dados = new ArrayList<>();
+        String cidade = controller.cbCidadeSit.getValue();
+        dados.add(cidade);
+
+        return dados;
+    }
 
 
     //GERA RELATORIO BOXPLOT
@@ -174,7 +182,7 @@ public class FormsRelatorioController implements Initializable {
             e.printStackTrace();
         }
     }
-    public static List<String> enviaDados() {
+    public static List<String> enviaDadosBox() {
         FormsRelatorioController controller = FormsRelatorioController.getInstance();
         List<String> dados = new ArrayList<>();
         String estacao = controller.cbEstacaoBox.getValue();

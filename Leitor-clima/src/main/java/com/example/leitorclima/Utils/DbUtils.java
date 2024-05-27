@@ -229,20 +229,16 @@ public class DbUtils {
         }
         return listaArquivos;
     }
-
-
-    public static List<Registro> getUltimosRegistros(String cidade) throws SQLException {
+    
+    public static List<Registro> getUltimosRegistros(String cidade) {
         List<Registro> registros = new ArrayList<>();
         List<String> indices = getIndice();
-
-
         List<Arquivo> arquivoId = getArquivoCidade(cidade);
-
 
         String condition = "";
         int var = 0;
         for (Arquivo nomeArquivo : arquivoId) {
-            condition += nomeArquivo;
+            condition += nomeArquivo.getIdArquivo();
             if (arquivoId.size() - 1 != var) {
                 condition += (",");
             }
@@ -251,21 +247,20 @@ public class DbUtils {
 
         String sql = "SELECT * FROM " +
                 "(SELECT * FROM Registro WHERE (suspeito <> 1) " +
-                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? )) " +
+                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN (?) )) " +
                 "AS v " +
                 "WHERE Hora = (SELECT MAX(Hora) FROM Registro WHERE (suspeito <> 1) " +
-                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN ? ))" +
+                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN (?) ))" +
                 "AND indice = ?";
 
-        for (String indice:indices) {
-            try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+            for (String indice:indices) {
 
                 stmt.setString(1, condition);
                 stmt.setString(2, condition);
                 stmt.setString(3, indice);
                 try (ResultSet rs = stmt.executeQuery()) {
-                    if (!rs.isBeforeFirst()) throw new SQLException("User not found");
                     while (rs.next()) {
                         String idArquivoReg = rs.getString("idArquivo");
                         String dataReg = rs.getString("data");
@@ -275,13 +270,11 @@ public class DbUtils {
                         Registro registro = new Registro(indiceReg, dataReg, horaReg, idArquivoReg, valorReg);
                         registros.add(registro);
                     }
-
                 }
-
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-
 
         return registros;
     }
