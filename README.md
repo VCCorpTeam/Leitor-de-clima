@@ -179,7 +179,6 @@ O manual deve ser fácil de acessar e navegar.
 
 
 3 - Diagrama Entidade-Relacionamento
-
 Problema:
 A falta de um diagrama entidade-relacionamento claro dificulta a compreensão da estrutura e das relações do banco de dados.
 
@@ -189,7 +188,7 @@ Diagrama entidade-relacionamento que represente claramente a estrutura e as rela
 Descrição no formato:
 Como desenvolvedor, desejo um diagrama entidade-relacionamento que represente claramente a estrutura e as relações do banco de dados, para que eu possa entender melhor a arquitetura do sistema e realizar manutenções e expansões de forma eficiente.
 
-4 - Checklist para concluir a demanda:
+Checklist para concluir a demanda:
 
 O diagrama deve representar todas as entidades e suas relações.
 O diagrama deve ser claro e fácil de entender.
@@ -209,6 +208,7 @@ Checklist para concluir a demanda:
 As instruções devem cobrir todos os passos necessários para a instalação do sistema.
 As instruções devem incluir pré-requisitos e possíveis soluções para problemas comuns.
 As instruções devem ser fáceis de seguir e entender.
+
 
 
 
