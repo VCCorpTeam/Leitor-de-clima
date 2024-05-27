@@ -55,32 +55,164 @@ Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem
 
 </details>
 
+<span id="user-stories">
 
-## :pushpin: 📖 User Stories SPRINT 2
 <details>
+  <summary>O QUE ENTREGAREMOS NA SPRINT 3</summary>
 
-| Titulo da funcionalidade | Descrição | Critérios de conclusão (DOT) | Critérios de aceitação (DOR) |
-|---------------------------|-----------|-----------------------------|-------------------------------|
-| Gerenciamento das estações de coleta | Esta funcionalidade visa facilitar o gerenciamento das estações de coleta de dados climáticos. Cada arquivo CSV contém um código que identifica a estação de coleta e a cidade correspondente. A funcionalidade garantirá que o sistema reconheça automaticamente de qual estação é cada arquivo, permitindo uma organização eficiente dos dados e simplificando a análise subsequente. | O sistema reconhece automaticamente o código da estação de coleta de cada arquivo CSV carregado. As informações sobre a estação de coleta são exibidas corretamente na interface do usuário. Caso o código da estação de coleta não seja reconhecido automaticamente, o sistema fornece uma indicação clara ao usuário e permite a correção manual. A funcionalidade foi revisada e aprovada para liberação. A documentação do usuário foi atualizada para incluir instruções sobre como o sistema reconhece e gerencia as estações de coleta automaticamente. | A equipe de desenvolvimento compreende claramente o formato dos nomes dos arquivos CSV e como eles identificam as estações de coleta. Foram identificados os padrões nos nomes dos arquivos que indicam a estação de coleta e a cidade correspondente. A funcionalidade de reconhecimento automático da estação de coleta foi priorizada no backlog do produto. As interfaces de usuário necessárias para visualizar e gerenciar as estações de coleta estão disponíveis para desenvolvimento. Foram estabelecidos procedimentos para lidar com casos em que o código da estação de coleta não é reconhecido automaticamente pelo sistema. |
-| Gerenciamento da cidades | Esta funcionalidade visa facilitar o gerenciamento das cidades relacionadas aos dados climáticos. Além de reconhecer automaticamente a cidade de cada arquivo CSV, o sistema permitirá a associação de nomes por extenso às siglas das cidades. Isso garantirá que as cidades sejam identificadas corretamente durante a geração de relatórios e análise dos dados, proporcionando uma experiência mais completa e precisa para o usuário. | O sistema reconhece automaticamente a cidade de cada arquivo CSV carregado. As informações sobre a cidade são exibidas corretamente na interface do usuário. Caso o nome da cidade não seja reconhecido automaticamente, o sistema fornece uma indicação clara ao usuário e permite a associação manual. A funcionalidade foi revisada e aprovada para liberação. A documentação do usuário foi atualizada para incluir instruções sobre como o sistema reconhece e associa nomes de cidades automaticamente. | A equipe de desenvolvimento compreende claramente como as cidades estão relacionadas aos arquivos CSV e como elas são identificadas. Foram identificados os padrões nos nomes dos arquivos que indicam as cidades correspondentes. A funcionalidade de reconhecimento automático da cidade e associação de nomes por extenso foi priorizada no backlog do produto. As interfaces de usuário necessárias para configurar a associação de nomes por extenso às siglas das cidades estão disponíveis para desenvolvimento. Foram estabelecidos procedimentos para lidar com casos em que o nome da cidade não é reconhecido automaticamente pelo sistema. |
-| Exportação de relatório em PDF | Esta funcionalidade permite aos usuários exportar os relatórios gerados pelo sistema em formato PDF. Com a exportação em PDF, os usuários podem compartilhar e distribuir facilmente os relatórios com outras partes interessadas. Isso garante que as informações sejam acessíveis e portáteis, permitindo uma comunicação eficaz e uma colaboração mais fácil entre os usuários. | A funcionalidade permite exportar os relatórios em formato PDF de forma eficiente. Os relatórios exportados em PDF incluem todas as informações relevantes e são formatados corretamente. A exportação de relatórios em PDF foi testada em diferentes cenários e aprovada para liberação. A funcionalidade foi revisada e aprovada para liberação. A documentação do usuário foi atualizada para incluir instruções sobre como exportar os relatórios em formato PDF. | A equipe de desenvolvimento compreende claramente os tipos de relatórios que podem ser exportados em formato PDF. Foram identificadas as informações e formatações que devem ser incluídas nos relatórios em PDF. A funcionalidade de exportação de relatórios em PDF foi priorizada no backlog do produto. As interfaces de usuário necessárias para configurar e executar a exportação de relatórios estão disponíveis para desenvolvimento. Foram estabelecidos procedimentos para lidar com casos em que a exportação de relatórios em PDF não é bem-sucedida devido a problemas de formatação ou compatibilidade. |
-| Persistencia: Através do uso do banco, manter dados salvos para uso posteriormente ao religar programa | Esta funcionalidade visa garantir a persistência dos dados armazenados por meio do uso de um banco de dados. Independentemente de o programa ser encerrado e posteriormente religado, os dados permanecerão salvos, garantindo sua integridade e disponibilidade para uso contínuo. Isso assegura que as informações coletadas e processadas não sejam perdidas entre sessões de uso do programa, proporcionando continuidade e consistência nos dados para os usuários. | Os dados são armazenados com sucesso no banco de dados durante o uso do programa. Os dados persistidos são recuperados de forma correta e consistente ao religar o programa. A funcionalidade foi testada em diferentes cenários de persistência e recuperação de dados. A funcionalidade foi revisada e aprovada para liberação. A documentação do usuário foi atualizada para incluir informações sobre a persistência de dados e sua importância para a continuidade das informações entre sessões de uso do programa. | A equipe de desenvolvimento compreende claramente os tipos de dados que precisam ser persistentes. Foram identificados os requisitos de armazenamento e recuperação de dados utilizando um banco de dados. A funcionalidade de persistência de dados foi priorizada no backlog do produto. As interfaces de comunicação com o banco de dados estão disponíveis para desenvolvimento. Foram estabelecidos procedimentos para lidar com casos de falha na persistência ou recuperação de dados. |
+1. Relatório Situacional
+
+Problema:
+A necessidade de um relatório que apresente os valores médios das últimas medidas para cada cidade, facilitando o monitoramento e a comparação das condições climáticas em diferentes localidades.
+
+Requisito:
+Relatório que apresente os valores médios das últimas medidas para cada cidade, ajudando na visualização e comparação das condições climáticas.
+
+Descrição no formato:
+Como pesquisador, desejo um relatório de situação que apresente os valores médios das últimas medidas para cada cidade, para que eu possa monitorar e comparar facilmente as condições climáticas em diferentes localidades.
+
+Checklist para concluir a demanda:
+
+O relatório deve apresentar os valores médios das últimas medidas para cada cidade.
+A interface do usuário deve permitir a seleção fácil de cidades para visualização do relatório.
+O relatório deve ser atualizado regularmente com as últimas medidas disponíveis
+
+
+
+2 - relatorio boxplot
+    Titulo: Relatório de elementos bloxplot
+
+• Problema: A falta de um relatório que calcule os elementos para plotar um gráfico boxplot impede uma análise estatística detalhada das variáveis climáticas de uma estação em uma determinada data. Isso limita a compreensão das distribuições e variações dos dados climáticos, essenciais para estudos aprofundados e decisões baseadas em dados.
+
+• Requisito: Relatório que calcule os elementos para se plotar um gráfico boxplot com base nos dados de uma estação em uma determinada data.
+
+• Descrição no formato: Como pesquisador, desejo um relatório que calcule os elementos necessários para plotar um gráfico boxplot com base nos dados de uma estação em uma determinada data. Isso permitirá uma análise estatística detalhada das distribuições e variações das variáveis climáticas, facilitando a compreensão dos dados e a tomada de decisões informadas.
+
+• Checklist para concluir demanda
+  - Os relatórios permitem a seleção de uma estação específica e uma data específica para análise.
+  - Os relatórios calculam e apresentam os elementos necessários para plotar um gráfico boxplot (mínimo, primeiro quartil, mediana, terceiro quartil e máximo).
+  - A interface do usuário permite a seleção fácil de estações e datas para visualização dos relatórios de boxplot.
+
+3 - tela de definiçao de parametros E 4 - tela de dados suspeitos:
+
+• Problema: Atualmente, os dados sobre o clima em uma mesma cidade são armazenados em diversos arquivos, um para cada estação de monitoramento. Esses arquivos podem ter formatos diferentes e conter valores incorretos devido a enganos humanos ou problemas na coleta automática, por tanto é preciso uma maneira de lidar com registros suspeitos.
+
+• Requisito: "Tratamento de registros suspeitos, que permita exclusão ou revisão. Deve ser possível 
+alterar os valores e passá-los à base de dados principal ou excluí-los. [...] . Registros suspeitos (exemplo: registro com temperatura acima de 60 graus Celsius ou inferior a -20  graus Celsius) devem ser armazenados a parte para revisão manual."
+
+
+• Descrição no formato: Como pesquisador, quero ter a capacidade de corrigir ou excluir informações suspeitas nos registros de dados climáticos. Isso garantirá que tenhamos informações precisas sobre o clima em nossa região de estudo, facilitando nossa análise e tomada de decisões.
+
+• Checklist para concluir demanda
+   - Os registros suspeitos são facilmente identificados e acessíveis para o pesquisador.
+   - O sistema permite que o pesquisador revise e corrija os registros suspeitos conforme necessário.
+   - As alterações feitas nos registros suspeitos são devidamente salvas, assegurando a precisão dos dados.
+----
+
+• Problema: Atualmente, os dados sobre o clima em uma mesma cidade são armazenados em diversos arquivos, um para cada estação de monitoramento. Esses arquivos podem ter formatos diferentes e conter valores incorretos devido a enganos humanos ou problemas na coleta automática, por tanto é preciso uma maneira de lidar com registros suspeitos.
+
+• Requisito: "Tratamento de registros suspeitos, que permita exclusão ou revisão. Deve ser possível 
+alterar os valores e passá-los à base de dados principal ou excluí-los. [...] . Registros suspeitos (exemplo: registro com temperatura acima de 60 graus Celsius ou inferior a -20  graus Celsius) devem ser armazenados a parte para revisão manual."
+
+• Descrição no formato: Como pesquisador, quero ter a capacidade de corrigir ou excluir informações suspeitas nos registros de dados climáticos. Isso garantirá que tenhamos informações precisas sobre o clima em nossa região de estudo, facilitando nossa análise e tomada de decisões.
+
+• Checklist para concluir demanda
+   - Os registros suspeitos são facilmente identificados e acessíveis para o pesquisador.
+   - O sistema permite que o pesquisador revise e corrija os registros suspeitos conforme necessário.
+   - As alterações feitas nos registros suspeitos são devidamente salvas, assegurando a precisão dos dados.
+
+5 - exportaçao csv no situacional e boxplot
+Problema:
+A falta de uma funcionalidade que permita a exportação de relatórios em formato CSV dificulta a análise e o compartilhamento dos dados climáticos para estudos e apresentações mais aprofundadas.
+
+Requisito:
+Funcionalidade que permita a exportação de relatórios em formato CSV, facilitando a análise e o compartilhamento dos dados climáticos.
+
+Descrição no formato:
+Como pesquisador, desejo uma funcionalidade que permita a exportação dos relatórios em formato CSV, para que eu possa analisar e compartilhar os dados climáticos de forma mais eficiente e detalhada.
+
+Checklist para concluir a demanda:
+
+A interface do usuário deve permitir a exportação de relatórios em formato CSV.
+Os relatórios exportados em CSV devem conter todos os dados apresentados no relatório original.
+A funcionalidade de exportação deve ser fácil de usar e acessível a partir da visualização dos relatórios.
+
 
 </details>
 
-## :pushpin: 📖 User Stories SPRINT 3
 
 <details>
+  <summary>O QUE ENTREGAREMOS NA SPRINT 4</summary>
 
-| Titulo da funcionalidade | Descrição | Critérios de conclusão (DOT) | Critérios de aceitação (DOR) |
-|---------------------------|-----------|-----------------------------|-------------------------------|
-| União de dados dos arquivos redundantes, tirando a média das variaveis climáticas | Esta funcionalidade tem como objetivo unir dados de arquivos redundantes que contenham informações de variáveis climáticas e calcular a média dessas variáveis. Quando múltiplos arquivos contêm dados semelhantes, a funcionalidade irá combinar esses dados e calcular a média das variáveis climáticas correspondentes. Isso ajuda a evitar a redundância de dados e simplifica a análise posterior dos dados climáticos. | A funcionalidade de união de dados e cálculo da média foi implementada e testada com sucesso em ambiente de desenvolvimento. Os arquivos redundantes foram processados corretamente, e a média das variáveis climáticas foi calculada de forma precisa. As operações de união e cálculo da média foram otimizadas para desempenho e eficiência. A funcionalidade foi revisada e aprovada para liberação. A documentação do usuário foi atualizada para incluir instruções sobre como utilizar a funcionalidade de união e cálculo da média. | A equipe de desenvolvimento compreende claramente os tipos de variáveis climáticas que serão consideradas para a média. Foram identificados os arquivos redundantes que contêm dados semelhantes e precisam ser unidos. A funcionalidade de união de dados e cálculo da média foi priorizada no backlog do produto. As interfaces de usuário necessárias para configurar a operação de união e cálculo da média estão disponíveis para desenvolvimento. Foram estabelecidos procedimentos para lidar com casos em que os dados dos arquivos redundantes são inconsistentes ou incompletos. |
-| Tratamento de registros suspeitos, isolando arquivos | Esta funcionalidade possibilita o tratamento de registros suspeitos nos arquivos CSV, isolando esses registros para revisão posterior. Quando um registro é identificado como suspeito, ele será separado dos demais para que os usuários possam revisá-lo e corrigi-lo, garantindo a integridade e a qualidade dos dados. Isso permite que problemas potenciais nos registros sejam identificados e resolvidos antes de serem incluídos na análise ou nos relatórios, evitando assim a distorção ou a interpretação incorreta dos dados. | A funcionalidade permite isolar e tratar registros suspeitos nos arquivos CSV de forma eficiente. Os registros suspeitos são isolados corretamente e estão disponíveis para revisão pelos usuários. Os procedimentos de tratamento de registros suspeitos foram testados em diferentes cenários e aprovados para liberação. A funcionalidade foi revisada e aprovada para liberação. A documentação do usuário foi atualizada para incluir instruções sobre como isolar e tratar registros suspeitos nos arquivos CSV. | A equipe de desenvolvimento compreende claramente os critérios que determinam se um registro é suspeito. Foram identificados os procedimentos e critérios para isolar e tratar registros suspeitos nos arquivos CSV. A funcionalidade de tratamento de registros suspeitos foi priorizada no backlog do produto. As interfaces de usuário necessárias para isolar e tratar registros suspeitos estão disponíveis para desenvolvimento. Foram estabelecidos procedimentos para lidar com casos em que os registros suspeitos não são identificados corretamente pelo sistema. |
-| Permitir configuração para determinar o que é um registro suspeito | Esta funcionalidade possibilita aos usuários configurar os critérios para determinar o que é considerado um registro suspeito nos arquivos CSV. Os usuários terão a capacidade de personalizar os critérios com base em suas necessidades específicas e nos requisitos do projeto. Isso proporciona flexibilidade e adaptabilidade ao sistema, permitindo que os usuários definam regras personalizadas para identificar registros suspeitos de acordo com os padrões e as exigências do contexto em que estão trabalhando. | A funcionalidade permite aos usuários configurar os critérios para determinar o que é um registro suspeito nos arquivos CSV. As configurações dos critérios são aplicadas corretamente durante o processamento dos dados. Os critérios configurados foram testados em diferentes cenários e aprovados para liberação. A funcionalidade foi revisada e aprovada para liberação. A documentação do usuário foi atualizada para incluir instruções sobre como configurar os critérios para determinar registros suspeitos nos arquivos CSV. | A equipe de desenvolvimento compreende claramente os tipos de critérios que podem ser configurados para determinar um registro suspeito. Foram identificados os parâmetros e variáveis que podem ser utilizados na configuração dos critérios. A funcionalidade de configuração para determinar o que é um registro suspeito foi priorizada no backlog do produto. As interfaces de usuário necessárias para configurar os critérios estão disponíveis para desenvolvimento. Foram estabelecidos procedimentos para lidar com casos em que os critérios configurados não estão produzindo os resultados esperados. |
-| Geração de relatórios personalizados com base em critérios selecionados pelo usuário | Esta funcionalidade oferece aos usuários a capacidade de gerar relatórios personalizados com base em critérios selecionados por eles mesmos. Os usuários podem especificar quais dados desejam incluir nos relatórios, aplicar filtros para limitar os resultados e agrupar informações conforme necessário. Isso permite uma análise mais precisa e direcionada dos dados, atendendo às necessidades específicas de cada usuário. | A funcionalidade permite aos usuários selecionar os critérios desejados para personalizar os relatórios. Os relatórios personalizados são gerados corretamente de acordo com os critérios selecionados pelos usuários. Os filtros e agrupamentos aplicados aos dados nos relatórios funcionam conforme esperado. A funcionalidade foi testada em diferentes cenários de personalização de relatórios e aprovada para liberação. A documentação do usuário foi atualizada para incluir instruções sobre como selecionar os critérios e gerar relatórios personalizados. | A equipe de desenvolvimento compreende claramente os critérios que podem ser selecionados pelos usuários para personalizar os relatórios. Foram identificados os tipos de filtros e agrupamentos que podem ser aplicados aos dados nos relatórios personalizados. A funcionalidade de geração de relatórios personalizados foi priorizada no backlog do produto. As interfaces de usuário necessárias para selecionar os critérios e configurar os relatórios estão disponíveis para desenvolvimento. Foram estabelecidos procedimentos para lidar com casos em que os critérios selecionados pelos usuários resultam em relatórios vazios ou incompletos. |
+1 - Relatório de Valor Médio das Variáveis Climáticas por Cidade
+Problema:
+A ausência de um relatório detalhado de valor médio das variáveis climáticas por cidade, com periodicidade horária, dificulta a análise precisa das condições climáticas ao longo do tempo.
+
+Requisito:
+Relatório de valor médio das variáveis climáticas por cidade, que permita escolher uma cidade e um período de tempo específico, apresentando dados com periodicidade horária (um registro a cada hora).
+
+Descrição no formato:
+Como pesquisador, desejo um relatório de valor médio das variáveis climáticas por cidade, que permita a escolha de uma cidade e de um período de tempo específico, com dados apresentados a cada hora. Isso permitirá uma análise detalhada e precisa das condições climáticas ao longo do tempo, facilitando estudos e tomadas de decisão.
+
+Checklist para concluir a demanda:
+
+O relatório deve permitir a escolha de uma cidade específica.
+O relatório deve permitir a seleção de um período de tempo específico.
+O relatório deve apresentar dados climáticos médios com periodicidade horária (um registro a cada hora).
+A interface do usuário deve ser intuitiva e permitir a seleção fácil de cidades e períodos de tempo.
+
+2 - Manual do Usuário
+Problema:
+A ausência de um manual do usuário detalhado dificulta a compreensão e utilização das funcionalidades do sistema pelos usuários finais.
+
+Requisito:
+Manual do usuário que descreva detalhadamente todas as funcionalidades do sistema, incluindo instruções de uso e exemplos práticos.
+
+Descrição no formato:
+Como usuário, desejo um manual detalhado que explique todas as funcionalidades do sistema, para que eu possa utilizar o sistema de forma eficiente e aproveitar ao máximo suas capacidades.
+
+Checklist para concluir a demanda:
+
+O manual deve cobrir todas as funcionalidades do sistema.
+O manual deve incluir instruções claras e exemplos práticos.
+O manual deve ser fácil de acessar e navegar.
+
+
+3 - Diagrama Entidade-Relacionamento
+
+Problema:
+A falta de um diagrama entidade-relacionamento claro dificulta a compreensão da estrutura e das relações do banco de dados.
+
+Requisito:
+Diagrama entidade-relacionamento que represente claramente a estrutura e as relações do banco de dados.
+
+Descrição no formato:
+Como desenvolvedor, desejo um diagrama entidade-relacionamento que represente claramente a estrutura e as relações do banco de dados, para que eu possa entender melhor a arquitetura do sistema e realizar manutenções e expansões de forma eficiente.
+
+4 - Checklist para concluir a demanda:
+
+O diagrama deve representar todas as entidades e suas relações.
+O diagrama deve ser claro e fácil de entender.
+O diagrama deve estar atualizado com a versão atual do banco de dados.
+Instruções de Instalação
+Problema:
+A ausência de instruções de instalação claras dificulta a configuração e implementação do sistema por novos usuários e administradores.
+
+Requisito:
+Instruções de instalação que detalhem passo a passo o processo de configuração e implementação do sistema.
+
+Descrição no formato:
+Como administrador, desejo instruções de instalação claras e detalhadas, para que eu possa configurar e implementar o sistema sem dificuldades.
+
+Checklist para concluir a demanda:
+
+As instruções devem cobrir todos os passos necessários para a instalação do sistema.
+As instruções devem incluir pré-requisitos e possíveis soluções para problemas comuns.
+As instruções devem ser fáceis de seguir e entender.
+
+
 
 </details>
-
 
 
 ## 🖥️Tecnologias:
