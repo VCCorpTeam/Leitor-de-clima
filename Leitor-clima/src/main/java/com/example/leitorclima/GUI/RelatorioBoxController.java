@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static com.example.leitorclima.GUI.FormsRelatorioController.enviaDados;
+import static com.example.leitorclima.GUI.FormsRelatorioController.enviaDadosBox;
 import static com.example.leitorclima.Utils.DbBoxUtils.getDadosBox;
 import static com.example.leitorclima.Utils.DbBoxUtils.getIndice;
 import static com.example.leitorclima.Utils.DbUtils.geraArquivoComboBox;
@@ -75,11 +75,9 @@ public class RelatorioBoxController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         List<List<Registro>> listaListas = new ArrayList<>();
-        List<String> listaDados = enviaDados();
+        List<String> listaDados = enviaDadosBox();
         tfEstacaoBox.setText(listaDados.get(0));
         tfDataBox.setText(listaDados.get(1));
-
-        btnReturnMenu.setOnAction(event -> returnToMenu());
 
         List<String> listaIndice = getIndice();
         for(String indice : listaIndice) {
@@ -212,9 +210,9 @@ public class RelatorioBoxController implements Initializable {
             CsvExporter.exportToCsv(new ArrayList<>(tableDadosBox.getItems()), stage);
         });
     }
-    public void returnToMenu() {
+    public void returnRelatorios() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/formsRelatorio.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) btnReturnMenu.getScene().getWindow();
             stage.setScene(scene);
