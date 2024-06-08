@@ -74,12 +74,13 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cbEstacaoBox" layoutX="229.0" layoutY="100.0" prefWidth="150.0" />
-                  <Button fx:id="btnGeraRelatorioBox" layoutX="107.0" layoutY="271.0" onAction="#geraRelatorioBox" prefHeight="35.0" prefWidth="150.0" text="Gerar Relatório">
+                  <ComboBox fx:id="cbEstacaoBox1" layoutX="229.0" layoutY="100.0" prefWidth="150.0" />
+                  <Button fx:id="btnGeraRelatorioBox1" layoutX="107.0" layoutY="271.0" onAction="#geraRelatorioBox" prefHeight="35.0" prefWidth="150.0" text="Gerar Relatório">
                      <font>
                         <Font size="16.0" />
-                     </font></Button>
-                  <Button fx:id="btnVoltaMenuBox" layoutX="328.0" layoutY="271.0" mnemonicParsing="false" onAction="#voltaMenuBox" prefHeight="35.0" prefWidth="150.0" text="Voltar ao Menu">
+                     </font>
+                  </Button>
+                  <Button fx:id="btnVoltaMenuBox1" layoutX="328.0" layoutY="271.0" mnemonicParsing="false" onAction="#voltaMenuBox" prefHeight="35.0" prefWidth="150.0" text="Voltar ao Menu">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -89,7 +90,49 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="dpDataBox" layoutX="229.0" layoutY="159.0" prefHeight="25.0" prefWidth="152.0" />
+                  <DatePicker fx:id="dpDataBox1" layoutX="229.0" layoutY="159.0" prefHeight="25.0" prefWidth="152.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Unidades de Medida">
+         <content>
+            <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to top left, #ac66cb, #1b2541);">
+               <children>
+                  <Label layoutX="44.0" layoutY="29.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="44.0" layoutY="59.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="44.0" layoutY="89.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="44.0" layoutY="119.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="44.0" layoutY="149.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="44.0" layoutY="179.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="44.0" layoutY="209.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="44.0" layoutY="239.0" text="Label" textFill="WHITE" />
+                  <ComboBox layoutX="112.0" layoutY="25.0" prefWidth="150.0" />
+                  <ComboBox layoutX="112.0" layoutY="55.0" prefWidth="150.0" />
+                  <ComboBox layoutX="112.0" layoutY="85.0" prefWidth="150.0" />
+                  <ComboBox layoutX="112.0" layoutY="115.0" prefWidth="150.0" />
+                  <ComboBox layoutX="112.0" layoutY="145.0" prefWidth="150.0" />
+                  <ComboBox layoutX="112.0" layoutY="175.0" prefWidth="150.0" />
+                  <ComboBox layoutX="112.0" layoutY="205.0" prefWidth="150.0" />
+                  <ComboBox layoutX="112.0" layoutY="235.0" prefWidth="150.0" />
+                  <Label layoutX="287.0" layoutY="28.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="287.0" layoutY="58.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="287.0" layoutY="88.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="287.0" layoutY="118.0" text="Label" textFill="WHITE" />
+                  <ComboBox layoutX="355.0" layoutY="24.0" prefWidth="150.0" />
+                  <ComboBox layoutX="355.0" layoutY="54.0" prefWidth="150.0" />
+                  <ComboBox layoutX="355.0" layoutY="84.0" prefWidth="150.0" />
+                  <ComboBox layoutX="355.0" layoutY="114.0" prefWidth="150.0" />
+                  <Button fx:id="btnGeraRelatorioMed" layoutX="107.0" layoutY="318.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Definir Unidades">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnVoltaMenuMed" layoutX="328.0" layoutY="318.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Voltar ao Menu">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </content>
