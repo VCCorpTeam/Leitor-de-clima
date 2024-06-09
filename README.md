@@ -1,15 +1,14 @@
 # <h1 align="center"> VCCorp 🐕​ </h1>
 
-<h2 align="center"> Sumário </h2>
-  <p align="center">
-     <a href ="#sobre-o-projeto">Sobre o projeto</a>  • 
-     <a href ="#calendario-sprints">Calendário Sprints</a>  • 
-     <a href ="#product-backlog">Product Backlog</a>  •
-     <a href ="#user-stories">User Stories</a>  •
-     <a href ="#tecnologias">Tecnologias</a>  •
-     <a href ="#ferramentas">Ferramentas</a>  •
-     <a href ="#integrantes">Integrantes</a>
-   </p>
+<p align="center">
+   <a href="#sobre-o-projeto">Sobre o projeto</a> • 
+   <a href="#calendario-sprints">Calendário Sprints</a> • 
+   <a href="#product-backlog">Product Backlog</a> •
+   <a href="#user-stories">User Stories</a> •
+   <a href="#tecnologias">Tecnologias</a> •
+   <a href="#ferramentas">Ferramentas</a> •
+   <a href="#integrantes">Integrantes</a>
+</p>
 
 <span id="Sobre nós">
 
@@ -36,6 +35,7 @@ Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem
 ## :pushpin: Product Backlog
 
 <details>
+  <summary>BACKLOG DO PRODUTO</summary>
 
 | Prioridade | Função                                             | Descrição                                                                                                          |
 |------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------| 
