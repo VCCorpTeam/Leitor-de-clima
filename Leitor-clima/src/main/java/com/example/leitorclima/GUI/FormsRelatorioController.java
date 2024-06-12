@@ -59,6 +59,15 @@ public class FormsRelatorioController implements Initializable {
     @FXML
     private Button btnVoltaMenuBox;
     private List<String> listaEstacao;
+
+    //COMPONENTES UNIDADE DE MEDIDA
+    @FXML
+    private Button btnVoltaMenuUnid;
+    @FXML
+    private Button btnDefUnid;
+    private List<String> listaUnidade;
+
+
     private static FormsRelatorioController instance;
 
     public FormsRelatorioController() {
@@ -96,6 +105,9 @@ public class FormsRelatorioController implements Initializable {
         //INICIALIZA RELATÓRIO BOXPLOT
         listaEstacao = geraEstacaoComboBox();
         cbEstacaoBox.getItems().addAll(listaEstacao);
+
+        //INICIALIZA UNIDADE MEDIDAS
+
     }
 
     //GERA RELATORIO MÉDIA
@@ -192,5 +204,20 @@ public class FormsRelatorioController implements Initializable {
 
         return dados;
     }
+
+    //DEFINE MEDIDAS
+    @FXML
+    private void voltaMenuUnid() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnVoltaMenuUnid.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
