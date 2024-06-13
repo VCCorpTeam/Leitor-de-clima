@@ -18,6 +18,8 @@ import javafx.scene.control.ProgressIndicator;
 
 import java.io.*;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import javafx.fxml.FXMLLoader;
@@ -89,13 +91,6 @@ public class UploadController implements Initializable {
 
     public void uploadFile() {
         String fileName = new File(path).getName();
-
-        // Verifica se o arquivo já foi carregado
-        if (fileUploadManager.hasFileBeenUploaded(fileName)) {
-            fileUploadManager.showAlreadyUploadedPopup();
-            return;
-        }
-
         progressIndicator.setVisible(true);
 
         new Thread(() -> {
@@ -227,13 +222,15 @@ public class UploadController implements Initializable {
 
                 }
                 inserirRegistro(registros);
-                // Adiciona o arquivo à lista de arquivos carregados
-                fileUploadManager.addUploadedFile(fileName);
+                // Adiciona o arquivo à lista de arquivos carregados usando o hash do conteúdo
+                String fileContentHash = calculateFileHash(new File(path));
+                fileUploadManager.addUploadedFile(fileContentHash);
+
                 javafx.application.Platform.runLater(() -> {
                     progressIndicator.setVisible(false);
                     UploadCompleto();
                 });
-            } catch (IOException e) {
+            } catch (IOException | NoSuchAlgorithmException e) {
                 javafx.application.Platform.runLater(() -> {
                     progressIndicator.setVisible(false);
                     showErrorAlert("Erro ao fazer upload do arquivo", e.getMessage());
@@ -242,6 +239,24 @@ public class UploadController implements Initializable {
             }
         }).start();
     }
+
+    private String calculateFileHash(File file) throws IOException, NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        try (InputStream is = new FileInputStream(file)) {
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = is.read(buffer)) != -1) {
+                md.update(buffer, 0, read);
+            }
+        }
+        byte[] digest = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte b : digest) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+
     private void abrirParametrosFXML() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/leitorclima/ParametrosSuspeitos.fxml")));
         Stage stage = (Stage) btnUploadFile.getScene().getWindow();
@@ -249,6 +264,7 @@ public class UploadController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
     // Popup de upload completo
     public void UploadCompleto() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
