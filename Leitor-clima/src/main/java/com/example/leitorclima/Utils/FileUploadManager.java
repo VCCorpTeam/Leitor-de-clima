@@ -4,14 +4,14 @@ import java.util.HashSet;
 import javafx.scene.control.Alert;
 
 public class FileUploadManager {
-    private HashSet<String> uploadedFiles = new HashSet<String>();
+    private HashSet<String> uploadedFileHashes = new HashSet<String>();
 
-    public boolean hasFileBeenUploaded(String fileName) {
-        return uploadedFiles.contains(fileName);
+    public boolean hasFileBeenUploaded(String fileHash) {
+        return uploadedFileHashes.contains(fileHash);
     }
 
-    public void addUploadedFile(String fileName) {
-        uploadedFiles.add(fileName);
+    public void addUploadedFile(String fileHash) {
+        uploadedFileHashes.add(fileHash);
     }
 
     public void showAlreadyUploadedPopup() {
