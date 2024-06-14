@@ -1,6 +1,8 @@
 package com.example.leitorclima.GUI;
 
 import com.example.leitorclima.Models.Registro;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,10 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static com.example.leitorclima.Utils.DbUtils.*;
 import static com.example.leitorclima.Utils.DbUtils.getArquivo;
@@ -65,7 +64,30 @@ public class FormsRelatorioController implements Initializable {
     private Button btnVoltaMenuUnid;
     @FXML
     private Button btnDefUnid;
-    private List<String> listaUnidade;
+    @FXML
+    private ComboBox<String> cbUmid;
+    @FXML
+    private ComboBox<String> cbPressao;
+    @FXML
+    private ComboBox<String> cbChuva;
+    @FXML
+    private ComboBox<String> cbTemp;
+    @FXML
+    private ComboBox<String> cbOrv;
+    @FXML
+    private ComboBox<String> cbRadiacao;
+    @FXML
+    private ComboBox<String> cbVelVento;
+    @FXML
+    private ComboBox<String> cbRajVento;
+    @FXML
+    private ComboBox<String> cbInsolacao;
+    @FXML
+    private ComboBox<String> cbNebulos;
+    @FXML
+    private ComboBox<String> cbDirVento;
+
+    private List<Integer> listaUnidade;
 
 
     private static FormsRelatorioController instance;
@@ -107,7 +129,18 @@ public class FormsRelatorioController implements Initializable {
         cbEstacaoBox.getItems().addAll(listaEstacao);
 
         //INICIALIZA UNIDADE MEDIDAS
-
+        int[] listaUnidade = {1,1,1,1,1,1,1,1,1,1,1};
+        cbUmid.setValue("%");
+        cbPressao.setValue("hPa");
+        cbChuva.setValue("mm");
+        cbTemp.getItems().addAll("C","K","F");
+        cbOrv.getItems().addAll("C","K","F");
+        cbRadiacao.setValue("KJ/m²");
+        cbVelVento.getItems().addAll("m/s","km/h");
+        cbRajVento.getItems().addAll("m/s","km/h");
+        cbInsolacao.setValue("h");
+        cbNebulos.setValue("decimos");
+        cbDirVento.getItems().addAll("m/s","km/h");
     }
 
     //GERA RELATORIO MÉDIA
@@ -217,6 +250,14 @@ public class FormsRelatorioController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void defineUnidMedida() {
+        Map<String, Integer> tempOptionNum = new HashMap<>();
+        tempOptionNum.put("C", 1);
+        tempOptionNum.put("K", 2);
+        tempOptionNum.put("F", 3);
+        int tempValue = tempOptionNum.get(cbTemp.getValue());
     }
 
 
