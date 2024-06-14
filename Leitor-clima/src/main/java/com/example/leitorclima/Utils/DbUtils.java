@@ -1,20 +1,16 @@
 package com.example.leitorclima.Utils;
 
-import com.example.leitorclima.Models.Arquivo;
-import com.example.leitorclima.Models.Registro;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.LinkedHashMap;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import com.example.leitorclima.Models.Arquivo;
+import com.example.leitorclima.Models.Registro;
 import static com.example.leitorclima.Utils.DbBoxUtils.getIndice;
 
 public class DbUtils {
@@ -185,7 +181,7 @@ public class DbUtils {
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
 
-            
+
             stmt.setString(1, nomeArquivo);
             stmt.setString(2, dataInicio);
             stmt.setString(3, dataFim);
@@ -207,6 +203,7 @@ public class DbUtils {
 
         return allEntries;
     }
+
     public static List<Arquivo> getArquivoCidade(String cidade){
         String sql = "select idArquivo,cidade,estacao from arquivo where cidade=?";
         List<Arquivo> listaArquivos = new ArrayList<>();
@@ -353,6 +350,7 @@ public class DbUtils {
         }
         return parametrosR;
     }
+
     public static boolean checkparametros() {
         String sql = "SELECT COUNT(*) FROM parametros";
 
@@ -371,8 +369,4 @@ public class DbUtils {
 
         return false;
     }
-
-
 }
-
-

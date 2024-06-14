@@ -1,34 +1,41 @@
 package com.example.leitorclima.GUI;
 
-import com.example.leitorclima.Models.CSV;
-import com.example.leitorclima.Models.Line;
-import com.example.leitorclima.Utils.DbUtils;
-import com.example.leitorclima.Utils.FileUploadManager;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
-import javafx.stage.Window;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ProgressIndicator;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
+import com.example.leitorclima.Utils.DbUtils;
+import static com.example.leitorclima.Utils.DbUtils.inserirArquivo;
+import static com.example.leitorclima.Utils.DbUtils.inserirRegistro;
+import com.example.leitorclima.Utils.FileUploadManager;
+import static com.example.leitorclima.Utils.FormataDataUtil.formataData;
+
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import static com.example.leitorclima.Utils.DbUtils.*;
-import static com.example.leitorclima.Utils.FormataDataUtil.formataData;
+import javafx.stage.Window;
 
 public class UploadController implements Initializable {
     public static String path;
@@ -90,26 +97,37 @@ public class UploadController implements Initializable {
     }
 
     public void uploadFile() {
-        String fileName = new File(path).getName();
         progressIndicator.setVisible(true);
 
         new Thread(() -> {
-            String line = "";
-            String dta = null;
-            String hra = null;
-            String vla = null;
-            String ind = null;
-            String arc = null;
-            String sus = null;
-            ArrayList<Map<String, String>> rows;
-            List<Map<String, String>> registros = new ArrayList<>();
-            String[] indices;
-            String nomeArquivo;
-            String estacao;
-            String cidade;
             try {
+                File file = new File(path);
+                String fileContentHash = calculateFileHash(file);
+
+                if (fileUploadManager.hasFileBeenUploaded(fileContentHash)) {
+                    javafx.application.Platform.runLater(() -> {
+                        progressIndicator.setVisible(false);
+                        fileUploadManager.showAlreadyUploadedPopup();
+                    });
+                    return;
+                }
+
+                String line = "";
+                String dta = null;
+                String hra = null;
+                String vla = null;
+                String ind = null;
+                String arc = null;
+                String sus = null;
+                ArrayList<Map<String, String>> rows;
+                List<Map<String, String>> registros = new ArrayList<>();
+                String[] indices;
+                String nomeArquivo;
+                String estacao;
+                String cidade;
+
                 rows = new ArrayList<>();
-                BufferedReader br = new BufferedReader((new FileReader(path)));
+                BufferedReader br = new BufferedReader(new FileReader(path));
                 int i = 0;
                 indices = null;
                 System.out.println("Path: " + path);
@@ -123,32 +141,29 @@ public class UploadController implements Initializable {
 
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(";");
-                    if (i == 0) { // Primeira linha, determinar o número de colunas
-                        indices = values; // Salvar os índices
+                    if (i == 0) {
+                        indices = values;
                         indices[i] = values[i].replaceAll("^\"|\"$", "");
-                    } else { // Linhas subsequentes, processar valores
-
+                    } else {
                         Map<String, String> rowValues = new LinkedHashMap<>();
-
                         for (int j = 0; j < indices.length; j++) {
                             if (j < values.length) {
                                 String value = values[j].replaceAll("^\"|\"$", "");
-                                rowValues.put(indices[j], value); // Adicionar o índice antes do valor
+                                rowValues.put(indices[j], value);
                             } else {
                                 rowValues.put(indices[j], "");
                             }
                         }
-                        rows.add(rowValues); // Adicionar a linha à lista de linhas
+                        rows.add(rowValues);
                     }
-
                     i++;
                 }
-                
-                List<List<String>> paramar= DbUtils.getParametros();
+
+                List<List<String>> paramar = DbUtils.getParametros();
                 br.close();
                 Map<String, String> registro;
-                for (int y = 0; y < rows.size(); y++) {
 
+                for (int y = 0; y < rows.size(); y++) {
                     Map<String, String> mapa = rows.get(y);
                     for (int z = 2; z < mapa.size(); z++) {
                         registro = new LinkedHashMap<>();
@@ -178,9 +193,7 @@ public class UploadController implements Initializable {
                                 } else {
                                     vla = mapa.values().toArray(new String[0])[z].replace(",", ".");
                                     ind = indices[z];
-                                    // Incrementa z após acessar o elemento
                                 }
-
                             }
                         } else if (mapa.size() == 12) {
                             dta = formataData(mapa.values().toArray(new String[0])[0]);
@@ -189,6 +202,7 @@ public class UploadController implements Initializable {
                             vla = mapa.values().toArray(new String[0])[z].replace(",", ".");
                             ind = indices[z];
                         }
+
                         if (vla.isEmpty()) {
                             sus = "1";
                         } else {
@@ -217,13 +231,10 @@ public class UploadController implements Initializable {
                         registro.put("vla", vla);
                         registro.put("sus", sus);
                         registros.add(registro);
-
                     }
-
                 }
+
                 inserirRegistro(registros);
-                // Adiciona o arquivo à lista de arquivos carregados usando o hash do conteúdo
-                String fileContentHash = calculateFileHash(new File(path));
                 fileUploadManager.addUploadedFile(fileContentHash);
 
                 javafx.application.Platform.runLater(() -> {
@@ -241,7 +252,7 @@ public class UploadController implements Initializable {
     }
 
     private String calculateFileHash(File file) throws IOException, NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         try (InputStream is = new FileInputStream(file)) {
             byte[] buffer = new byte[1024];
             int read;
@@ -265,7 +276,6 @@ public class UploadController implements Initializable {
         stage.show();
     }
 
-    // Popup de upload completo
     public void UploadCompleto() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Upload completo");
@@ -275,7 +285,6 @@ public class UploadController implements Initializable {
         alert.showAndWait();
     }
 
-    // Popup de erro
     private void showErrorAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -285,7 +294,6 @@ public class UploadController implements Initializable {
         alert.showAndWait();
     }
 
-    // Voltando ao menu main
     public void returnToMenu() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
