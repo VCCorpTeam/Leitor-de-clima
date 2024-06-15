@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 
 import static com.example.leitorclima.GUI.FormsRelatorioController.enviaDadosSit;
 import static com.example.leitorclima.Utils.DbUtils.*;
+import static com.example.leitorclima.Utils.UnidadeMedidaUtil.*;
 
 public class RelatorioSitController implements Initializable {
 
@@ -40,22 +41,28 @@ public class RelatorioSitController implements Initializable {
     @FXML
     private TableColumn<Registro,String> colunaValorSit;
     @FXML
+    private TableColumn<Registro,String> colunaUnidSit;
+    @FXML
     private TableColumn<Registro,String> colunaDataSit;
     @FXML
     private TableColumn<Registro,String> colunaHoraSit;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        List<String> listaDados = enviaDadosSit();
+        List<String> listaDados = enviaDadosSit().getDados();
+        List<Integer> listaUnid = enviaDadosSit().getListaUnidSit();
+
         tfCidadeSit.setText(listaDados.get(0));
         List<Registro> listaSituacional = getUltimosRegistros(listaDados.get(0));
+        List<Registro> listaSitFinal = alteraUnid(listaUnid,listaSituacional);
 
         colunaIndiceSit.setCellValueFactory(new PropertyValueFactory<>("indice"));
         colunaValorSit.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        colunaUnidSit.setCellValueFactory(new PropertyValueFactory<>("unidMed"));
         colunaDataSit.setCellValueFactory(new PropertyValueFactory<>("data"));
         colunaHoraSit.setCellValueFactory(new PropertyValueFactory<>("hora"));
 
-        tableDadosSit.getItems().addAll(listaSituacional);
+        tableDadosSit.getItems().addAll(listaSitFinal);
 
         btnExportaCsvSit.setOnAction(event -> {
             Stage stage = (Stage) btnExportaCsvSit.getScene().getWindow();

@@ -193,7 +193,12 @@ public class DbUtils {
                     String hora = rs.getString("hora");
                     String idArquivo = rs.getString("idArquivo");
                     String valor = rs.getString("valor");
-                    Registro registro = new Registro(indice,data,hora,idArquivo,valor);
+
+                    String[] parts = indice.split("\\(" );
+                    indice = parts[0];
+                    String unidMed = parts[1];
+
+                    Registro registro = new Registro(indice,data,hora,idArquivo,valor,unidMed);
                     allEntries.add(registro);
                 }
             }
@@ -248,7 +253,7 @@ public class DbUtils {
                 "AS v " +
                 "WHERE Hora = (SELECT MAX(Hora) FROM Registro WHERE (suspeito <> 1) " +
                 "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN (?) ))" +
-                "AND indice = ?";
+                "AND indice LIKE ?";
 
 
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
@@ -256,7 +261,7 @@ public class DbUtils {
 
                 stmt.setString(1, condition);
                 stmt.setString(2, condition);
-                stmt.setString(3, indice);
+                stmt.setString(3, indice + '%');
                 try (ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
                         String idArquivoReg = rs.getString("idArquivo");
@@ -264,7 +269,12 @@ public class DbUtils {
                         String horaReg = rs.getString("hora");
                         String indiceReg = rs.getString("indice");
                         String valorReg = rs.getString("valor");
-                        Registro registro = new Registro(indiceReg, dataReg, horaReg, idArquivoReg, valorReg);
+
+                        String[] parts = indiceReg.split("\\(" );
+                        indiceReg = parts[0];
+                        String unidMed = parts[1];
+
+                        Registro registro = new Registro(indiceReg, dataReg, horaReg, idArquivoReg, valorReg,unidMed);
                         registros.add(registro);
                     }
                 }
@@ -285,12 +295,16 @@ public class DbUtils {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (!rs.isBeforeFirst()) throw new SQLException("User not found");
                 while (rs.next()) {
-                    Registro suspeito = new Registro(
-                            rs.getString("Indice"),
-                            rs.getString("Data"),
-                            rs.getString("Hora"),
-                            rs.getString("IdArquivo"),
-                            rs.getString("Valor"));
+                    String idArquivoReg = rs.getString("idArquivo");
+                    String dataReg = rs.getString("data");
+                    String horaReg = rs.getString("hora");
+                    String indiceReg = rs.getString("indice");
+                    String valorReg = rs.getString("valor");
+
+                    String[] parts = indiceReg.split("\\(" );
+                    indiceReg = parts[0];
+                    String unidMed = parts[1];
+                    Registro suspeito = new Registro(indiceReg,dataReg,horaReg,idArquivoReg,valorReg,unidMed);
                     registroSus.add(suspeito);
                 }
             }
