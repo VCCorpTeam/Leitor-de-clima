@@ -105,7 +105,7 @@
                   <Label layoutX="44.0" layoutY="143.0" text="Temperatura" textFill="WHITE" />
                   <Label layoutX="44.0" layoutY="173.0" text="Pto. Orvalho" textFill="WHITE" />
                   <Label layoutX="44.0" layoutY="203.0" text="Radiação" textFill="WHITE" />
-                  <Label layoutX="288.0" layoutY="173.0" text="DIr.Vento" textFill="WHITE" />
+                  <Label layoutX="288.0" layoutY="173.0" text="Dir. Vento" textFill="WHITE" />
                   <ComboBox fx:id="cbUmid" disable="true" layoutX="120.0" layoutY="49.0" opacity="0.75" prefWidth="150.0" />
                   <ComboBox fx:id="cbPressao" disable="true" layoutX="120.0" layoutY="79.0" opacity="0.75" prefWidth="150.0" />
                   <ComboBox fx:id="cbChuva" disable="true" layoutX="120.0" layoutY="109.0" opacity="0.75" prefWidth="150.0" />

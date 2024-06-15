@@ -35,6 +35,7 @@ public class DbBoxUtils {
     }
 
     public static List<Registro> getDadosBox(String estacao, String data, String indice) {
+        String unidMed = "";
         List<String> listaArquivo;
         listaArquivo = getArquivoEstacao(estacao);
         String condition = "";
@@ -47,14 +48,14 @@ public class DbBoxUtils {
             var++;
         }
 
-        String sql = "SELECT idArquivo,data,hora,indice,valor FROM registro where idArquivo in ( ? ) and data = ? and indice = ? and suspeito = 0 ";
+        String sql = "SELECT idArquivo,data,hora,indice,valor FROM registro where idArquivo in ( ? ) and data = ? and indice LIKE ? and suspeito = 0 ";
 
         List<Registro> listaDados = new ArrayList<>();
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, condition);
             stmt.setString(2, data);
-            stmt.setString(3, indice);
+            stmt.setString(3, indice + '%');
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (!rs.isBeforeFirst()) throw new SQLException("User not found");
@@ -64,17 +65,26 @@ public class DbBoxUtils {
                     String horaReg = rs.getString("hora");
                     String indiceReg = rs.getString("indice");
                     String valorReg = rs.getString("valor");
-                    Registro registro = new Registro(indiceReg, dataReg, horaReg, idArquivoReg, valorReg);
+
+                    if (indiceReg.contains("(")) {
+                        String[] parts = indiceReg.split("\\(");
+                        indiceReg = parts[0];
+                        unidMed = parts[1];
+                    }
+
+                    Registro registro = new Registro(indiceReg, dataReg, horaReg, idArquivoReg, valorReg, unidMed);
                     listaDados.add(registro);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return listaDados;
     }
 
     public static List<String> getIndice() {
+        String unidMed = "";
         List<String> indices = new ArrayList<>();
         String sql = "SELECT distinct indice FROM registro";
 
@@ -84,6 +94,11 @@ public class DbBoxUtils {
                 if (!rs.isBeforeFirst()) throw new SQLException("User not found");
                 while (rs.next()) {
                     String indice = rs.getString("indice");
+                    if (indice.contains("(")) {
+                        String[] parts = indice.split("\\(");
+                        indice = parts[0];
+                        unidMed = parts[1];
+                    }
                     indices.add(indice);
                 }
             }

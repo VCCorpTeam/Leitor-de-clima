@@ -24,10 +24,12 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static com.example.leitorclima.GUI.FormsRelatorioController.enviaDadosBox;
+import static com.example.leitorclima.GUI.FormsRelatorioController.enviaDadosSit;
 import static com.example.leitorclima.Utils.DbBoxUtils.getDadosBox;
 import static com.example.leitorclima.Utils.DbBoxUtils.getIndice;
 import static com.example.leitorclima.Utils.DbUtils.geraArquivoComboBox;
 import static com.example.leitorclima.Utils.DbUtils.getListaRegistroSus;
+import static com.example.leitorclima.Utils.UnidadeMedidaUtil.alteraUnid;
 
 public class RelatorioBoxController implements Initializable {
 
@@ -75,57 +77,61 @@ public class RelatorioBoxController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         List<List<Registro>> listaListas = new ArrayList<>();
-        List<String> listaDados = enviaDadosBox();
+        List<String> listaDados = enviaDadosBox().getDados();
+        List<Integer> listaUnid = enviaDadosSit().getListaUnidSit();
         tfEstacaoBox.setText(listaDados.get(0));
         tfDataBox.setText(listaDados.get(1));
 
         List<String> listaIndice = getIndice();
         for(String indice : listaIndice) {
-            switch (indice) {
-                case "Chuva (mm)","Chuva [Diaria] (mm)" -> {
-                    listaChuva = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaChuva);
-                }
-                case "Dir. Vento (m/s)" -> {
-                    listaDirVento = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaDirVento);
-                }
-                case "Pto Orvalho" -> {
-                    listaPtoOrvalho = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaPtoOrvalho);
-                }
-                case "Pressao","Pressao (hPa)" -> {
-                    listaPressao = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaPressao);
-                }
-                case "Radiacao (KJ/m²)" -> {
-                    listaRadia = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaRadia);
-                }
-                case "Raj. Vento (m/s)" -> {
-                    listaRajVento = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaRajVento);
-                }
-                case "Temp. ","Temp. [Hora] (K)" -> {
-                    listaTemp = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaTemp);
-                }
-                case "Umi." -> {
-                    listaUmidade = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaUmidade);
-                }
-                case "Vel. Vento (m/s)" -> {
-                    listaVelVento = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaVelVento);
-                }
-                case "Insolacao (h)" -> {
-                    listaInsola = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaInsola);
-                }
-                case "Nebulosidade (Decimos)" -> {
-                    listaNebulosidade = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
-                    listaListas.add(listaNebulosidade);
-                }
+            if (indice.contains("Chuva") ) {
+                listaChuva = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                listaListas.add(listaChuva);
+
+            } else if (indice.contains("Dir")) {
+                listaDirVento = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                List<Registro> listaDirFinal = alteraUnid(listaUnid, listaDirVento);
+                listaListas.add(listaDirFinal);
+
+            } else if (indice.contains("Pto")) {
+                listaPtoOrvalho = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                List<Registro> listaPtoFinal = alteraUnid(listaUnid, listaPtoOrvalho);
+                listaListas.add(listaPtoFinal);
+
+            } else if (indice.contains("Pressao") ) {
+                listaPressao = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                listaListas.add(listaPressao);
+
+            } else if (indice.contains("Radiacao")) {
+                listaRadia = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                listaListas.add(listaRadia);
+
+            } else if (indice.contains("Raj")) {
+                listaRajVento = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                List<Registro> listaRajFinal = alteraUnid(listaUnid, listaRajVento);
+                listaListas.add(listaRajFinal);
+
+            } else if (indice.contains("Temp") ) {
+                listaTemp = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                List<Registro> listaTempFinal = alteraUnid(listaUnid, listaTemp);
+                listaListas.add(listaTempFinal);
+
+            } else if (indice.contains("Umi")) {
+                listaUmidade = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                listaListas.add(listaUmidade);
+
+            } else if (indice.contains("Vel")) {
+                listaVelVento = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                List<Registro> listaVelFinal = alteraUnid(listaUnid, listaVelVento);
+                listaListas.add(listaVelFinal);
+
+            } else if (indice.contains("Insolacao")) {
+                listaInsola = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                listaListas.add(listaInsola);
+
+            } else if (indice.contains("Nebulosidade")) {
+                listaNebulosidade = getDadosBox(listaDados.get(0), listaDados.get(1), indice);
+                listaListas.add(listaNebulosidade);
             }
         }
 
