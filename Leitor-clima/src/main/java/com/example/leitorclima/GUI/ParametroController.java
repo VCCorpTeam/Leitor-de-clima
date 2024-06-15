@@ -186,5 +186,12 @@ public class ParametroController {
             e.printStackTrace();
         }
     }
+    private void trocarParaEstacao(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/Estacao.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }

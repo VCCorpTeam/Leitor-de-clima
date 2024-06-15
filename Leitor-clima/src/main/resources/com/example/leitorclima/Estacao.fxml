@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="450.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.Estacao">
+<AnchorPane prefHeight="450.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.EstacaoController">
     <children>
-        <Button layoutX="331.0" layoutY="387.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="106.0" text="Button" />
-        <Label layoutX="14.0" layoutY="182.0" text="Informe abaixo o nome da estação" />
-        <Label layoutX="14.0" layoutY="199.0" text="Meteriológica por extenso, se houver" />
-        <TextField layoutX="14.0" layoutY="237.0" prefHeight="25.0" prefWidth="197.0" />
+        <Button fx:id="salvarButton" layoutX="331.0" layoutY="387.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="106.0" text="Salvar" />
+        <Label layoutX="14.0" layoutY="182.0" text="Informe abaixo o nome da estação meteorológica" />
+        <Label layoutX="14.0" layoutY="199.0" text="Meteorológica por extenso, se houver" />
+        <TextField fx:id="nomeEstacaoTextField" layoutX="14.0" layoutY="237.0" prefHeight="25.0" prefWidth="197.0" />
         <Label layoutX="341.0" layoutY="199.0" text="Latitude" />
-        <TextField layoutX="310.0" layoutY="237.0" prefHeight="25.0" prefWidth="106.0" />
+        <TextField fx:id="latitudeTextField" layoutX="310.0" layoutY="237.0" prefHeight="25.0" prefWidth="106.0" />
         <Label layoutX="533.0" layoutY="199.0" text="Longitude" />
-        <TextField layoutX="507.0" layoutY="237.0" prefHeight="25.0" prefWidth="106.0" />
+        <TextField fx:id="longitudeTextField" layoutX="507.0" layoutY="237.0" prefHeight="25.0" prefWidth="106.0" />
         <Label layoutX="293.0" layoutY="148.0" text="Sigla das estações" />
         <Label layoutX="293.0" layoutY="165.0" text="Já cadastradas" />
-        <ComboBox layoutX="266.0" layoutY="123.0" prefWidth="150.0" />
-      <Label layoutX="284.0" layoutY="40.0" text="Estação">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
+        <ComboBox fx:id="estacaoComboBox" layoutX="266.0" layoutY="123.0" prefWidth="150.0" />
+        <Label layoutX="284.0" layoutY="40.0" text="Estação">
+            <font>
+                <Font size="28.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>

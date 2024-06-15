@@ -25,10 +25,10 @@
         <TextField layoutX="234.0" layoutY="401.0" prefHeight="25.0" prefWidth="212.0" />
         <TextField layoutX="234.0" layoutY="444.0" prefHeight="25.0" prefWidth="212.0" />
         <Button layoutX="558.0" layoutY="396.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="71.0" text="Salvar" />
-      <Label layoutX="162.0" layoutY="31.0" prefHeight="40.0" prefWidth="103.0" text="Cidade">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
+        <Label layoutX="162.0" layoutY="31.0" prefHeight="40.0" prefWidth="103.0" text="Cidade">
+            <font>
+                <Font size="28.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>

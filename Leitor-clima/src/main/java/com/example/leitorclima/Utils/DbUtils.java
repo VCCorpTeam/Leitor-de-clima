@@ -100,6 +100,26 @@ public class DbUtils {
         return cidades;
     }
 
+    public static List<String> geraCidadeComboBox() {
+        List<String> cidades = new ArrayList<>();
+        String sql = "SELECT distinct cidade FROM arquivo";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
+                while (rs.next()) {
+                    String cidade = rs.getString("cidade");
+                    cidades.add(cidade);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cidades;
+    }
+
     public static List<String> geraEstacaoComboBox() {
         List<String> estacoes = new ArrayList<>();
         String sql = "SELECT distinct estacao FROM arquivo";
