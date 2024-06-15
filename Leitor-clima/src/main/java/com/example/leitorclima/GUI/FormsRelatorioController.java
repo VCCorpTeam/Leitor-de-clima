@@ -1,5 +1,6 @@
 package com.example.leitorclima.GUI;
 
+import com.example.leitorclima.Models.DadosEnvio;
 import com.example.leitorclima.Models.Registro;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,12 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -60,6 +63,7 @@ public class FormsRelatorioController implements Initializable {
     private List<String> listaEstacao;
 
     //COMPONENTES UNIDADE DE MEDIDA
+    private static boolean defineUnid = false;
     @FXML
     private Button btnVoltaMenuUnid;
     @FXML
@@ -87,7 +91,7 @@ public class FormsRelatorioController implements Initializable {
     @FXML
     private ComboBox<String> cbDirVento;
 
-    private List<Integer> listaUnidade;
+    private static List<Integer> listaUnidade;
 
 
     private static FormsRelatorioController instance;
@@ -129,7 +133,7 @@ public class FormsRelatorioController implements Initializable {
         cbEstacaoBox.getItems().addAll(listaEstacao);
 
         //INICIALIZA UNIDADE MEDIDAS
-        int[] listaUnidade = {1,1,1,1,1,1,1,1,1,1,1};
+        int[] listaUnidade = {1, 1, 1, 1, 1};
         cbUmid.setValue("%");
         cbPressao.setValue("hPa");
         cbChuva.setValue("mm");
@@ -191,13 +195,18 @@ public class FormsRelatorioController implements Initializable {
             e.printStackTrace();
         }
     }
-    public static List<String> enviaDadosSit() {
+    public static DadosEnvio enviaDadosSit() {
+        List<Integer> listaUnidSit = new ArrayList<>();
+        listaUnidSit = List.of(new Integer[]{1, 1, 1, 1, 1});
+        if (defineUnid) {
+            listaUnidSit = listaUnidade;
+        }
         FormsRelatorioController controller = FormsRelatorioController.getInstance();
         List<String> dados = new ArrayList<>();
         String cidade = controller.cbCidadeSit.getValue();
         dados.add(cidade);
 
-        return dados;
+        return new DadosEnvio(dados,listaUnidSit);
     }
 
 
@@ -227,15 +236,20 @@ public class FormsRelatorioController implements Initializable {
             e.printStackTrace();
         }
     }
-    public static List<String> enviaDadosBox() {
+    public static DadosEnvio enviaDadosBox() {
         FormsRelatorioController controller = FormsRelatorioController.getInstance();
+        List<Integer> listaUnidBox = new ArrayList<>();
+        listaUnidBox = List.of(new Integer[]{1, 1, 1, 1, 1});
+        if (defineUnid) {
+            listaUnidBox = listaUnidade;
+        }
         List<String> dados = new ArrayList<>();
         String estacao = controller.cbEstacaoBox.getValue();
         String data = String.valueOf(controller.dpDataBox.getValue());
         dados.add(estacao);
         dados.add(data);
 
-        return dados;
+        return new DadosEnvio(dados,listaUnidBox);
     }
 
     //DEFINE MEDIDAS
@@ -253,11 +267,45 @@ public class FormsRelatorioController implements Initializable {
     }
     @FXML
     private void defineUnidMedida() {
+        defineUnid = true;
+
         Map<String, Integer> tempOptionNum = new HashMap<>();
         tempOptionNum.put("C", 1);
         tempOptionNum.put("K", 2);
         tempOptionNum.put("F", 3);
-        int tempValue = tempOptionNum.get(cbTemp.getValue());
+
+        Map<String, Integer> orvOptionNum = new HashMap<>();
+        orvOptionNum.put("C", 1);
+        orvOptionNum.put("K", 2);
+        orvOptionNum.put("F", 3);
+
+        Map<String, Integer> velVentoOptionNum = new HashMap<>();
+        velVentoOptionNum.put("m/s", 1);
+        velVentoOptionNum.put("km/h", 2);
+
+        Map<String, Integer> rajVentoOptionNum = new HashMap<>();
+        rajVentoOptionNum.put("m/s", 1);
+        rajVentoOptionNum.put("km/h", 2);
+
+        Map<String, Integer> dirVentoOptionNum = new HashMap<>();
+        dirVentoOptionNum.put("m/s", 1);
+        dirVentoOptionNum.put("km/h", 2);
+
+        Integer tempValue = tempOptionNum.get(cbTemp.getValue());
+        Integer orvValue  = orvOptionNum.get(cbOrv.getValue());
+        Integer velVentoValue = velVentoOptionNum.get(cbVelVento.getValue());
+        Integer rajVentoValue = rajVentoOptionNum.get(cbRajVento.getValue());
+        Integer dirVentoValue = dirVentoOptionNum.get(cbDirVento.getValue());
+        List<Integer> listaDefUnid = new ArrayList<>();
+        listaDefUnid = List.of(new Integer[]{tempValue, orvValue, velVentoValue, rajVentoValue, dirVentoValue});
+
+        listaUnidade = listaDefUnid;
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Unidade definidas");
+        alert.setHeaderText(null);
+        alert.setContentText("Unidades de medida definidas!");
+        alert.show();
     }
 
 
