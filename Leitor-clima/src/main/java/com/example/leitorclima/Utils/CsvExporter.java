@@ -43,10 +43,11 @@ public class CsvExporter {
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
-                writer.append("Indice;Valor;Data;Horário\n");
+                writer.append("Indice;Valor;Unidade de Medida;Data;Horário\n");
                 for (Registro registro : data) {
                     writer.append(registro.getIndice()).append(';')
                             .append(String.valueOf(registro.getValor())).append(';')
+                            .append(String.valueOf(registro.getUnidMed())).append(';')
                             .append(String.valueOf(registro.getData())).append(';')
                             .append(String.valueOf(registro.getHora())).append('\n');
                 }
