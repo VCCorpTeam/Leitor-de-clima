@@ -10,13 +10,15 @@ public class Registro {
     private String hora;
     private String idArquivo;
     private String valor;
+    private String unidMed;
 
-    public Registro(String indice, String data, String hora, String idArquivo, String valor) {
+    public Registro(String indice, String data, String hora, String idArquivo, String valor, String undiMed) {
         this.indice = indice;
         this.data = data;
         this.hora = hora;
         this.idArquivo = idArquivo;
         this.valor = valor;
+        this.unidMed = undiMed;
     }
 
     public String getIndice() {
@@ -37,5 +39,14 @@ public class Registro {
 
     public String getValor() {
         return valor;
+    }
+
+    public String getUnidMed() { return unidMed; }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+    public void setUnidMed(String unidMed) {
+        this.unidMed = unidMed;
     }
 }
