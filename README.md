@@ -54,7 +54,40 @@ Este projeto tem como objetivo criar um sistema, utilizando a linguagem Java e B
 | 12         | Ajustes e Melhorias                               | Realizar ajustes finais e melhorias de usabilidade com base no feedback do usuário.                                 |
 | 13         | Documentação                                      | Preparar a documentação do sistema, incluindo manuais de usuário e desenvolvedor.                                   |
 
+
+
+
+
 </details>
+
+
+
+<details>
+  <summary> GUIA DE INSTALAÇÃO </summary>
+
+VEJA NA INTEGRA NA PASTA DOCUMENTOS:
+https://github.com/VCCorpTeam/Leitor-de-clima/blob/sprint-4/Documenta%C3%A7%C3%A3o/GUIA%20DE%20INSTALA%C3%87%C3%83O%20.pdf
+
+<ol>
+  <li>Baixe esse arquivo .rar:</li>
+  <li>Descompacte o arquivo</li>
+  <li>Abra o MySQL Workbench</li>
+  <li>*O MySQL deve ter sido configurado com a senha '1234'</li>
+  <li>Insira a senha '1234'</li>
+  <li>Clique em File</li>
+  <li>Clique em Open SQL Script</li>
+  <li>Selecione o arquivo DDL.sql</li>
+  <li>Clique no símbolo do raio</li>
+  <li>Agora é só clicar no arquivo executável .jar na pasta, dentro de:
+      <ul>
+        <li>Out\artifacts\Leitor_Clima_jar</li>
+      </ul>
+  </li>
+</ol>
+</details>
+
+
+
 
 <span id="user-stories">
 
