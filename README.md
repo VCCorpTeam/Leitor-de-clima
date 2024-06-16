@@ -1,5 +1,6 @@
-<img src= "https://github.com/VCCorpTeam/Leitor-de-clima/assets/119015786/44e1f9c1-8c06-4124-8ac7-385e77cc95d6"/>
-
+<div align = center>
+   <img src= "https://github.com/VCCorpTeam/Leitor-de-clima/assets/119015786/44e1f9c1-8c06-4124-8ac7-385e77cc95d6" width = 300px/>
+</div>
 <p align="center">
    <a href="#sobre-o-projeto">Sobre o projeto</a> • 
    <a href="#calendario-sprints">Calendário Sprints</a> • 
@@ -19,7 +20,7 @@
 <br>2º.Pois a tecnologia tem limitações, e nem sempre as condições estão a nosso favor, é preciso saber se virar!"</br></i>
 
 # <h2>Sobre o projeto 💬</h2>
-Esse projeto o qual estamos dispostos a fazer se trata de, através da linguagem Java e o uso de Banco de Dados SQL, criar um sistema que leia e interprete arquivos CSV com dados climáticos de certas cidades e regiões do estado de São Paulo e elaborar relatórios em texto sobre as médias das temperaturas, umidades, quantidade de chuva, etc... Além disso, serão feitos gráficos boxplot desses relatórios finais para uma abordagem mais visual dos dados.
+Este projeto tem como objetivo criar um sistema, utilizando a linguagem Java e Banco de Dados SQL, para ler e interpretar arquivos CSV com dados climáticos de diversas cidades e regiões do estado de São Paulo. A partir desses dados, o sistema gerará relatórios, data e hora, situacional e boxplot, detalhados sobre temperaturas, umidades, precipitações, entre outros. Além disso, o usuário terá a liberdade de definir os parâmetros dos dados e decidir como lidar com os dados considerados "suspeitos". Tudo isso com uma boa perfomance do Java e o uso bem feito do JavaFX, recurso gráfico do prórpio Java
 
 # <h2>Calendário Sprints 🗓️</h2>
 
