@@ -1,28 +1,26 @@
 package com.example.leitorclima.GUI;
 
 import com.example.leitorclima.Utils.DbUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
+import java.net.URL;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.sql.SQLException;
+import java.util.*;
 
-import static com.example.leitorclima.Utils.DbUtils.inserirParametros;
+import static com.example.leitorclima.Utils.DbUtils.*;
 
-public class ParametroController {
+public class CadastrosController implements Initializable {
     @FXML
     private TextField UmidMin;
     @FXML
@@ -68,25 +66,49 @@ public class ParametroController {
     @FXML
     private TextField NebMax;
     @FXML
-
-    private Stage stage;
-    @FXML
-    private Button BtParametro;
-    @FXML
-    private Button btDefinir;
-
-    private Connection connection;
-
+    private Button btnMenuParam;
 
     @FXML
-    private void initialize() {
+    private ComboBox<String> cbEstacao;
+    @FXML
+    private TextField tfNomeEstacao;
+    @FXML
+    private TextField tfLatitude;
+    @FXML
+    private TextField tfLongitude;
+    @FXML
+    private Button btnMenuEstacao;
+    @FXML
+    private Button btnGravaEstacao;
+
+    @FXML
+    private ComboBox<String> cbCidade;
+    @FXML
+    private TextField tfCidadeExtenso;
+    @FXML
+    private Button btnGravaCidade;
+    @FXML
+    private Button btnMenuCidade;
+
+    boolean alteracaoCidade;
+    boolean alteracaoEstacao;
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        List<String> estacoes = new ArrayList<>();
+        estacoes = geraEstacaoComboBox();
+        cbEstacao.getItems().addAll(estacoes);
+
+        List<String> cidades = new ArrayList<>();
+        cidades = geraCidadeComboBox();
+        cbCidade.getItems().addAll(cidades);
+
         carregarParametro();
-        btDefinir.setOnAction(event -> definirParametro());
-        BtParametro.setOnAction(event -> trocarParaMenu());
     }
 
+    @FXML
     private void carregarParametro() {
-        List<List<String>> parametros  = DbUtils.getParametros();;
+        List<List<String>> parametros  = DbUtils.getParametros();
         for (List<String> parametro : parametros) {
             String indiceP = parametro.get(0);
             String minimo = parametro.get(2);
@@ -143,7 +165,8 @@ public class ParametroController {
         }
     }
 
-    private void definirParametro() {
+    @FXML
+    public void definirParametro() {
         List<List<String>> parametros = new ArrayList<>();
         parametros.add(List.of("Umi",UmidMin.getText(),UmidMax.getText() ));
         parametros.add(List.of("Pressao",pressMin.getText(),pressMax.getText() ));
@@ -167,31 +190,99 @@ public class ParametroController {
 
     }
 
-    public void trocarParaParametros(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ParametrosSuspeitos.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    public void selectEstacao() throws SQLException {
+        String estacao = cbEstacao.getValue();
+        List<String> ListaEstacao = buscaEstacao(estacao);
+        if (!ListaEstacao.isEmpty()){
+            tfNomeEstacao.setText(ListaEstacao.get(1));
+            tfLatitude.setText(ListaEstacao.get(2));
+            tfLongitude.setText(ListaEstacao.get(3));
+        }
     }
 
-    public void trocarParaMenu() {
+    @FXML
+    public void selectCidade() throws SQLException {
+        alteracaoCidade = false;
+        String cidade = cbCidade.getValue();
+        List<String> ListaCidade = buscaCidade(cidade);
+        if (!ListaCidade.isEmpty()){
+            alteracaoCidade = true;
+            tfCidadeExtenso.setText(ListaCidade.get(1));
+        }
+    }
+
+    @FXML
+    public void gravaCidade(){
+        System.out.println("grava cidade");
+        String siglaCidade = cbCidade.getValue();
+        String nomeCidade = tfCidadeExtenso.getText();
+        inserirCidade(siglaCidade,nomeCidade);
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cidade gravada");
+        alert.setHeaderText(null);
+        alert.setContentText("Dados da cidade gravados com sucesso!");
+
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void gravaEstacao(){
+        System.out.println("grava estacao");
+        String idEstacao = cbEstacao.getValue();
+        String nomeEstacao = tfNomeEstacao.getText();
+        String latitude = tfLatitude.getText();
+        String longitude = tfLongitude.getText();
+        inserirEstacao(idEstacao,nomeEstacao,latitude,longitude);
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Estação gravada");
+        alert.setHeaderText(null);
+        alert.setContentText("Dados da estação gravados com sucesso!");
+
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void voltaMenuPar() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
             Scene scene = new Scene(root);
-            Stage stage = (Stage) BtParametro.getScene().getWindow();
+            Stage stage = (Stage) btnMenuParam.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private void trocarParaEstacao(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/Estacao.fxml"));
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+
+    @FXML
+    public void voltaMenuCid() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnMenuCidade.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    @FXML
+    public void voltaMenuEst() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/leitorclima/menu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnMenuEstacao.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
