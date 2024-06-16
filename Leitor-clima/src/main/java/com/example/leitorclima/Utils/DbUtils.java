@@ -11,6 +11,8 @@ import java.util.Map;
 
 import com.example.leitorclima.Models.Arquivo;
 import com.example.leitorclima.Models.Registro;
+import javafx.scene.control.Alert;
+
 import static com.example.leitorclima.Utils.DbBoxUtils.getIndice;
 
 public class DbUtils {
@@ -78,26 +80,6 @@ public class DbUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static List<String> geraCidadeComboBox() {
-        List<String> cidades = new ArrayList<>();
-        String sql = "SELECT distinct cidade FROM arquivo";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
-                while (rs.next()) {
-                    String cidade = rs.getString("cidade");
-                    cidades.add(cidade);
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return cidades;
     }
 
     public static List<String> geraCidadeComboBox() {
@@ -402,5 +384,99 @@ public class DbUtils {
         }
 
         return false;
+    }
+
+    public static void inserirCidade(String siglaCidade, String nomeCidade) {
+        String sql = "INSERT INTO cidade (siglaCidade, nomeCidade) VALUES (?,?)";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, siglaCidade);
+            stmt.setString(2, nomeCidade);
+            stmt.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<String> buscaCidade(String siglaCidade) throws SQLException {
+        List<String> listaCidade = new ArrayList<>();
+        String sql = "SELECT * FROM cidade WHERE siglaCidade = ?";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, siglaCidade);
+            try(ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Cidade não encontrada");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Cidade informada não possui dados cadastrados");
+
+                    alert.showAndWait();
+                }
+                while (rs.next()) {
+                    String cidade = rs.getString("siglaCidade");
+                    String nomeCidade = rs.getString("nomeCidade");
+
+                    listaCidade.add(cidade);
+                    listaCidade.add(nomeCidade);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaCidade;
+    }
+
+    public static void inserirEstacao(String idEstacao,String nomeEstacao, String latitude, String longitude) {
+        String sql = "INSERT INTO estacao (idEstacao, nomeEstacao, latitude, longitude) VALUES (?,?,?,?)";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, idEstacao);
+            stmt.setString(2, nomeEstacao);
+            stmt.setString(3, latitude);
+            stmt.setString(4, longitude);
+            stmt.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<String> buscaEstacao(String idEstacao) throws SQLException {
+        List<String> listaEstacao = new ArrayList<>();
+        String sql = "SELECT * FROM estacao WHERE idEstacao = ?";
+
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, idEstacao);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.isBeforeFirst()){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Estação não encontrada");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Estação informada não possui dados cadastrados");
+
+                    alert.showAndWait();
+                }
+                while (rs.next()) {
+                    String estacao = rs.getString("idEstacao");
+                    String nomeEstacao = rs.getString("nomeEstacao");
+                    String latitude = rs.getString("latitude");
+                    String longitude = rs.getString("longitude");
+
+                    listaEstacao.add(estacao);
+                    listaEstacao.add(nomeEstacao);
+                    listaEstacao.add(latitude);
+                    listaEstacao.add(longitude);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listaEstacao;
     }
 }
