@@ -1,4 +1,4 @@
-# <h1 align="center"> VCCorp 🐕​ </h1>
+<img src= "https://github.com/VCCorpTeam/Leitor-de-clima/assets/119015786/44e1f9c1-8c06-4124-8ac7-385e77cc95d6"/>
 
 <p align="center">
    <a href="#sobre-o-projeto">Sobre o projeto</a> • 
