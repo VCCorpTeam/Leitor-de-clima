@@ -269,7 +269,7 @@ public class UploadController implements Initializable {
     }
 
     private void abrirParametrosFXML() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/leitorclima/ParametrosSuspeitos.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/leitorclima/cadastros.fxml")));
         Stage stage = (Stage) btnUploadFile.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
