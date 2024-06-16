@@ -1,9 +1,9 @@
 CREATE database Clima;
 use Clima;
 CREATE TABLE Parametros(
-IndiceP varchar(40),
-Maximo int,
-Minimo int
+	IndiceP varchar(40),
+	Maximo int,
+	Minimo int
 );
 CREATE TABLE Arquivo (
     IdArquivo varchar(20) PRIMARY KEY,
@@ -22,13 +22,20 @@ CREATE TABLE Registro (
     foreign key(IdArquivo) references Arquivo(IdArquivo)
 );
 
-select * from Parametros;
-select * from Arquivo;
-select * from Registro;
+create table Estacao(
+	idEstacao varchar(10) primary key not null,
+	nomeEstacao varchar (100),
+	Latitude varchar(20),
+	Longitude varchar(20)
+);
+
+create table Cidade(
+	siglaCidade varchar(10) primary key not null,
+	nomeCidade varchar (50)
+);
 
 drop table Parametros;
 drop table registro;
 drop table arquivo;
-
-SELECT COUNT(*)  FROM registro;
-Select count(*) from registro IdArquivo
+drop table estacao;
+drop table cidade;
