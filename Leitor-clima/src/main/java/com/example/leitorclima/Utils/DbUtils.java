@@ -479,4 +479,43 @@ public class DbUtils {
         }
         return listaEstacao;
     }
+
+    public static void alteraCidade(String siglaCidade, String nomeCidade){
+        String sql = "UPDATE cidade SET nomeCidade = ? WHERE siglaCidade = ? ";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nomeCidade);
+            stmt.setString(2, siglaCidade);
+            stmt.executeUpdate();
+
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alteração concluída");
+            alert.setHeaderText(null);
+            alert.setContentText("Dados da cidade alterados com sucesso");
+
+            alert.showAndWait();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void alteraEstacao(String idEstacao, String nomeEstacao, String latitude, String longitude){
+        String sql = "UPDATE estacao SET nomeEstacao = ?, latitude = ?, longitude = ? WHERE idEstacao = ? ";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nomeEstacao);
+            stmt.setString(2, latitude);
+            stmt.setString(3, longitude);
+            stmt.setString(4, idEstacao);
+            stmt.executeUpdate();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alteração concluída");
+            alert.setHeaderText(null);
+            alert.setContentText("Dados da estacão alterados com sucesso");
+
+            alert.showAndWait();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

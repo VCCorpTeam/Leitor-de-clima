@@ -192,9 +192,11 @@ public class CadastrosController implements Initializable {
 
     @FXML
     public void selectEstacao() throws SQLException {
+        alteracaoCidade = false;
         String estacao = cbEstacao.getValue();
         List<String> ListaEstacao = buscaEstacao(estacao);
         if (!ListaEstacao.isEmpty()){
+            alteracaoEstacao = true;
             tfNomeEstacao.setText(ListaEstacao.get(1));
             tfLatitude.setText(ListaEstacao.get(2));
             tfLongitude.setText(ListaEstacao.get(3));
@@ -214,34 +216,47 @@ public class CadastrosController implements Initializable {
 
     @FXML
     public void gravaCidade(){
-        System.out.println("grava cidade");
         String siglaCidade = cbCidade.getValue();
         String nomeCidade = tfCidadeExtenso.getText();
-        inserirCidade(siglaCidade,nomeCidade);
+        if (!alteracaoCidade) {
+            System.out.println("grava cidade");
+            inserirCidade(siglaCidade, nomeCidade);
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Cidade gravada");
-        alert.setHeaderText(null);
-        alert.setContentText("Dados da cidade gravados com sucesso!");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Cidade gravada");
+            alert.setHeaderText(null);
+            alert.setContentText("Dados da cidade gravados com sucesso!");
 
-        alert.showAndWait();
+            alert.showAndWait();
+        } else {
+            System.out.println("altera cidade");
+            alteraCidade(siglaCidade,nomeCidade);
+        }
     }
 
     @FXML
     public void gravaEstacao(){
-        System.out.println("grava estacao");
         String idEstacao = cbEstacao.getValue();
         String nomeEstacao = tfNomeEstacao.getText();
         String latitude = tfLatitude.getText();
         String longitude = tfLongitude.getText();
-        inserirEstacao(idEstacao,nomeEstacao,latitude,longitude);
+        if (!alteracaoEstacao){
+            System.out.println("grava estacao");
+            inserirEstacao(idEstacao, nomeEstacao, latitude, longitude);
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Estação gravada");
-        alert.setHeaderText(null);
-        alert.setContentText("Dados da estação gravados com sucesso!");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Estação gravada");
+            alert.setHeaderText(null);
+            alert.setContentText("Dados da estação gravados com sucesso!");
 
-        alert.showAndWait();
+            alert.showAndWait();
+
+        } else {
+            System.out.println("altera estacao");
+            alteraEstacao(idEstacao,nomeEstacao,latitude,longitude);
+        }
+
+
     }
 
     @FXML
