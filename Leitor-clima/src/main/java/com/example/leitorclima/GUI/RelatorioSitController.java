@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.example.leitorclima.GUI.FormsRelatorioController.enviaDadosSit;
+import static com.example.leitorclima.Utils.DbBoxUtils.getIndice;
 import static com.example.leitorclima.Utils.DbUtils.*;
 import static com.example.leitorclima.Utils.UnidadeMedidaUtil.*;
 
@@ -55,6 +56,21 @@ public class RelatorioSitController implements Initializable {
         tfCidadeSit.setText(listaDados.get(0));
         List<Registro> listaSituacional = getUltimosRegistros(listaDados.get(0));
         List<Registro> listaSitFinal = alteraUnid(listaUnid,listaSituacional);
+        List<String> listaIndice = getIndice();
+
+        for(String indice : listaIndice) {
+            boolean achouIndice = false;
+            for(Registro registro : listaSitFinal) {
+                if(registro.getIndice().equals(indice)){
+                    achouIndice = true;
+                    break;
+                }
+            }
+            if(!achouIndice){
+                Registro situacionalVazio = new Registro(indice,"Não há valores","Não há valores","Não há valores","Não há valores","Não há valores");
+                listaSitFinal.add(situacionalVazio);
+            }
+        }
 
         colunaIndiceSit.setCellValueFactory(new PropertyValueFactory<>("indice"));
         colunaValorSit.setCellValueFactory(new PropertyValueFactory<>("valor"));

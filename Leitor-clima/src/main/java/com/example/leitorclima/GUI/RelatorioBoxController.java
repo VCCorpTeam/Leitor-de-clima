@@ -196,6 +196,20 @@ public class RelatorioBoxController implements Initializable {
             listaBoxplot.add(boxplot);
         }
 
+        for(String indice : listaIndice) {
+            boolean achouIndice = false;
+            for(Boxplot boxplot : listaBoxplot) {
+                if(boxplot.getIndice().equals(indice)){
+                    achouIndice = true;
+                    break;
+                }
+            }
+            if(!achouIndice){
+                Boxplot boxplotVazio = new Boxplot(indice, Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN);
+                listaBoxplot.add(boxplotVazio);
+            }
+        }
+
         colunaIndiceBox.setCellValueFactory(
                 new PropertyValueFactory<>("indice"));
         colunaLimSupBox.setCellValueFactory(
