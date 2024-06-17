@@ -518,4 +518,29 @@ public class DbUtils {
             e.printStackTrace();
         }
     }
+    public static List<List<String>> getAllRegistros() {
+        List<List<String>> dadosComp = new ArrayList<>();
+        String sql = "SELECT * FROM registro";
+
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                List<String> registro = new ArrayList<>();
+                registro.add(rs.getString("Indice"));
+                registro.add(rs.getString("Data"));
+                registro.add(rs.getString("Hora"));
+                registro.add(rs.getString("IdArquivo"));
+                registro.add(rs.getString("Valor"));
+                // Adicione mais campos conforme necessário
+
+                dadosComp.add(registro);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dadosComp;
+
+    }
 }

@@ -15,5 +15,6 @@
     <Button onAction="#gerarRelatorio" prefWidth="96.0" text="Gerar relatório" />
    <Button mnemonicParsing="false" onAction="#mudarDadosSus" text="Dados Suspeitos" />
    <Button mnemonicParsing="false" onAction="#trocarParaParametros" text="Cadastros" />
+   <Button mnemonicParsing="false" onAction="#testeRelDH" text="Relatorio Data Hora" />
 
 </VBox>
