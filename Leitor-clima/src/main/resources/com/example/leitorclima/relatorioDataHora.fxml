@@ -23,7 +23,7 @@
             </columns>
         </TableView>
         <Button fx:id="backDH" layoutX="9.0" layoutY="586.0" mnemonicParsing="false" onAction="#voltarMenuDH" text="Voltar" />
-        <Button layoutX="891.0" layoutY="585.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="CSV" />
+        <Button fx:id="btnExportaCsvDH" layoutX="845.0" layoutY="586.0" mnemonicParsing="false" onAction="#handleExportarCsvDH" prefHeight="26.0" prefWidth="79.0" text="Exportar" />
         <Label layoutX="24.0" layoutY="28.0" text="Cidade:" />
         <Label layoutX="29.0" layoutY="65.0" text="Inicio:" />
         <Label layoutX="130.0" layoutY="65.0" text="Fim:" />

@@ -21,7 +21,7 @@ public class ModelRelatorioDH {
 
     public ModelRelatorioDH(String data, String hora, String umidade, String pressao, String chuva,
                             String temperatura, String pontoOrvalho, String radiacao, String velocidadeVento,
-                            String rajadaVento, String insolacao, String nebulosidade, String cidade,String direcaoVento) {
+                            String rajadaVento, String insolacao, String nebulosidade, String cidade, String direcaoVento) {
         this.data = new SimpleStringProperty(data);
         this.hora = new SimpleStringProperty(hora);
         this.umidade = new SimpleStringProperty(umidade);

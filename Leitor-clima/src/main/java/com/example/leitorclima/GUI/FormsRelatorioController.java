@@ -113,7 +113,7 @@ public class FormsRelatorioController implements Initializable {
 
 
         listaCidade = geraCidadeComboBox();
-        
+
 
         //INICIALIZA RELATÓRIO SITUACIONAL
 

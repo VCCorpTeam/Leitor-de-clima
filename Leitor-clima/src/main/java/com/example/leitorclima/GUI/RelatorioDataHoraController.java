@@ -1,6 +1,7 @@
 package com.example.leitorclima.GUI;
 
 import com.example.leitorclima.Models.ModelRelatorioDH;
+import com.example.leitorclima.Utils.CsvExporter;
 import com.example.leitorclima.Utils.DbUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,7 +60,8 @@ public class RelatorioDataHoraController {
     private Button filtrarButton;
     @FXML
     private Button backDH;
-
+    @FXML
+    private Button btnExportaCsvDH;
     private ObservableList<ModelRelatorioDH> relatorios = FXCollections.observableArrayList();
     private ObservableList<ModelRelatorioDH> todosRelatorios = FXCollections.observableArrayList();
 
@@ -92,8 +94,6 @@ public class RelatorioDataHoraController {
         List<List<String>> dados = DbUtils.getAllRegistros();
 
         // Exemplo de como adicionar dados à tabela
-        todosRelatorios.add(new ModelRelatorioDH("2023-06-01", "12:00", "45%", "1013hPa", "0mm", "25°C", "13°C", "800W/m²", "10km/h", "15km/h", "6h", "Clear", "N","90"));
-        todosRelatorios.add(new ModelRelatorioDH("2023-06-01", "13:00", "50%", "1012hPa", "0mm", "26°C", "14°C", "850W/m²", "12km/h", "18km/h", "7h", "Partly Cloudy", "NE","90"));
 
         relatorios.addAll(todosRelatorios);
     }
@@ -172,5 +172,11 @@ public class RelatorioDataHoraController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void handleExportarCsvDH() {
+        Stage stage = (Stage) btnExportaCsvDH.getScene().getWindow();
+        ObservableList<ModelRelatorioDH> items = relatorioDH.getItems();
+        CsvExporter.exportToCsvDH(new ArrayList<>(items), stage);
     }
 }
