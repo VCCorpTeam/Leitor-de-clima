@@ -110,19 +110,10 @@ public class FormsRelatorioController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         //INICIALIZA RELATÓRIO MÉDIA
 
-        btnGeraRelatorioMed.setOnMouseClicked((MouseEvent mouse) -> {
-            if (mouse.getClickCount() == 1)
-                geraRelatorioMed();
-        });
 
-        btnVoltaMenuMed.setOnMouseClicked((MouseEvent mouse) -> {
-            if (mouse.getClickCount() == 1)
-                voltaMenuMed();
-        });
 
         listaCidade = geraCidadeComboBox();
-
-        cbCidadeMed.getItems().addAll(listaCidade);
+        
 
         //INICIALIZA RELATÓRIO SITUACIONAL
 
