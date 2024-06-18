@@ -2,8 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="961.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.RelatorioDataHoraController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="961.0" style="-fx-background-color: linear-gradient(to top left, #ac66cb, #1b2541);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.leitorclima.GUI.RelatorioDataHoraController">
     <children>
         <TableView fx:id="relatorioDH" layoutX="12.0" layoutY="125.0" prefHeight="444.0" prefWidth="937.0">
             <columns>
@@ -24,9 +31,9 @@
         </TableView>
         <Button fx:id="backDH" layoutX="9.0" layoutY="586.0" mnemonicParsing="false" onAction="#voltarMenuDH" text="Voltar" />
         <Button fx:id="btnExportaCsvDH" layoutX="845.0" layoutY="586.0" mnemonicParsing="false" onAction="#handleExportarCsvDH" prefHeight="26.0" prefWidth="79.0" text="Exportar" />
-        <Label layoutX="24.0" layoutY="28.0" text="Cidade:" />
-        <Label layoutX="29.0" layoutY="65.0" text="Inicio:" />
-        <Label layoutX="130.0" layoutY="65.0" text="Fim:" />
+        <Label layoutX="24.0" layoutY="28.0" text="Cidade:" textFill="WHITE" />
+        <Label layoutX="29.0" layoutY="65.0" text="Inicio:" textFill="WHITE" />
+        <Label layoutX="130.0" layoutY="65.0" text="Fim:" textFill="WHITE" />
         <Button fx:id="filtrarButton" layoutX="243.0" layoutY="86.0" mnemonicParsing="false" text="Filtrar" />
       <DatePicker fx:id="dateInicio" layoutX="22.0" layoutY="86.0" prefHeight="25.0" prefWidth="92.0" />
       <DatePicker fx:id="dateFim" layoutX="126.0" layoutY="86.0" prefHeight="25.0" prefWidth="92.0" />
