@@ -1,546 +1,355 @@
-package com.example.leitorclima.Utils;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+public class FlowerInfoGUI extends JFrame {
+    private JTextField txtEspecieFlor, txtBiomaFlor, txtCorFlor;
+    private JLabel lblImagemFlor, lblFraseFlor;
+    private JButton btnGerarFraseFlor, btnTrocarParaPolvo;
+    private JButton btnFazerFotossintese, btnCrescer, btnFlorescer;
 
-import com.example.leitorclima.Models.Arquivo;
-import com.example.leitorclima.Models.Registro;
-import javafx.scene.control.Alert;
+    private OctopusInfoGUI octopusInfoGUI;
+    private CelularInfoGUI celularInfoGUI;
 
-import static com.example.leitorclima.Utils.DbBoxUtils.getIndice;
+    public FlowerInfoGUI() {
+        setTitle("Informações de Flores");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-public class DbUtils {
+        JPanel panelFlor = new JPanel();
+        panelFlor.setLayout(new GridLayout(7, 2));
 
-    public static Connection getConnection() throws SQLException {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/clima", "root", "1234");
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
+        panelFlor.add(new JLabel("Espécie:"));
+        txtEspecieFlor = new JTextField();
+        panelFlor.add(txtEspecieFlor);
 
-    public static void inserirArquivo(String arquivo, String cidade, String estacao) {
-        String sql = "INSERT INTO arquivo (idarquivo, cidade, estacao) VALUES (?,?,?)";
+        panelFlor.add(new JLabel("Bioma:"));
+        txtBiomaFlor = new JTextField();
+        panelFlor.add(txtBiomaFlor);
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+        panelFlor.add(new JLabel("Cor:"));
+        txtCorFlor = new JTextField();
+        panelFlor.add(txtCorFlor);
 
-            stmt.setString(1, arquivo);
-            stmt.setString(2, cidade);
-            stmt.setString(3, estacao);
-            stmt.execute();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void inserirRegistro(List<Map<String, String>> registros) {
-        // Batch insert for improved performance
-        String sql = "INSERT INTO registro (idarquivo, data, hora,indice, valor,suspeito) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            for (Map<String, String> registro: registros) {
-
-                stmt.setString(1, registro.get("arc"));
-                stmt.setString(2, registro.get("dta"));
-                stmt.setString(3, registro.get("hra"));
-                stmt.setString(4, registro.get("ind"));
-                stmt.setString(5, registro.get("vla"));
-                stmt.setString(6, registro.get("sus"));
-
-                // Add each record to the batch
-                stmt.addBatch();
+        btnGerarFraseFlor = new JButton("Gerar Frase");
+        btnGerarFraseFlor.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gerarFraseFlor();
             }
+        });
+        panelFlor.add(btnGerarFraseFlor);
 
-            // Execute batch insert
-            stmt.executeBatch();
+        lblFraseFlor = new JLabel();
+        panelFlor.add(lblFraseFlor);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+        lblImagemFlor = new JLabel();
+        panelFlor.add(lblImagemFlor); // Adiciona o label da imagem ao painel
 
-    public static void alteraArquivo(String valor, String data, String hora, String indice){
-        String sql = "UPDATE registro SET valor = ?, suspeito = '0' WHERE data = ? AND hora = ? AND indice = ?";
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, valor);
-            stmt.setString(2, data);
-            stmt.setString(3, hora);
-            stmt.setString(4, indice);
-
-            int rowsAffected = stmt.executeUpdate();
-            System.out.println("Rows affected: " + rowsAffected);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static List<String> geraCidadeComboBox() {
-        List<String> cidades = new ArrayList<>();
-        String sql = "SELECT distinct cidade FROM arquivo";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
-                while (rs.next()) {
-                    String cidade = rs.getString("cidade");
-                    cidades.add(cidade);
-                }
+        // Função para exibir a imagem quando o botão "Gerar Frase" é clicado
+        lblImagemFlor.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                gerarFraseFlor();
             }
+        });
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return cidades;
-    }
+        // Exibe a imagem quando a interface é iniciada
+        exibirImagem("default_flor.jpg");
 
-    public static List<String> geraEstacaoComboBox() {
-        List<String> estacoes = new ArrayList<>();
-        String sql = "SELECT distinct estacao FROM arquivo";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
-                while (rs.next()) {
-                    String estacao = rs.getString("estacao");
-                    estacoes.add(estacao);
-                }
+        btnFazerFotossintese = new JButton("Fazer Fotossíntese");
+        btnFazerFotossintese.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseFlor.setText("A Flor " + txtEspecieFlor.getText() + " está fazendo fotossíntese");
             }
+        });
+        panelFlor.add(btnFazerFotossintese);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return estacoes;
-    }
-
-    public static List<String> geraDadoComboBox() {
-        List<String> dados = new ArrayList<>();
-        String sql = "select distinct indice from registro;";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
-                while (rs.next()) {
-                    String dado = rs.getString("indice");
-                    dados.add(dado);
-                }
+        btnCrescer = new JButton("Crescer");
+        btnCrescer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseFlor.setText("A Flor " + txtCorFlor.getText() + " está crescendo");
             }
+        });
+        panelFlor.add(btnCrescer);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return dados;
-    }
-
-    public static List<String> geraArquivoComboBox() {
-        List<String> arquivos = new ArrayList<>();
-        String sql = "select distinct Idarquivo from arquivo";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
-                while (rs.next()) {
-                    String arquivo = rs.getString("Idarquivo");
-                    arquivos.add(arquivo);
-                }
+        btnFlorescer = new JButton("Florescer");
+        btnFlorescer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseFlor.setText("A Flor no bioma " + txtBiomaFlor.getText() + " está florescendo");
             }
+        });
+        panelFlor.add(btnFlorescer);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return arquivos;
-    }
-
-    public static List<Registro> getArquivo(String cidade,String dataInicio,String dataFim){
-        String nomeArquivo = null;
-        String condition = "('";
-        List<Registro> allEntries = new ArrayList<>();
-        List<Arquivo> arquivoId = getArquivoCidade(cidade);
-        int var = 0;
-        for (Arquivo arquivo : arquivoId) {
-            nomeArquivo = arquivo.getIdArquivo();
-            condition += arquivo.getIdArquivo();
-            condition += "'";
-            if (arquivoId.size()-1!= var) {
-                condition += (",");
+        btnTrocarParaPolvo = new JButton("Ver Polvos");
+        btnTrocarParaPolvo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                octopusInfoGUI.setVisible(true);
+                setVisible(false);
             }
-            var++;
-        }
-        condition += ")";
-        System.out.println(condition);
-        String sql = "SELECT indice,data,hora,idArquivo,valor FROM registro where idArquivo = ? and data between ? and ?";
+        });
+        panelFlor.add(btnTrocarParaPolvo);
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
-
-
-            stmt.setString(1, nomeArquivo);
-            stmt.setString(2, dataInicio);
-            stmt.setString(3, dataFim);
-            try(ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
-                while (rs.next()) {
-                    String indice = rs.getString("indice");
-                    String data = rs.getString("data");
-                    String hora = rs.getString("hora");
-                    String idArquivo = rs.getString("idArquivo");
-                    String valor = rs.getString("valor");
-
-                    String[] parts = indice.split("\\(" );
-                    indice = parts[0];
-                    String unidMed = parts[1];
-
-                    Registro registro = new Registro(indice,data,hora,idArquivo,valor,unidMed);
-                    allEntries.add(registro);
-                }
+        JButton btnTrocarParaCelulares = new JButton("Ver Celulares");
+        btnTrocarParaCelulares.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                celularInfoGUI.setVisible(true);
+                setVisible(false);
             }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+        });
+        panelFlor.add(btnTrocarParaCelulares);
 
-        return allEntries;
+        add(panelFlor);
+        setVisible(true);
+
+        octopusInfoGUI = new OctopusInfoGUI(this);
+        celularInfoGUI = new CelularInfoGUI(this);
     }
 
-    public static List<Arquivo> getArquivoCidade(String cidade){
-        String sql = "select idArquivo,cidade,estacao from arquivo where cidade=?";
-        List<Arquivo> listaArquivos = new ArrayList<>();
+    private void gerarFraseFlor() {
+        String especie = txtEspecieFlor.getText();
+        String bioma = txtBiomaFlor.getText();
+        String cor = txtCorFlor.getText();
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
+        String frase = "A flor " + cor + " da espécie " + especie + " do bioma " + bioma + ".";
+        lblFraseFlor.setText(frase);
 
-            stmt.setString(1, cidade);
-            try(ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
-                while (rs.next()) {
-                    String idArquivo = rs.getString("idArquivo");
-                    String cidadeQry = rs.getString("cidade");
-                    String estacao = rs.getString("estacao");
-                    Arquivo arquivo = new Arquivo(idArquivo,cidadeQry,estacao);
-                    listaArquivos.add(arquivo);
-                }
+        exibirImagem(especie.toLowerCase() + ".jpg"); // Assume que o nome da imagem é o mesmo que o nome da espécie em minúsculas com extensão .jpg
+    }
+
+    private void exibirImagem(String imageName) {
+        String imagePath = "imagens/" + imageName; // Pasta onde as imagens estão localizadas
+        File file = new File(imagePath);
+        if (file.exists()) {
+            ImageIcon imageIcon = new ImageIcon(imagePath);
+            Image image = imageIcon.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+            lblImagemFlor.setIcon(new ImageIcon(image));
+        } else {
+            lblImagemFlor.setIcon(null);
+            JOptionPane.showMessageDialog(this, "Imagem não encontrada: " + imageName, "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new FlowerInfoGUI();
             }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        return listaArquivos;
+        });
     }
+}
 
-    public static List<Registro> getUltimosRegistros(String cidade) {
-        List<Registro> registros = new ArrayList<>();
-        List<String> indices = getIndice();
-        List<Arquivo> arquivoId = getArquivoCidade(cidade);
+class OctopusInfoGUI extends JFrame {
+    private JTextField txtRacaPolvo, txtHabitatPolvo, txtCorPolvo;
+    private JLabel lblImagemPolvo, lblFrasePolvo;
+    private JButton btnGerarFrasePolvo, btnTrocarParaFlores;
+    private JButton btnMudarCor, btnSoltarTinta, btnNadar;
 
-        String condition = "";
-        int var = 0;
-        for (Arquivo nomeArquivo : arquivoId) {
-            condition += nomeArquivo.getIdArquivo();
-            if (arquivoId.size() - 1 != var) {
-                condition += (",");
+    private FlowerInfoGUI flowerInfoGUI;
+
+    public OctopusInfoGUI(FlowerInfoGUI flowerInfoGUI) {
+        this.flowerInfoGUI = flowerInfoGUI;
+
+        setTitle("Informações de Polvos");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panelPolvo = new JPanel();
+        panelPolvo.setLayout(new GridLayout(7, 2));
+
+        panelPolvo.add(new JLabel("Raça:"));
+        txtRacaPolvo = new JTextField();
+        panelPolvo.add(txtRacaPolvo);
+
+        panelPolvo.add(new JLabel("Habitat:"));
+        txtHabitatPolvo = new JTextField();
+        panelPolvo.add(txtHabitatPolvo);
+
+        panelPolvo.add(new JLabel("Cor:"));
+        txtCorPolvo = new JTextField();
+        panelPolvo.add(txtCorPolvo);
+
+        btnGerarFrasePolvo = new JButton("Gerar Frase");
+        btnGerarFrasePolvo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gerarFrasePolvo();
             }
-            var++;
-        }
+        });
+        panelPolvo.add(btnGerarFrasePolvo);
 
-        String sql = "SELECT * FROM " +
-                "(SELECT * FROM Registro WHERE (suspeito <> 1) " +
-                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN (?) )) " +
-                "AS v " +
-                "WHERE Hora = (SELECT MAX(Hora) FROM Registro WHERE (suspeito <> 1) " +
-                "AND Data = (SELECT MAX(Data) FROM Registro WHERE IdArquivo IN (?) ))" +
-                "AND indice LIKE ?";
+        lblFrasePolvo = new JLabel();
+        panelPolvo.add(lblFrasePolvo);
 
+        lblImagemPolvo = new JLabel();
+        panelPolvo.add(lblImagemPolvo);
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)){
-            for (String indice:indices) {
-
-                stmt.setString(1, condition);
-                stmt.setString(2, condition);
-                stmt.setString(3, indice + '%');
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        String idArquivoReg = rs.getString("idArquivo");
-                        String dataReg = rs.getString("data");
-                        String horaReg = rs.getString("hora");
-                        String indiceReg = rs.getString("indice");
-                        String valorReg = rs.getString("valor");
-
-                        String[] parts = indiceReg.split("\\(" );
-                        indiceReg = parts[0];
-                        String unidMed = parts[1];
-
-                        Registro registro = new Registro(indiceReg, dataReg, horaReg, idArquivoReg, valorReg,unidMed);
-                        registros.add(registro);
-                    }
-                }
+        btnMudarCor = new JButton("Mudar de Cor");
+        btnMudarCor.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFrasePolvo.setText("O polvo " + txtRacaPolvo.getText() + " está mudando de cor");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        });
+        panelPolvo.add(btnMudarCor);
 
-        return registros;
-    }
-
-    public static List<Registro> getListaRegistroSus(String arquivo) {
-        List<Registro> registroSus = new ArrayList<>();
-        String sql = "select * from registro where idArquivo = ? and suspeito = 1";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, arquivo);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) throw new SQLException("User not found");
-                while (rs.next()) {
-                    String idArquivoReg = rs.getString("idArquivo");
-                    String dataReg = rs.getString("data");
-                    String horaReg = rs.getString("hora");
-                    String indiceReg = rs.getString("indice");
-                    String valorReg = rs.getString("valor");
-
-                    String[] parts = indiceReg.split("\\(" );
-                    indiceReg = parts[0];
-                    String unidMed = parts[1];
-                    Registro suspeito = new Registro(indiceReg,dataReg,horaReg,idArquivoReg,valorReg,unidMed);
-                    registroSus.add(suspeito);
-                }
+        btnSoltarTinta = new JButton("Soltar Tinta");
+        btnSoltarTinta.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFrasePolvo.setText("O polvo " + txtRacaPolvo.getText() + " soltou tinta");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return registroSus;
-    }
+        });
+        panelPolvo.add(btnSoltarTinta);
 
-    public static void inserirParametros(List<List<String>> parametros) {
-        String sql = "INSERT INTO parametros(IndiceP, Minimo, Maximo) VALUES (?, ?, ?) " +
-                "ON DUPLICATE KEY UPDATE Minimo = VALUES(Minimo), Maximo = VALUES(Maximo)";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            for (List<String> parametro : parametros) {
-
-                stmt.setString(1, parametro.get(0));
-                stmt.setString(2, parametro.get(1));
-                stmt.setString(3, parametro.get(2));
-                stmt.addBatch();
+        btnNadar = new JButton("Nadar");
+        btnNadar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFrasePolvo.setText("O polvo do " + txtHabitatPolvo.getText() + " está nadando");
             }
-            stmt.executeBatch();
-            System.out.println("Dados inseridos com sucesso!");
+        });
+        panelPolvo.add(btnNadar);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Erro ao inserir dados no banco de dados.");
-        }
-    }
-
-    public static List<List<String>> getParametros() {
-        List<List<String>> parametrosR = new ArrayList<>();
-
-        String sql = "SELECT IndiceP, Minimo, Maximo FROM parametros";
-
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                String parametro = rs.getString("IndiceP");
-                String valorMin = rs.getString("Maximo");
-                String valorMax = rs.getString("Minimo");
-
-                List<String> parametroList = new ArrayList<>();
-                parametroList.add(parametro);
-                parametroList.add(valorMin);
-                parametroList.add(valorMax);
-
-                parametrosR.add(parametroList);
-
+        btnTrocarParaFlores = new JButton("Ver Flores");
+        btnTrocarParaFlores.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                flowerInfoGUI.setVisible(true);
+                setVisible(false);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Erro ao recuperar dados do banco de dados.");
-        }
-        return parametrosR;
+        });
+        panelPolvo.add(btnTrocarParaFlores);
+
+        add(panelPolvo);
+        setVisible(false);
     }
 
-    public static boolean checkparametros() {
-        String sql = "SELECT COUNT(*) FROM parametros";
+    private void gerarFrasePolvo() {
+        String raca = txtRacaPolvo.getText();
+        String habitat = txtHabitatPolvo.getText();
+        String cor = txtCorPolvo.getText();
 
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+        String frase = "O polvo " + cor + " da raça " + raca + " do habitat " + habitat + ".";
+        lblFrasePolvo.setText(frase);
 
-            ResultSet rs = stmt.executeQuery();
+        exibirImagem(cor.toLowerCase() + "_polvo.jpg"); // Assume que o nome da imagem é o mesmo que o nome da cor do polvo em minúsculas com extensão .jpg
+    }
 
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
+    private void exibirImagem(String imageName) {
+        String imagePath = "imagens/" + imageName; // Pasta onde as imagens estão localizadas
+        File file = new File(imagePath);
+        if (file.exists()) {
+            ImageIcon imageIcon = new ImageIcon(imagePath);
+            Image image = imageIcon.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+            lblImagemPolvo.setIcon(new ImageIcon(image));
+        } else {
+            lblImagemPolvo.setIcon(null);
+            JOptionPane.showMessageDialog(this, "Imagem não encontrada: " + imageName, "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+
+class CelularInfoGUI extends JFrame {
+    private JTextField txtMarcaCelular, txtCorCelular, txtDataLancamento;
+    private JLabel lblImagemCelular, lblFraseCelular;
+    private JButton btnGerarFrase, btnTrocarParaFlores;
+    private JButton btnLigar, btnConectarWifi, btnAbrirApp;
+
+    private FlowerInfoGUI flowerInfoGUI;
+
+    public CelularInfoGUI(FlowerInfoGUI flowerInfoGUI) {
+        this.flowerInfoGUI = flowerInfoGUI;
+
+        setTitle("Informações de Celulares");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panelCelular = new JPanel();
+        panelCelular.setLayout(new GridLayout(7, 2));
+
+        panelCelular.add(new JLabel("Marca:"));
+        txtMarcaCelular = new JTextField();
+        panelCelular.add(txtMarcaCelular);
+
+        panelCelular.add(new JLabel("Cor:"));
+        txtCorCelular = new JTextField();
+        panelCelular.add(txtCorCelular);
+
+        panelCelular.add(new JLabel("Data de Lançamento:"));
+        txtDataLancamento = new JTextField();
+        panelCelular.add(txtDataLancamento);
+
+        btnGerarFrase = new JButton("Gerar Frase");
+        btnGerarFrase.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gerarFrase();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Erro ao verificar existência no banco de dados.");
-        }
+        });
+        panelCelular.add(btnGerarFrase);
 
-        return false;
-    }
+        lblFraseCelular = new JLabel();
+        panelCelular.add(lblFraseCelular);
 
-    public static void inserirCidade(String siglaCidade, String nomeCidade) {
-        String sql = "INSERT INTO cidade (siglaCidade, nomeCidade) VALUES (?,?)";
+        lblImagemCelular = new JLabel();
+        panelCelular.add(new JLabel("Imagem:"));
+        panelCelular.add(lblImagemCelular);
 
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, siglaCidade);
-            stmt.setString(2, nomeCidade);
-            stmt.execute();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static List<String> buscaCidade(String siglaCidade) throws SQLException {
-        List<String> listaCidade = new ArrayList<>();
-        String sql = "SELECT * FROM cidade WHERE siglaCidade = ?";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, siglaCidade);
-            try(ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Cidade não encontrada");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Cidade informada não possui dados cadastrados");
-
-                    alert.showAndWait();
-                }
-                while (rs.next()) {
-                    String cidade = rs.getString("siglaCidade");
-                    String nomeCidade = rs.getString("nomeCidade");
-
-                    listaCidade.add(cidade);
-                    listaCidade.add(nomeCidade);
-                }
+        btnLigar = new JButton("Ligar");
+        btnLigar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseCelular.setText("O celular " + txtMarcaCelular.getText() + " está ligando");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaCidade;
-    }
+        });
+        panelCelular.add(btnLigar);
 
-    public static void inserirEstacao(String idEstacao,String nomeEstacao, String latitude, String longitude) {
-        String sql = "INSERT INTO estacao (idEstacao, nomeEstacao, latitude, longitude) VALUES (?,?,?,?)";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, idEstacao);
-            stmt.setString(2, nomeEstacao);
-            stmt.setString(3, latitude);
-            stmt.setString(4, longitude);
-            stmt.execute();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static List<String> buscaEstacao(String idEstacao) throws SQLException {
-        List<String> listaEstacao = new ArrayList<>();
-        String sql = "SELECT * FROM estacao WHERE idEstacao = ?";
-
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, idEstacao);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.isBeforeFirst()){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Estação não encontrada");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Estação informada não possui dados cadastrados");
-
-                    alert.showAndWait();
-                }
-                while (rs.next()) {
-                    String estacao = rs.getString("idEstacao");
-                    String nomeEstacao = rs.getString("nomeEstacao");
-                    String latitude = rs.getString("latitude");
-                    String longitude = rs.getString("longitude");
-
-                    listaEstacao.add(estacao);
-                    listaEstacao.add(nomeEstacao);
-                    listaEstacao.add(latitude);
-                    listaEstacao.add(longitude);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        btnConectarWifi = new JButton("ConectarWifi");
+        btnConectarWifi.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseCelular.setText("O celular " + txtCorCelular.getText() + " está conectado a internet");
             }
-        }
-        return listaEstacao;
-    }
+        });
+        panelCelular.add(btnConectarWifi);
 
-    public static void alteraCidade(String siglaCidade, String nomeCidade){
-        String sql = "UPDATE cidade SET nomeCidade = ? WHERE siglaCidade = ? ";
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, nomeCidade);
-            stmt.setString(2, siglaCidade);
-            stmt.executeUpdate();
-
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alteração concluída");
-            alert.setHeaderText(null);
-            alert.setContentText("Dados da cidade alterados com sucesso");
-
-            alert.showAndWait();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void alteraEstacao(String idEstacao, String nomeEstacao, String latitude, String longitude){
-        String sql = "UPDATE estacao SET nomeEstacao = ?, latitude = ?, longitude = ? WHERE idEstacao = ? ";
-        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, nomeEstacao);
-            stmt.setString(2, latitude);
-            stmt.setString(3, longitude);
-            stmt.setString(4, idEstacao);
-            stmt.executeUpdate();
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alteração concluída");
-            alert.setHeaderText(null);
-            alert.setContentText("Dados da estacão alterados com sucesso");
-
-            alert.showAndWait();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static List<List<String>> getAllRegistros() {
-        List<List<String>> dadosComp = new ArrayList<>();
-        String sql = "SELECT * FROM registro";
-
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                List<String> registro = new ArrayList<>();
-                registro.add(rs.getString("Indice"));
-                registro.add(rs.getString("Data"));
-                registro.add(rs.getString("Hora"));
-                registro.add(rs.getString("IdArquivo"));
-                registro.add(rs.getString("Valor"));
-                // Adicione mais campos conforme necessário
-
-                dadosComp.add(registro);
+        btnAbrirApp = new JButton("AbrirApp");
+        btnAbrirApp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseCelular.setText("Abrindo o CandyCrush no celular de " + txtDataLancamento.getText());
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return dadosComp;
+        });
+        panelCelular.add(btnAbrirApp);
 
+        btnTrocarParaFlores = new JButton("Ver Flores");
+        btnTrocarParaFlores.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                flowerInfoGUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        panelCelular.add(btnTrocarParaFlores);
+
+        add(panelCelular);
+        setVisible(false);
+    }
+
+    private void gerarFrase() {
+        String marca = txtMarcaCelular.getText();
+        String cor = txtCorCelular.getText();
+        String dataLancamento = txtDataLancamento.getText();
+
+        String frase = "O celular " + marca + " é da cor " + cor + " lançado em " + dataLancamento;
+        lblFraseCelular.setText(frase);
+
+        exibirImagem(marca.toLowerCase() + ".jpg"); // Assume que o nome da imagem é o mesmo que o nome da espécie em minúsculas com extensão .jpg;
+    }
+
+    private void exibirImagem(String imageName) {
+        String imagePath = "imagens/" + imageName; // Pasta onde as imagens estão localizadas
+        File file = new File(imagePath);
+        if (file.exists()) {
+            ImageIcon imageIcon = new ImageIcon(imagePath);
+            Image image = imageIcon.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+            lblImagemCelular.setIcon(new ImageIcon(image));
+        } else {
+            lblImagemCelular.setIcon(null);
+            JOptionPane.showMessageDialog(this, "Imagem não encontrada: " + imageName, "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
